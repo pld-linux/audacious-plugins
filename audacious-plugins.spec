@@ -30,7 +30,7 @@ BuildRequires:	libbinio-devel >= 1.4
 BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmodplug-devel
 BuildRequires:	libmpcdec-devel
-BuildRequires:	libnotify-devel
+BuildRequires:	libnotify-devel >= 0.4.2
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
