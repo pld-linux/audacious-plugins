@@ -1,7 +1,7 @@
 #
 # Conditional build:
-%bcond_with	gconf		# build without gconf support
-%bcond_with	gnome_vfs	# build without GNOME VFS support
+%bcond_with	gconf		# build with gconf support
+%bcond_with	gnomevfs	# build with GNOME VFS support
 #
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
@@ -24,7 +24,7 @@ BuildRequires:	flac-devel >= 1.1.2
 %ifarch %{ix86} %{x8664}
 BuildRequires:	fluidsynth-devel >= 1.0.6
 %endif
-%{?with_gnome_vfs:BuildRequires:	gnome-vfs2-devel >= 2.6.0}
+%{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.6.0}
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libbinio-devel >= 1.4
 BuildRequires:	libglade2-devel >= 2.3.1
@@ -581,7 +581,7 @@ Audacious.
 %{__autoheader}
 %configure \
 	--%{?with_gconf:en}%{!?with_gconf:dis}able-gconf \
-	--%{?with_gnome_vfs:en}%{!?with_gnome_vfs:dis}able-gnome-vfs \
+	--%{?with_gnomevfs:en}%{!?with_gnomevfs:dis}able-gnome-vfs \
 	--enable-amidiplug \
 	--enable-timidity
 
