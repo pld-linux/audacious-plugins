@@ -21,9 +21,7 @@ BuildRequires:	audacious-devel >= %{version}
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
-%ifarch %{ix86} %{x8664}
 BuildRequires:	fluidsynth-devel >= 1.0.6
-%endif
 %{?with_gnomevfs:BuildRequires:	gnome-vfs2-devel >= 2.6.0}
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	libbinio-devel >= 1.4
@@ -667,9 +665,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/amidi-plug/audacious
 %attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-alsa.so
 %attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-dummy.so
-%ifarch %{ix86} %{x8664}
 %attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-fluidsynth.so
-%endif
 %attr(755,root,root) %{_libdir}/audacious/Input/libamidi-plug.so
 
 %files -n audacious-input-cdaudio
