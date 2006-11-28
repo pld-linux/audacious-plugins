@@ -3,21 +3,22 @@
 %bcond_with	gconf		# build with gconf support
 %bcond_with	gnomevfs	# build with GNOME VFS support
 #
+%define	audver	1.2.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.2.2
+Version:	1.2.5
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://audacious-media-player.org/release/%{name}-%{version}.tgz
-# Source0-md5:	2e296f48ebc52bd02c1a19af2705f7c6
+# Source0-md5:	21d75a35024e81f7c5811baf5c8212e0
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 %{?with_gconf:BuildRequires:	GConf2-devel >= 2.6.0}
 BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	artsc-devel >= 0.9.5
-BuildRequires:	audacious-devel >= %{version}
+BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
@@ -28,7 +29,6 @@ BuildRequires:	libbinio-devel >= 1.4
 BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmodplug-devel
 BuildRequires:	libmpcdec-devel
-BuildRequires:	libnotify-devel >= 0.4.2
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
@@ -37,16 +37,18 @@ BuildRequires:	lirc-devel
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.3
 BuildRequires:	taglib-devel >= 1.4
+BuildRequires:	wavpack-devel >= 4.31
 Requires:	audacious-container-m3u = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
+Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
+Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-audioscrobbler = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
-Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
@@ -65,16 +67,19 @@ Requires:	audacious-input-timidity = %{version}-%{release}
 Requires:	audacious-input-tonegen = %{version}-%{release}
 Requires:	audacious-input-vorbis = %{version}-%{release}
 Requires:	audacious-input-wav = %{version}-%{release}
+Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-wma = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-arts = %{version}-%{release}
 Requires:	audacious-output-disk = %{version}-%{release}
 Requires:	audacious-output-esd = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
+Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulse_audio = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-paranormal = %{version}-%{release}
+Requires:	audacious-visualization-spectrum = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -87,7 +92,7 @@ Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet).
 Summary:	Audacious media player - M3U plugin
 Summary(pl):	Wtyczka M3U odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-container-m3u
 This plugin adds support for playlists in M3U format.
@@ -99,7 +104,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie M3U.
 Summary:	Audacious media player - PLS plugin
 Summary(pl):	Wtyczka PLS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-container-pls
 This plugin adds support for playlists in PLS format.
@@ -111,7 +116,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie PLS.
 Summary:	Audacious media player - XSPF plugin
 Summary(pl):	Wtyczka XSPF odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-container-xspf
 This plugin adds support for playlists in XSPF format.
@@ -123,7 +128,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie XSPF.
 Summary:	Audacious media player - audiocompress plugin
 Summary(pl):	Wtyczka audiocompress odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-effect-audiocompress
 audiocompress plugin for Audacious media player.
@@ -131,11 +136,23 @@ audiocompress plugin for Audacious media player.
 %description -n audacious-effect-audiocompress -l pl
 Wtyczka audiocompress dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-effect-echo
+Summary:	Audacious media player - echo plugin
+Summary(pl):	Wtyczka echo odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-echo
+echo plugin for Audacious media player.
+
+%description -n audacious-effect-echo -l pl
+Wtyczka echo dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-effect-ladspa
 Summary:	Audacious media player - LADSPA plugin
 Summary(pl):	Wtyczka LADSPA odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-effect-ladspa
 LADSPA plugin for Audacious media player.
@@ -147,7 +164,7 @@ Wtyczka LADSPA dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - stereo plugin
 Summary(pl):	Wtyczka stereo odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-effect-stereo
 stereo plugin for Audacious media player.
@@ -159,7 +176,7 @@ Wtyczka stereo dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - voice_removal plugin
 Summary(pl):	Wtyczka voice_removal odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-effect-voice_removal
 voice_removal plugin for Audacious media player.
@@ -167,11 +184,23 @@ voice_removal plugin for Audacious media player.
 %description -n audacious-effect-voice_removal -l pl
 Wtyczka voice_removal dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-alarm
+Summary:	Audacious media player - alarm plugin
+Summary(pl):	Wtyczka alarm odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-alarm
+alarm plugin for Audacious media player.
+
+%description -n audacious-general-alarm
+Wtyczka alarm dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-audioscrobbler
 Summary:	Audacious media player - audioscrobbler.com plugin
 Summary(pl):	Wtyczka odtwarzacza multimedialnego Audacious obs³uguj±ca serwis audioscrobbler.com
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-general-audioscrobbler
 This plugin adds audioscrobbler.com profile support to Audacious media
@@ -185,7 +214,7 @@ profile audioscrobbler.com .
 Summary:	Audacious media player - LIRC plugin
 Summary(pl):	Wtyczka LIRC odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-general-lirc
 LIRC plugin for Audacious media player.
@@ -193,23 +222,11 @@ LIRC plugin for Audacious media player.
 %description -n audacious-general-lirc -l pl
 Wtyczka LIRC dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-general-notify
-Summary:	Audacious media player - notify plugin
-Summary(pl):	Wtyczka notify odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
-
-%description -n audacious-general-notify
-notify plugin for Audacious media player.
-
-%description -n audacious-general-notify -l pl
-Wtyczka notify dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
 Summary(pl):	Wtyczka zmiany utworu odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-general-song-change
 Song change plugin for Audacious media player.
@@ -221,7 +238,7 @@ Wtyczka zmiany utworu dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - AAC input plugin
 Summary(pl):	Wtyczka do odtwarzania plików AAC odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-aac
 AAC input plugin for Audacious media player.
@@ -234,7 +251,7 @@ AAC.
 Summary:	Audacious media player - Adplug input plugin
 Summary(pl):	Wtyczka do odtwarzania plików Adplug odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-adplug
 Adplug input plugin for Audacious media player.
@@ -247,7 +264,7 @@ Adplug.
 Summary:	Audacious media player - alac input plugin
 Summary(pl):	Wtyczka wej¶ciowa alac odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-alac
 alac input plugin for Audacious media player.
@@ -259,7 +276,7 @@ Wtyczka wej¶ciowa alac dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - midi input plugin
 Summary(pl):	Wtyczka do odtwarzania plików midi odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-amidi
 ALSA midi input plugin for Audacious media player.
@@ -272,7 +289,7 @@ midi poprzez ALSA.
 Summary:	Audacious media player - cdaudio input plugin
 Summary(pl):	Wtyczka wej¶ciowa cdaudio odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-cdaudio
 cdaudio input plugin for Audacious media player.
@@ -284,7 +301,7 @@ Wtyczka wej¶ciowa cdaudio dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - console input plugin
 Summary(pl):	Wtyczka do odtwarzania plików konsolowych odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-console
 SPC, GYM, NSF, VGM and GBS input plugin for Audacious media player.
@@ -297,7 +314,7 @@ SPC, GYM, NSF, VGM i GBS.
 Summary:	Audacious media player - cuesheet input plugin
 Summary(pl):	Wtyczka wej¶ciowa cuesheet odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-cuesheet
 cuesheet input plugin for Audacious media player.
@@ -309,7 +326,7 @@ Wtyczka wej¶ciowa cuesheet dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - FLAC input plugin
 Summary(pl):	Wtyczka do odtwarzania plików FLAC odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-flac
 FLAC input plugin for Audacious media player.
@@ -322,7 +339,7 @@ FLAC.
 Summary:	Audacious media player - modplug input plugin
 Summary(pl):	Wtyczka wej¶ciowa modplug odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Obsoletes:	audacious-input-mikmod
 
 %description -n audacious-input-modplug
@@ -335,7 +352,7 @@ Wtyczka wej¶ciowa modplug dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - MPC input plugin
 Summary(pl):	Wtyczka wej¶ciowa MPC odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Obsoletes:	audacious-input-mikmod
 
 %description -n audacious-input-mpc
@@ -352,7 +369,7 @@ MP+ lub MPP.
 Summary:	Audacious media player - mpg123 input plugin
 Summary(pl):	Wtyczka wej¶ciowa mpg123 odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-mpg123
 mpg123 input plugin for Audacious media player.
@@ -364,7 +381,7 @@ Wtyczka wej¶ciowa mpg123 dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - sexypsf input plugin
 Summary(pl):	Wtyczka wej¶ciowa sexypsf odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-sexypsf
 Playstation music input plugin for Audacious media player.
@@ -377,7 +394,7 @@ Playstation dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - SID input plugin
 Summary(pl):	Wtyczka wej¶ciowa SID odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-sid
 SID input plugin for Audacious media player.
@@ -389,7 +406,7 @@ Wtyczka wej¶ciowa SID dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - Timidity input plugin
 Summary(pl):	Wtyczka wej¶ciowa Timidity odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-timidity
 Timidity input plugin for Audacious media player.
@@ -401,7 +418,7 @@ Wtyczka wej¶ciowa Timidity dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - input plugin to generate sound of given frequency
 Summary(pl):	Wtyczka do generowania d¼wiêków o danej czêstotliwo¶ci odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-tonegen
 Input plugin to generate sound of given frequency for Audacious media
@@ -415,7 +432,7 @@ multimedialnego Audacious.
 Summary:	Audacious media player - Vorbis input plugin
 Summary(pl):	Wtyczka wej¶ciowa Vorbis odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-vorbis
 Vorbis input plugin for Audacious media player.
@@ -427,7 +444,7 @@ Wtyczka wej¶ciowa Vorbis dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - WAV input plugin
 Summary(pl):	Wtyczka do odtwarzania plików WAV odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-wav
 WAV input plugin for Audacious media player.
@@ -436,11 +453,24 @@ WAV input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obs³ugi plików
 WAV.
 
+%package -n audacious-input-wavpack
+Summary:	Audacious media player - WavPack input plugin
+Summary(pl):	Wtyczka do odtwarzania skompresowanych plików WAV odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-wavpack
+WavPack input plugin for Audacious media player.
+
+%description -n audacious-input-wavpack -l pl
+Wtyczka dla odtwarzacza multimedialnego Audacious do obs³ugi
+skompresowanych plików WAV.
+
 %package -n audacious-input-wma
 Summary:	Audacious media player - WMA input plugin
 Summary(pl):	Wtyczka do odtwarzania plików WMA odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-input-wma
 WMA input plugin for Audacious media player.
@@ -453,7 +483,7 @@ WMA.
 Summary:	Audacious media player - ALSA output plugin
 Summary(pl):	Wtyczka wyj¶ciowa ALSA odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 Obsoletes:	audacious-output-ALSA
 
@@ -467,7 +497,7 @@ Wtyczka wyj¶ciowa ALSA dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - ARTS output plugin
 Summary(pl):	Wtyczka wyj¶ciowa ARTS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-arts
@@ -480,7 +510,7 @@ Wtyczka wyj¶ciowa arts dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - disk-writer output plugin
 Summary(pl):	Wtyczka wyj¶ciowa zapisu na dysk odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-disk
@@ -494,7 +524,7 @@ Audacious.
 Summary:	Audacious media player - esd output plugin
 Summary(pl):	Wtyczka wyj¶ciowa esd odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-esd
@@ -507,7 +537,7 @@ Wtyczka wyj¶ciowa esd dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - JACK output plugin
 Summary(pl):	Wtyczka wyj¶ciowa JACK odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-jack
@@ -516,11 +546,24 @@ Output JACK plugin for Audacious media player.
 %description -n audacious-output-jack -l pl
 Wtyczka wyj¶ciowa JACK dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-output-null
+Summary:	Audacious media player - null output plugin
+Summary(pl):	Wtyczka wyj¶ciowa null odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+
+%description -n audacious-output-null
+null output plugin for Audacious media player.
+
+%description -n audacious-output-null -l pl
+Wtyczka wyj¶ciowa null dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-output-oss
 Summary:	Audacious media player - OSS output plugin
 Summary(pl):	Wtyczka wyj¶ciowa OSS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 Obsoletes:	audacious-output-OSS
 
@@ -534,7 +577,7 @@ Wtyczka wyj¶ciowa OSS dla odtwarzacza multimedialnego Audacious.
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl):	Wtyczka wyj¶ciowa PulseAudio odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-pulse_audio
@@ -548,7 +591,7 @@ Audacious.
 Summary:	Audacious media player - Blur scope visualization plugin
 Summary(pl):	Wtyczka graficzna Blur scope odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-visualization-blur-scope
 Blur scope visualization plugin for Audacious media player.
@@ -561,7 +604,7 @@ Audacious.
 Summary:	Audacious media player - Paranormal visualization plugin
 Summary(pl):	Wtyczka graficzna Paranormal odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
-Requires:	audacious = %{version}
+Requires:	audacious = %{audver}
 
 %description -n audacious-visualization-paranormal
 Paranormal visualization plugin for Audacious media player.
@@ -569,6 +612,18 @@ Paranormal visualization plugin for Audacious media player.
 %description -n audacious-visualization-paranormal -l pl
 Wtyczka graficzna Paranormal dla odtwarzacza multimedialnego
 Audacious.
+
+%package -n audacious-visualization-spectrum
+Summary:	Audacious media player - Spectrum visualization plugin
+Summary(pl):	Wtyczka graficzna Paranormal odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-visualization-spectrum
+Spectrum visualization plugin for Audacious media player.
+
+%description -n audacious-visualization-spectrum -l pl
+Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
@@ -584,17 +639,15 @@ Audacious.
 	--enable-timidity
 
 %{__make}
-# I don't know why stereo_plugin doesn't build automatically
-%{__make} -C src/stereo_plugin
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_datadir}/audacious/paranormal/Presets
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C src/stereo_plugin install \
-	DESTDIR=$RPM_BUILD_ROOT
+mv $RPM_BUILD_ROOT%{_datadir}/%{name}/paranormal/Presets/*.pnv $RPM_BUILD_ROOT%{_datadir}/audacious/paranormal/Presets
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -618,6 +671,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/libaudiocompress.so
 
+%files -n audacious-effect-echo
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/libecho.so
+
 %files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/libladspa.so
@@ -630,6 +687,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/libvoice_removal.so
 
+%files -n audacious-general-alarm
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/libalarm.so
+
 %files -n audacious-general-audioscrobbler
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/libscrobbler.so
@@ -638,10 +699,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-lirc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/liblirc.so
-
-%files -n audacious-general-notify
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/libnotify.so
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
@@ -720,6 +777,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/libwav.so
 
+%files -n audacious-input-wavpack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/libwavpack.so
+
 %files -n audacious-input-wma
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/libwma.so
@@ -745,6 +806,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/libjackout.so
 
+%files -n audacious-output-null
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/libnull.so
+
 %files -n audacious-output-oss
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/libOSS.so
@@ -760,3 +825,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-visualization-paranormal
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/libparanormal.so
+%{_datadir}/audacious/paranormal
+
+%files -n audacious-visualization-spectrum
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/libspectrum.so
