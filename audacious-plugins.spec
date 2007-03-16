@@ -1,3 +1,4 @@
+# TODO: build plugin dependent on libprojectM
 #
 # Conditional build:
 %bcond_with	gconf		# build with gconf support
