@@ -67,10 +67,10 @@ Requires:	audacious-input-cdaudio = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
 Requires:	audacious-input-cuesheet = %{version}-%{release}
 Requires:	audacious-input-flac = %{version}-%{release}
+Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-mpc = %{version}-%{release}
-Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-sexypsf = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
 Requires:	audacious-input-timidity = %{version}-%{release}
@@ -762,8 +762,7 @@ Requires:	audacious = %{audver}
 Rocklight visualization plugin for Audacious media player.
 
 %description -n audacious-visualization-rocklight -l pl.UTF-8
-Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego
-Audacious.
+Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-visualization-rovascope
 Summary:	Audacious media player - Rovascope visualization plugin
@@ -775,8 +774,7 @@ Requires:	audacious = %{audver}
 Rovascope visualization plugin for Audacious media player.
 
 %description -n audacious-visualization-rovascope -l pl.UTF-8
-Wtyczka graficzna Rovascope dla odtwarzacza multimedialnego
-Audacious.
+Wtyczka graficzna Rovascope dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-visualization-spectrum
 Summary:	Audacious media player - Spectrum visualization plugin
