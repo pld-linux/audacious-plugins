@@ -96,7 +96,6 @@ Requires:	audacious-visualization-paranormal = %{version}-%{release}
 Requires:	audacious-visualization-rocklight = %{version}-%{release}
 Requires:	audacious-visualization-rovascope = %{version}-%{release}
 Requires:	audacious-visualization-spectrum = %{version}-%{release}
-Obsoletes:	audacious-input-mpg123
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
