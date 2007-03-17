@@ -471,6 +471,7 @@ Summary:	Audacious media player - madplug input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa madplug odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-input-mpg123
 
 %description -n audacious-input-madplug
 madplug input plugin for Audacious media player.
