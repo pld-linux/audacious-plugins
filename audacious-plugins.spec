@@ -390,6 +390,7 @@ Summary:	Audacious media player - console input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików konsolowych odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-input-sap
 
 %description -n audacious-input-console
 SPC, GYM, NSF, VGM and GBS input plugin for Audacious media player.
