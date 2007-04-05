@@ -4,16 +4,16 @@
 %bcond_with	gconf		# build with gconf support
 %bcond_with	gnomevfs	# build with GNOME VFS support
 #
-%define		audver	1.3.1
+%define		audver	1.3.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.3.1
-Release:	2
+Version:	1.3.2
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://static.audacious-media-player.org/release/%{name}-%{version}.tgz
-# Source0-md5:	900f9732661fcd7f0a7f63d0a1e212e3
+# Source0-md5:	5cfcc2d02e811109b6233ce736722708
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 %{?with_gconf:BuildRequires:	GConf2-devel >= 2.6.0}
@@ -50,6 +50,7 @@ Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
+Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
@@ -199,6 +200,18 @@ LADSPA plugin for Audacious media player.
 
 %description -n audacious-effect-ladspa -l pl.UTF-8
 Wtyczka LADSPA dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-effect-sndstretch
+Summary:	Audacious media player - sndstretch plugin
+Summary(pl.UTF-8):	Wtyczka sndstretch odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-sndstretch
+sndstretch plugin for Audacious media player.
+
+%description -n audacious-effect-sndstretch -l pl.UTF-8
+Wtyczka sndstretch dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-stereo
 Summary:	Audacious media player - stereo plugin
@@ -853,6 +866,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/libladspa.so
+
+%files -n audacious-effect-sndstretch
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/libsndstretch.so
 
 %files -n audacious-effect-stereo
 %defattr(644,root,root,755)
