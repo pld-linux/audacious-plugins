@@ -8,12 +8,12 @@
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.3.2
+Version:	1.3.3
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://static.audacious-media-player.org/release/%{name}-%{version}.tgz
-# Source0-md5:	5cfcc2d02e811109b6233ce736722708
+# Source0-md5:	520187b4840c534001604195ce603ed9
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 %{?with_gconf:BuildRequires:	GConf2-devel >= 2.6.0}
