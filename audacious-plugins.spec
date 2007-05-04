@@ -8,12 +8,12 @@
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.3.3
+Version:	1.3.4
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://static.audacious-media-player.org/release/%{name}-%{version}.tgz
-# Source0-md5:	520187b4840c534001604195ce603ed9
+# Source0-md5:	417ffe1cae7081b0dec404b659a6d67e
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 %{?with_gconf:BuildRequires:	GConf2-devel >= 2.6.0}
@@ -926,11 +926,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-amidi
 %defattr(644,root,root,755)
-%dir %{_libdir}/amidi-plug
-%dir %{_libdir}/amidi-plug/audacious
-%attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-alsa.so
-%attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-dummy.so
-%attr(755,root,root) %{_libdir}/amidi-plug/audacious/ap-fluidsynth.so
+%dir %{_libdir}/audacious/amidi-plug
+%attr(755,root,root) %{_libdir}/audacious/amidi-plug/ap-alsa.so
+%attr(755,root,root) %{_libdir}/audacious/amidi-plug/ap-dummy.so
+%attr(755,root,root) %{_libdir}/audacious/amidi-plug/ap-fluidsynth.so
 %attr(755,root,root) %{_libdir}/audacious/Input/libamidi-plug.so
 
 %files -n audacious-input-cdaudio
