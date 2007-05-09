@@ -38,7 +38,7 @@ BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	lirc-devel
-BuildRequires:	pango >= 1.14.7
+BuildRequires:	pango-devel >= 1.14.7
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.3
 BuildRequires:	taglib-devel >= 1.4
