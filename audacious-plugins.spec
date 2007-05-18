@@ -1,6 +1,10 @@
-# TODO: build plugin dependent on libprojectM
+# TODO:
+# - build plugin dependent on libprojectM
+# - build aosd plugin by default, now there is a bcond because
+#   aosd plugin requires pango >= 1.14.7 but in AC is 1.12.4
 #
 # Conditional build:
+%bcond_with	aosd		# build with aosd plugin
 %bcond_with	gconf		# build with gconf support
 %bcond_with	gnomevfs	# build with GNOME VFS support
 #
@@ -38,7 +42,7 @@ BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	lirc-devel
-BuildRequires:	pango-devel >= 1.14.7
+%{?with_aosd:BuildRequires:	pango-devel >= 1.14.7}
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.3
 BuildRequires:	taglib-devel >= 1.4
@@ -55,7 +59,7 @@ Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
-Requires:	audacious-general-aosd = %{version}-%{release}
+%{?with_aosd:Requires:	audacious-general-aosd = %{version}-%{release}}
 Requires:	audacious-general-audioscrobbler = %{version}-%{release}
 Requires:	audacious-general-curl = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
@@ -250,6 +254,7 @@ alarm plugin for Audacious media player.
 %description -n audacious-general-alarm -l pl.UTF-8
 Wtyczka alarm dla odtwarzacza multimedialnego Audacious.
 
+%if %{with aosd}
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
 Summary(pl.UTF-8):	Wtyczka aosd odtwarzacza multimedialnego Audacious
@@ -261,6 +266,7 @@ aosd plugin for Audacious media player.
 
 %description -n audacious-general-aosd -l pl.UTF-8
 Wtyczka aosd dla odtwarzacza multimedialnego Audacious.
+%endif
 
 %package -n audacious-general-audioscrobbler
 Summary:	Audacious media player - audioscrobbler.com plugin
@@ -884,9 +890,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/libalarm.so
 
+%if %{with aosd}
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/libaosd.so
+%endif
 
 %files -n audacious-general-audioscrobbler
 %defattr(644,root,root,755)
