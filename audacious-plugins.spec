@@ -2,6 +2,7 @@
 # - build plugin dependent on libprojectM
 # - build aosd plugin by default, now there is a bcond because
 #   aosd plugin requires pango >= 1.14.7 but in AC is 1.12.4
+# - fix for not working SSE2 on ix86 in madplug plugin
 #
 # Conditional build:
 %bcond_with	aosd		# build with aosd plugin
@@ -13,12 +14,13 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	1.3.4
-Release:	1
+Release:	2
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://static.audacious-media-player.org/release/%{name}-%{version}.tgz
 # Source0-md5:	417ffe1cae7081b0dec404b659a6d67e
 Source1:	mp3license
+Patch0:		%{name}-no_sse2.patch
 URL:		http://audacious-media-player.org/
 %{?with_gconf:BuildRequires:	GConf2-devel >= 2.6.0}
 BuildRequires:	SDL-devel >= 1.2.5
@@ -812,6 +814,10 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
+# workaround for not working SSE2 on ix86
+%ifnarch %{x8664}
+%patch0 -p1
+%endif
 
 %build
 %{__aclocal} -I m4
