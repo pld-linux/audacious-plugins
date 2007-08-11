@@ -2,7 +2,7 @@
 # - build plugin dependent on libprojectM
 # - build oss4 plugin
 #
-%define _dr     dr1
+%define _dr     dr2
 %define		audver	1.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
@@ -11,8 +11,8 @@ Version:	1.4.0
 Release:	0.%{_dr}.1
 License:	GPL
 Group:		X11/Applications/Sound
-Source0:	http://static.audacious-media-player.org/release/%{name}-%{version}-%{_dr}.tgz
-# Source0-md5:	a7bef6ba1611981a00d4a3cddcc576d4
+Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tgz
+# Source0-md5:	5ce95791d9e5d122d29c81c1b8646cc8
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 BuildRequires:	SDL-devel >= 1.2.5
@@ -26,8 +26,13 @@ BuildRequires:	imlib2-devel >= 1.1.0
 BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
+# BR by input-cdaudio-ng
+BuildRequires:	libcdio-devel
+# BR by input-cdaudio-ng
+BuildRequires:	libcddb-devel
 BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmad-devel
+# BR by transport-mms
 BuildRequires:	libmms-devel >= 0.3
 BuildRequires:	libmodplug-devel
 BuildRequires:	libmpcdec-devel
@@ -61,7 +66,7 @@ Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
 Requires:	audacious-input-alac = %{version}-%{release}
 Requires:	audacious-input-amidi = %{version}-%{release}
-Requires:	audacious-input-cdaudio = %{version}-%{release}
+Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
 Requires:	audacious-input-cuesheet = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
@@ -350,17 +355,18 @@ ALSA midi input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
 midi poprzez ALSA.
 
-%package -n audacious-input-cdaudio
-Summary:	Audacious media player - cdaudio input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa cdaudio odtwarzacza multimedialnego Audacious
+%package -n audacious-input-cdaudio-ng
+Summary:	Audacious media player - cdaudio-ng input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa cdaudio-ng odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-input-cdaudio
 
-%description -n audacious-input-cdaudio
-cdaudio input plugin for Audacious media player.
+%description -n audacious-input-cdaudio-ng
+cdaudio-ng input plugin for Audacious media player.
 
-%description -n audacious-input-cdaudio -l pl.UTF-8
-Wtyczka wejściowa cdaudio dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-input-cdaudio-ng -l pl.UTF-8
+Wtyczka wejściowa cdaudio-ng dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-console
 Summary:	Audacious media player - console input plugin
@@ -828,8 +834,7 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %{__autoconf}
 %{__autoheader}
 %configure \
-	--enable-timidity \
-	--enable-cdaudio_ng
+	--enable-timidity
 
 %{__make}
 
@@ -935,9 +940,9 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/audacious/amidi-plug/ap-fluidsynth.so
 %attr(755,root,root) %{_libdir}/audacious/Input/libamidi-plug.so
 
-%files -n audacious-input-cdaudio
+%files -n audacious-input-cdaudio-ng
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/libcdaudio.so
+%attr(755,root,root) %{_libdir}/audacious/Input/libcdaudio-ng.so
 
 %files -n audacious-input-console
 %defattr(644,root,root,755)
