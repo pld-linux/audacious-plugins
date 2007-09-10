@@ -1,8 +1,9 @@
 # TODO:
 # - build plugin dependent on libprojectM
 # - build oss4 plugin
+# - fix building output-jack and output-arts (disabled for now)
 #
-%define _dr     dr2
+%define _dr     dr3
 %define		audver	1.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
@@ -12,30 +13,34 @@ Release:	0.%{_dr}.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tgz
-# Source0-md5:	5ce95791d9e5d122d29c81c1b8646cc8
+# Source0-md5:	abccc752c17425ed4fd41c2d3dc47c49
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
+# BR by visualization-paranormal
 BuildRequires:	SDL-devel >= 1.2.5
-BuildRequires:	artsc-devel >= 0.9.5
+# BR by output-arts
+#BuildRequires:	artsc-devel >= 0.9.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
-BuildRequires:	fluidsynth-devel >= 1.0.6
+# BR by output-jack
+#BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	imlib2-devel >= 1.1.0
-BuildRequires:	jack-audio-connection-kit-devel
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
 # BR by input-cdaudio-ng
-BuildRequires:	libcdio-devel
+BuildRequires:	libcdio-devel >= 0.70
 # BR by input-cdaudio-ng
-BuildRequires:	libcddb-devel
+BuildRequires:	libcddb-devel >= 1.1.2
 BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmad-devel
 # BR by transport-mms
 BuildRequires:	libmms-devel >= 0.3
 BuildRequires:	libmodplug-devel
 BuildRequires:	libmpcdec-devel
+# BR by general-mtp_up
+BuildRequires:	libmtp-devel >= 0.1.3
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
@@ -59,7 +64,9 @@ Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-audioscrobbler = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
+Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
+Requires:	audacious-general-mtp_up = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
@@ -85,10 +92,10 @@ Requires:	audacious-input-wav = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-wma = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
-Requires:	audacious-output-arts = %{version}-%{release}
+#Requires:	audacious-output-arts = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-esd = %{version}-%{release}
-Requires:	audacious-output-jack = %{version}-%{release}
+#Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulse_audio = %{version}-%{release}
@@ -268,6 +275,18 @@ Audacious media player - evdev plugin.
 %description -n audacious-general-evdev -l pl.UTF-8
 Wtyczka evdev odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-hotkey
+Summary:	Audacious media player - hotkey plugin
+Summary(pl.UTF-8):	Wtyczka hotkey odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-hotkey
+Audacious media player - hotkey plugin.
+
+%description -n audacious-general-hotkey -l pl.UTF-8
+Wtyczka hotkey odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-lirc
 Summary:	Audacious media player - LIRC plugin
 Summary(pl.UTF-8):	Wtyczka LIRC odtwarzacza multimedialnego Audacious
@@ -279,6 +298,18 @@ LIRC plugin for Audacious media player.
 
 %description -n audacious-general-lirc -l pl.UTF-8
 Wtyczka LIRC dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-mtp_up
+Summary:	Audacious media player - mtp_up plugin
+Summary(pl.UTF-8):	Wtyczka mtp_up odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-mtp_up
+mtp_up plugin for Audacious media player.
+
+%description -n audacious-general-mtp_up -l pl.UTF-8
+Wtyczka mtp_up dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
@@ -605,18 +636,18 @@ Output ALSA plugin for Audacious media player.
 %description -n audacious-output-alsa -l pl.UTF-8
 Wtyczka wyjściowa ALSA dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-arts
-Summary:	Audacious media player - ARTS output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa ARTS odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
+#%package -n audacious-output-arts
+#Summary:	Audacious media player - ARTS output plugin
+#Summary(pl.UTF-8):	Wtyczka wyjściowa ARTS odtwarzacza multimedialnego Audacious
+#Group:		X11/Applications/Sound
+#Requires:	audacious = %{audver}
+#Provides:	audacious-output-plugin
 
-%description -n audacious-output-arts
-Output arts plugin for Audacious media player.
+#%description -n audacious-output-arts
+#Output arts plugin for Audacious media player.
 
-%description -n audacious-output-arts -l pl.UTF-8
-Wtyczka wyjściowa arts dla odtwarzacza multimedialnego Audacious.
+#%description -n audacious-output-arts -l pl.UTF-8
+#Wtyczka wyjściowa arts dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-file
 Summary:	Audacious media player - file-writer output plugin
@@ -647,18 +678,18 @@ Output esd plugin for Audacious media player.
 %description -n audacious-output-esd -l pl.UTF-8
 Wtyczka wyjściowa esd dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-jack
-Summary:	Audacious media player - JACK output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa JACK odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
+#%package -n audacious-output-jack
+#Summary:	Audacious media player - JACK output plugin
+#Summary(pl.UTF-8):	Wtyczka wyjściowa JACK odtwarzacza multimedialnego Audacious
+#Group:		X11/Applications/Sound
+#Requires:	audacious = %{audver}
+#Provides:	audacious-output-plugin
 
-%description -n audacious-output-jack
-Output JACK plugin for Audacious media player.
+#%description -n audacious-output-jack
+#Output JACK plugin for Audacious media player.
 
-%description -n audacious-output-jack -l pl.UTF-8
-Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
+#%description -n audacious-output-jack -l pl.UTF-8
+#Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-null
 Summary:	Audacious media player - null output plugin
@@ -834,7 +865,9 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %{__autoconf}
 %{__autoheader}
 %configure \
-	--enable-timidity
+	--enable-timidity \
+	--disable-jack \
+	--disable-arts
 
 %{__make}
 
@@ -908,9 +941,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/libevdev-plug.so
 
+%files -n audacious-general-hotkey
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/libhotkey.so
+
 %files -n audacious-general-lirc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/liblirc.so
+
+%files -n audacious-general-mtp_up
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/libmtp_up.so
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
@@ -1016,10 +1057,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/libALSA.so
 
-%files -n audacious-output-arts
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/audacious-arts-helper
-%attr(755,root,root) %{_libdir}/audacious/Output/libarts.so
+#%files -n audacious-output-arts
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_bindir}/audacious-arts-helper
+#%attr(755,root,root) %{_libdir}/audacious/Output/libarts.so
 
 %files -n audacious-output-file
 %defattr(644,root,root,755)
@@ -1029,9 +1070,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/libESD.so
 
-%files -n audacious-output-jack
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/libjackout.so
+#%files -n audacious-output-jack
+#%defattr(644,root,root,755)
+#%attr(755,root,root) %{_libdir}/audacious/Output/libjackout.so
 
 %files -n audacious-output-null
 %defattr(644,root,root,755)
