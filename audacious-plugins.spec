@@ -1,9 +1,9 @@
 # TODO:
 # - build plugin dependent on libprojectM
 # - build oss4 plugin
-# - fix building output-jack and output-arts (disabled for now)
+# - fix building output-arts (disabled for now)
 #
-%define _dr     dr3
+%define _dr     dr4
 %define		audver	1.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
@@ -13,7 +13,7 @@ Release:	0.%{_dr}.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tgz
-# Source0-md5:	abccc752c17425ed4fd41c2d3dc47c49
+# Source0-md5:	b1c3ab59eaeb70e8c473b04a42b9fff2
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-paranormal
@@ -24,8 +24,8 @@ BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
-# BR by output-jack
-#BuildRequires:	fluidsynth-devel >= 1.0.6
+# BR by output-jack and input-amidi
+BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	imlib2-devel >= 1.1.0
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
@@ -51,6 +51,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.3
 BuildRequires:	taglib-devel >= 1.4
 BuildRequires:	wavpack-devel >= 4.31
+# BR by general-aosd (X Composite Support)
+BuildRequires:	xorg-lib-libXcomposite-devel
 Requires:	audacious-container-m3u = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
@@ -95,7 +97,7 @@ Requires:	audacious-output-alsa = %{version}-%{release}
 #Requires:	audacious-output-arts = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-esd = %{version}-%{release}
-#Requires:	audacious-output-jack = %{version}-%{release}
+Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulse_audio = %{version}-%{release}
@@ -678,18 +680,17 @@ Output esd plugin for Audacious media player.
 %description -n audacious-output-esd -l pl.UTF-8
 Wtyczka wyjściowa esd dla odtwarzacza multimedialnego Audacious.
 
-#%package -n audacious-output-jack
-#Summary:	Audacious media player - JACK output plugin
-#Summary(pl.UTF-8):	Wtyczka wyjściowa JACK odtwarzacza multimedialnego Audacious
-#Group:		X11/Applications/Sound
-#Requires:	audacious = %{audver}
-#Provides:	audacious-output-plugin
+%package -n audacious-output-jack
+Summary:	Audacious media player - JACK output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa JACK odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+%description -n audacious-output-jack
+Output JACK plugin for Audacious media player.
 
-#%description -n audacious-output-jack
-#Output JACK plugin for Audacious media player.
-
-#%description -n audacious-output-jack -l pl.UTF-8
-#Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-output-jack -l pl.UTF-8
+Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-null
 Summary:	Audacious media player - null output plugin
@@ -866,7 +867,7 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %{__autoheader}
 %configure \
 	--enable-timidity \
-	--disable-jack \
+	--enable-amidiplug \
 	--disable-arts
 
 %{__make}
@@ -1070,9 +1071,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/libESD.so
 
-#%files -n audacious-output-jack
-#%defattr(644,root,root,755)
-#%attr(755,root,root) %{_libdir}/audacious/Output/libjackout.so
+%files -n audacious-output-jack
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/libjackout.so
 
 %files -n audacious-output-null
 %defattr(644,root,root,755)
