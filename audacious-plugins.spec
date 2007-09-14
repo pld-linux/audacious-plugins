@@ -1,5 +1,4 @@
 # TODO:
-# - build plugin dependent on libprojectM
 # - build oss4 plugin
 # - fix building output-arts (disabled for now)
 #
@@ -9,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	1.4.0
-Release:	0.%{_dr}.1
+Release:	0.%{_dr}.2
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tgz
@@ -41,6 +40,8 @@ BuildRequires:	libmodplug-devel
 BuildRequires:	libmpcdec-devel
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.1.3
+# BR by visualization-projectM
+BuildRequires:	libprojectM-devel
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
@@ -107,6 +108,7 @@ Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-stdio = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-paranormal = %{version}-%{release}
+Requires:	audacious-visualization-projectM = %{version}-%{release}
 Requires:	audacious-visualization-rocklight = %{version}-%{release}
 Requires:	audacious-visualization-rootvis = %{version}-%{release}
 Requires:	audacious-visualization-rovascope = %{version}-%{release}
@@ -810,6 +812,18 @@ Paranormal visualization plugin for Audacious media player.
 Wtyczka graficzna Paranormal dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-visualization-projectM
+Summary:	Audacious media player - projectM visualization plugin
+Summary(pl.UTF-8):	Wtyczka graficzna projectM odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-visualization-projectM
+projectM visualization plugin for Audacious media player.
+
+%description -n audacious-visualization-projectM -l pl.UTF-8
+Wtyczka graficzna projectM dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-visualization-rocklight
 Summary:	Audacious media player - Rocklight visualization plugin
 Summary(pl.UTF-8):	Wtyczka graficzna Rocklight odtwarzacza multimedialnego Audacious
@@ -1111,6 +1125,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/libparanormal.so
 %{_datadir}/audacious/paranormal
+
+%files -n audacious-visualization-projectM
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/libprojectm.so
 
 %files -n audacious-visualization-rocklight
 %defattr(644,root,root,755)
