@@ -1,5 +1,6 @@
 # TODO:
 # - build oss4 plugin
+# - visualization-projectM plugin doesn't work for me (SIGSEGV)
 #
 # NOTE:
 # - projectM plugin is available in two versions, bulding only newest
