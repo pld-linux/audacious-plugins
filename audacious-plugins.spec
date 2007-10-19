@@ -4,7 +4,7 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, bulding only newest
-%define _dr     beta1
+%define _dr     beta3
 %define		audver	1.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
@@ -14,7 +14,7 @@ Release:	0.%{_dr}.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tbz2
-# Source0-md5:	7ddf46b0761b75f5567dd2d00fef193e
+# Source0-md5:	db6ab5cd5cbfad959de0128811450508
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
@@ -905,8 +905,6 @@ install -d $RPM_BUILD_ROOT%{_datadir}/audacious/paranormal/Presets
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-#mv $RPM_BUILD_ROOT%{_datadir}/%{name}/paranormal/Presets/*.pnv $RPM_BUILD_ROOT%{_datadir}/audacious/paranormal/Presets
-
 %find_lang %{name}
 
 %clean
@@ -1141,6 +1139,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/paranormal.so
 %dir %{_datadir}/audacious/paranormal
+%dir %{_datadir}/audacious/paranormal/Presets
+%{_datadir}/audacious/paranormal/Presets/*.pnv
 
 %files -n audacious-visualization-projectM
 %defattr(644,root,root,755)
