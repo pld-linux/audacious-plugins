@@ -4,17 +4,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, bulding only newest
-%define _dr     rc1
 %define		audver	1.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	1.4.0
-Release:	0.%{_dr}.1
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Sound
-Source0:	http://distfiles.atheme.org/%{name}-%{version}-%{_dr}.tbz2
-# Source0-md5:	cd094b6fd8241522ec424bf79a24c2b3
+Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
+# Source0-md5:	3355cfab63f3ff2c61327fd25fae0a87
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
@@ -881,7 +880,7 @@ Spectrum visualization plugin for Audacious media player.
 Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
-%setup -q -n %{name}-%{version}-%{_dr}
+%setup -q
 %{__sed} -i \
 	-e 's#include "projectM/event.h"#include <libprojectM/event.h>#' src/projectm/sdltoprojectM.h \
 	-e 's#include <projectM/#include <libprojectM/#g' src/projectm/main.c
