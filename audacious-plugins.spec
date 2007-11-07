@@ -9,7 +9,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	1.4.0
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
@@ -264,7 +264,6 @@ Summary:	Audacious media player - scrobbler plugin
 Summary(pl.UTF-8):	Wtyczka scrobbler odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-general-audioscrobbler
 
 %description -n audacious-general-scrobbler
 scrobbler plugin for Audacious media player.
@@ -412,7 +411,6 @@ Summary:	Audacious media player - cdaudio-ng input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa cdaudio-ng odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-cdaudio
 
 %description -n audacious-input-cdaudio-ng
 cdaudio-ng input plugin for Audacious media player.
@@ -425,7 +423,6 @@ Summary:	Audacious media player - console input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików konsolowych odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-sap
 
 %description -n audacious-input-console
 SPC, GYM, NSF, VGM and GBS input plugin for Audacious media player.
@@ -451,7 +448,6 @@ Summary:	Audacious media player - FLAC input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików FLAC odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-flac
 
 %description -n audacious-input-flacng
 FLAC input plugin for Audacious media player.
@@ -477,7 +473,6 @@ Summary:	Audacious media player - modplug input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa modplug odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-mikmod
 
 %description -n audacious-input-modplug
 modplug input plugin for Audacious media player.
@@ -490,8 +485,6 @@ Summary:	Audacious media player - Musepack input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa Musepack odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-mikmod
-Obsoletes:	audacious-input-mpc
 
 %description -n audacious-input-musepack
 This plugin for Audaciuos can play audio files which are encoded with
@@ -508,7 +501,6 @@ Summary:	Audacious media player - madplug input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa madplug odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-mpg123
 
 %description -n audacious-input-madplug
 madplug input plugin for Audacious media player.
@@ -650,7 +642,6 @@ Summary(pl.UTF-8):	Wtyczka wyjściowa ALSA odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
-Obsoletes:	audacious-output-ALSA
 
 %description -n audacious-output-alsa
 Output ALSA plugin for Audacious media player.
@@ -677,8 +668,6 @@ Summary(pl.UTF-8):	Wtyczka wyjściowa zapisu do pliku odtwarzacza multimedialneg
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
-Obsoletes:	audacious-output-disk
-Obsoletes:	audacious-output-lame
 
 %description -n audacious-output-file
 Output file-writer plugin for Audacious media player.
@@ -731,7 +720,6 @@ Summary(pl.UTF-8):	Wtyczka wyjściowa OSS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
-Obsoletes:	audacious-output-OSS
 
 %description -n audacious-output-oss
 Output OSS plugin for Audacious media player.
@@ -758,8 +746,6 @@ Summary:	Audacious media player - neon plugin
 Summary(pl.UTF-8):	Wtyczka neon odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-general-curl
-Obsoletes:	audacious-transport-curl
 
 %description -n audacious-transport-neon
 Audacious media player - neon plugin.
@@ -784,7 +770,6 @@ Summary:	Audacious media player - MMS plugin
 Summary(pl.UTF-8):	Wtyczka MMS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-container-mms
 
 %description -n audacious-transport-mms
 This plugin adds support for mms:// streams.
@@ -797,7 +782,6 @@ Summary:	Audacious media player - STDIO plugin
 Summary(pl.UTF-8):	Wtyczka STDIO odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-container-stdio
 
 %description -n audacious-transport-stdio
 This plugin adds support for file:// streams.
