@@ -4,16 +4,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, bulding only newest
-%define		audver	1.4.0
+%define		audver	1.4.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.4.0
-Release:	2
+Version:	1.4.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
-# Source0-md5:	3355cfab63f3ff2c61327fd25fae0a87
+# Source0-md5:	63ae2d7b01191c3a7310616476c6c832
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
