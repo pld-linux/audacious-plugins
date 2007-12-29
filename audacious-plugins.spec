@@ -3,17 +3,17 @@
 # - visualization-projectM plugin doesn't work for me (SIGSEGV)
 #
 # NOTE:
-# - projectM plugin is available in two versions, bulding only newest
-%define		audver	1.4.4
+# - projectM plugin is available in two versions, building only newest
+%define		audver	1.4.5
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.4.2
+Version:	1.4.3
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
-# Source0-md5:	6976ed2d474a0181cbd1b712c439af2d
+# Source0-md5:	5f949b748311a26499646b4a8671add9
 Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
