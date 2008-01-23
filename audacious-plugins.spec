@@ -14,7 +14,6 @@ License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
 # Source0-md5:	8c3befa0e367468da7ee5faebdcdb94f
-Source1:	mp3license
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
