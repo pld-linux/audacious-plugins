@@ -4,16 +4,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	1.4.6
+%define		audver	1.5.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.4.5
-Release:	2
+Version:	1.5.0
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
-# Source0-md5:	a0e88701941a047c04ecdad15734a0bd
+# Source0-md5:	258fcdc5919a9f649ea66ab55a142835
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -28,13 +28,15 @@ BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
+# BR by visualization-projectM
+BuildRequires:	gtkglext-devel
 BuildRequires:	imlib2-devel >= 1.1.0
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
 # BR by input-cdaudio-ng
-BuildRequires:	libcdio-devel >= 0.70
-# BR by input-cdaudio-ng
 BuildRequires:	libcddb-devel >= 1.1.2
+# BR by input-cdaudio-ng
+BuildRequires:	libcdio-devel >= 0.70
 BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmad-devel
 # BR by transport-mms
@@ -54,7 +56,7 @@ BuildRequires:	lirc-devel
 BuildRequires:	neon-devel
 BuildRequires:	pango-devel >= 1.14.7
 BuildRequires:	pkgconfig
-BuildRequires:	pulseaudio-devel >= 0.9.3
+BuildRequires:	pulseaudio-devel >= 0.9.9
 BuildRequires:	taglib-devel >= 1.4
 BuildRequires:	wavpack-devel >= 4.31
 # BR by general-aosd (X Composite Support)
@@ -85,6 +87,7 @@ Requires:	audacious-input-amidi = %{version}-%{release}
 Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
 Requires:	audacious-input-cuesheet = %{version}-%{release}
+Requires:	audacious-input-demac = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
 Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
@@ -92,12 +95,12 @@ Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-musepack = %{version}-%{release}
 Requires:	audacious-input-sexypsf = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
+Requires:	audacious-input-sndfile = %{version}-%{release}
 Requires:	audacious-input-timidity = %{version}-%{release}
 Requires:	audacious-input-tonegen = %{version}-%{release}
 Requires:	audacious-input-tta = %{version}-%{release}
 Requires:	audacious-input-vorbis = %{version}-%{release}
 Requires:	audacious-input-vtx = %{version}-%{release}
-Requires:	audacious-input-wav = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-wma = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
@@ -441,6 +444,18 @@ cuesheet input plugin for Audacious media player.
 %description -n audacious-input-cuesheet -l pl.UTF-8
 Wtyczka wejściowa cuesheet dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-input-demac
+Summary:	Audacious media player - demac input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa demac odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-demac
+demac input plugin for Audacious media player.
+
+%description -n audacious-input-demac -l pl.UTF-8
+Wtyczka wejściowa demac dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-input-flacng
 Summary:	Audacious media player - FLAC input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików FLAC odtwarzacza multimedialnego Audacious
@@ -531,6 +546,24 @@ SID input plugin for Audacious media player.
 %description -n audacious-input-sid -l pl.UTF-8
 Wtyczka wejściowa SID dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-input-sndfile
+Summary:	Audacious media player - sndfile input plugin that uses libsndfile to read files
+Summary(pl.UTF-8):	Wtyczka wejściowa sndfile odtwarzacza multimedialnego Audacious używająca libsndfile do czytania plików 
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-sndfile
+sndfile is an input plugin for Audacious. Using sndfile extends
+the capabilities of Audacious to open and play any file which can be opened
+and read by libsndfile, including WAV, AIFF, AU, and SVX files and
+many compressed version of these file formats.
+
+%description -n audacious-input-sndfile -l pl.UTF-8
+sndfile to wtyczka wejściowa dla Audacious-a. Jej użycie rozszerza
+możliwości Audacious-a o otwieranie i odtwarzanie dowolnych plików, które
+można otworzyć i odczytać przy pomocy biblioteki libsndfile, w tym
+WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych formatów.
+
 %package -n audacious-input-timidity
 Summary:	Audacious media player - Timidity input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa Timidity odtwarzacza multimedialnego Audacious
@@ -594,19 +627,6 @@ vtx input plugin for Audacious media player.
 
 %description -n audacious-input-vtx -l pl.UTF-8
 Wtyczka wejściowa vtx dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-input-wav
-Summary:	Audacious media player - WAV input plugin
-Summary(pl.UTF-8):	Wtyczka do odtwarzania plików WAV odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-wav
-WAV input plugin for Audacious media player.
-
-%description -n audacious-input-wav -l pl.UTF-8
-Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
-WAV.
 
 %package -n audacious-input-wavpack
 Summary:	Audacious media player - WavPack input plugin
@@ -1003,6 +1023,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/cuesheet.so
 
+%files -n audacious-input-demac
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/demac.so
+
 %files -n audacious-input-flacng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/flacng.so
@@ -1031,6 +1055,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/sid.so
 
+%files -n audacious-input-sndfile
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/sndfile.so
+
 %files -n audacious-input-timidity
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/timidity.so
@@ -1050,10 +1078,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-input-vtx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/vtx.so
-
-%files -n audacious-input-wav
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/wav.so
 
 %files -n audacious-input-wavpack
 %defattr(644,root,root,755)
