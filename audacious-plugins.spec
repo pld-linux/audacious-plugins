@@ -22,6 +22,8 @@ BuildRequires:	SDL-devel >= 1.2.5
 # BR by output-arts
 BuildRequires:	artsc-devel >= 0.9.5
 BuildRequires:	audacious-devel >= %{audver}
+BuildRequires:	autoconf
+BuildRequires:	automake
 # BR by transport-lastfm and general-scrobbler
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
