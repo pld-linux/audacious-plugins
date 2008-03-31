@@ -30,6 +30,7 @@ BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
+BuildRequires:	gettext-devel
 # BR by visualization-projectM
 BuildRequires:	gtkglext-devel
 BuildRequires:	imlib2-devel >= 1.1.0
