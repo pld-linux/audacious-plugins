@@ -1,0 +1,24 @@
+diff -ur audacious-plugins-1.5.0.orig/configure.ac audacious-plugins-1.5.0/configure.ac
+--- audacious-plugins-1.5.0.orig/configure.ac	2008-03-13 23:22:35.000000000 +0100
++++ audacious-plugins-1.5.0/configure.ac	2008-04-09 16:50:56.258834285 +0200
+@@ -1449,7 +1449,7 @@
+ fi
+ 
+ if test "$have_projectm1" = "yes"; then
+-	PKG_CHECK_MODULES(LIBPROJECTM1, [libprojectM < 1.1], [have_projectm1="yes"], [have_projectm1="no"])
++	PKG_CHECK_MODULES(LIBPROJECTM1, [libprojectM >= 1.1], [have_projectm1="yes"], [have_projectm1="no"])
+ 	if test x$libprjM = xno; then
+ 	        AC_MSG_WARN([*** libprojectM not found.
+ 	                        libprojectM is needed to build this package.
+diff -ur audacious-plugins-1.5.0.orig/src/projectm-1.0/gtk_projectm_impl.cxx audacious-plugins-1.5.0/src/projectm-1.0/gtk_projectm_impl.cxx
+--- audacious-plugins-1.5.0.orig/src/projectm-1.0/gtk_projectm_impl.cxx	2008-03-13 23:22:36.000000000 +0100
++++ audacious-plugins-1.5.0/src/projectm-1.0/gtk_projectm_impl.cxx	2008-04-09 16:51:33.037259169 +0200
+@@ -86,7 +86,7 @@
+     g_return_if_fail(priv != NULL);
+     g_return_if_fail(priv->pm != NULL);
+ 
+-    priv->pm->pcm->addPCM16(pcm_data);
++    priv->pm->pcm()->addPCM16(pcm_data);
+ }
+ 
+ extern "C" void
