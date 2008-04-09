@@ -9,11 +9,12 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	1.5.0
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
 # Source0-md5:	258fcdc5919a9f649ea66ab55a142835
+Patch0:		%{name}-libprojectm11.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -49,7 +50,7 @@ BuildRequires:	libmpcdec-devel
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.1.3
 # BR by visualization-projectM
-BuildRequires:	libprojectM-devel >= 1.0
+BuildRequires:	libprojectM-devel >= 1.1
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
@@ -886,6 +887,7 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
+%patch0 -p1
 %{__sed} -i \
 	-e 's#include "projectM/event.h"#include <libprojectM/event.h>#' src/projectm/sdltoprojectM.h \
 	-e 's#include <projectM/#include <libprojectM/#g' src/projectm/main.c
