@@ -50,7 +50,7 @@ BuildRequires:	libmpcdec-devel
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.1.3
 # BR by visualization-projectM
-BuildRequires:	libprojectM-devel >= 1.1
+BuildRequires:	libprojectM-devel >= 1:1.1
 BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
