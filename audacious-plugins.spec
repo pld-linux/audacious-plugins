@@ -1,20 +1,18 @@
 # TODO:
 # - build oss4 plugin
-# - visualization-projectM plugin doesn't work for me (SIGSEGV)
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	1.5.0
+%define		audver	1.5.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.5.0
-Release:	3
+Version:	1.5.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
-# Source0-md5:	258fcdc5919a9f649ea66ab55a142835
-Patch0:		%{name}-libprojectm11.patch
+# Source0-md5:	b237754a615cf9a3d77a93bf18de26fc
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -70,6 +68,7 @@ Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
+Requires:	audacious-effect-crystalizer = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
@@ -191,6 +190,18 @@ echo plugin for Audacious media player.
 
 %description -n audacious-effect-echo -l pl.UTF-8
 Wtyczka echo dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-effect-crystalizer
+Summary:	Audacious media player - crystalizer plugin
+Summary(pl.UTF-8):	Wtyczka crystalizer odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-crystalizer
+crystalizer plugin for Audacious media player.
+
+%description -n audacious-effect-crystalizer -l pl.UTF-8
+Wtyczka crystalizer dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-ladspa
 Summary:	Audacious media player - LADSPA plugin
@@ -887,10 +898,6 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
-%patch0 -p1
-%{__sed} -i \
-	-e 's#include "projectM/event.h"#include <libprojectM/event.h>#' src/projectm/sdltoprojectM.h \
-	-e 's#include <projectM/#include <libprojectM/#g' src/projectm/main.c
 
 %build
 %{__aclocal} -I m4
@@ -938,6 +945,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-effect-echo
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/echo.so
+
+%files -n audacious-effect-crystalizer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/crystalizer.so
 
 %files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
