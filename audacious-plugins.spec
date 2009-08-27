@@ -3,24 +3,22 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	1.5.1
+%define		audver	2.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	1.5.1
-Release:	15
+Version:	2.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
-Source0:	http://distfiles.atheme.org/%{name}-%{version}.tbz2
-# Source0-md5:	b237754a615cf9a3d77a93bf18de26fc
+Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
+# Source0-md5:	087fcb1f6fb8429b267f18ed3e3acb7a
 Patch0:		%{name}-libmtp.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
 # BR by visualization-paranormal
 BuildRequires:	SDL-devel >= 1.2.5
-# BR by output-arts
-BuildRequires:	artsc-devel >= 0.9.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -79,25 +77,29 @@ Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
 Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
+Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
+Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
+Requires:	audacious-general-streambrowser = %{version}-%{release}
+Requires:	audacious-general-vfstrace = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
 Requires:	audacious-input-alac = %{version}-%{release}
 Requires:	audacious-input-amidi = %{version}-%{release}
 Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
-Requires:	audacious-input-cuesheet = %{version}-%{release}
+Requires:	audacious-input-cuesheet_ng = %{version}-%{release}
 Requires:	audacious-input-demac = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
 Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-musepack = %{version}-%{release}
-Requires:	audacious-input-sexypsf = %{version}-%{release}
+Requires:	audacious-input-psf2 = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
 Requires:	audacious-input-sndfile = %{version}-%{release}
 Requires:	audacious-input-timidity = %{version}-%{release}
@@ -107,14 +109,17 @@ Requires:	audacious-input-vorbis = %{version}-%{release}
 Requires:	audacious-input-vtx = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-wma = %{version}-%{release}
+Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
-Requires:	audacious-output-arts = %{version}-%{release}
+Requires:	audacious-output-crossfade = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-esd = %{version}-%{release}
+Requires:	audacious-output-icecast = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulse_audio = %{version}-%{release}
+Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-lastfm = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
@@ -122,7 +127,6 @@ Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-paranormal = %{version}-%{release}
 Requires:	audacious-visualization-projectM = %{version}-%{release}
 Requires:	audacious-visualization-rocklight = %{version}-%{release}
-Requires:	audacious-visualization-rootvis = %{version}-%{release}
 Requires:	audacious-visualization-spectrum = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -276,6 +280,18 @@ aosd plugin for Audacious media player.
 %description -n audacious-general-aosd -l pl.UTF-8
 Wtyczka aosd dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-gtkui
+Summary:	Audacious media player - gtkui plugin
+Summary(pl.UTF-8):	Wtyczka gtkui odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-gtkui
+gtkui plugin for Audacious media player.
+
+%description -n audacious-general-gtkui -l pl.UTF-8
+Wtyczka gtkui dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-scrobbler
 Summary:	Audacious media player - scrobbler plugin
 Summary(pl.UTF-8):	Wtyczka scrobbler odtwarzacza multimedialnego Audacious
@@ -287,6 +303,42 @@ scrobbler plugin for Audacious media player.
 
 %description -n audacious-general-scrobbler -l pl.UTF-8
 Wtyczka scrobbler dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-skins
+Summary:	Audacious media player - skins plugin
+Summary(pl.UTF-8):	Wtyczka skins odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-skins
+skins plugin for Audacious media player.
+
+%description -n audacious-general-skins -l pl.UTF-8
+Wtyczka skins dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-streambrowser
+Summary:	Audacious media player - streambrowser plugin
+Summary(pl.UTF-8):	Wtyczka streambrowser odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-streambrowser
+streambrowser plugin for Audacious media player.
+
+%description -n audacious-general-streambrowser -l pl.UTF-8
+Wtyczka streambrowser dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-vfstrace
+Summary:	Audacious media player - vfstrace plugin
+Summary(pl.UTF-8):	Wtyczka vfstrace odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-vfstrace
+vfstrace plugin for Audacious media player.
+
+%description -n audacious-general-vfstrace -l pl.UTF-8
+Wtyczka vfstrace dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-evdev
 Summary:	Audacious media player - evdev plugin
@@ -448,17 +500,19 @@ SPC, GYM, NSF, VGM and GBS input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
 SPC, GYM, NSF, VGM i GBS.
 
-%package -n audacious-input-cuesheet
-Summary:	Audacious media player - cuesheet input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa cuesheet odtwarzacza multimedialnego Audacious
+%package -n audacious-input-cuesheet_ng
+Summary:	Audacious media player - cuesheet_ng input plugin
+Summary(pl.UTF-8):	Wtyczka cuesheet_ng odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Provides:	audacious-input-cuesheet
+Obsoletes:	audacious-input-cuesheet
 
-%description -n audacious-input-cuesheet
-cuesheet input plugin for Audacious media player.
+%description -n audacious-input-cuesheet_ng
+cuesheet_ng input plugin for Audacious media player.
 
-%description -n audacious-input-cuesheet -l pl.UTF-8
-Wtyczka wejściowa cuesheet dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-input-cuesheet_ng -l pl.UTF-8
+cuesheet_ng wtyczka dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-demac
 Summary:	Audacious media player - demac input plugin
@@ -537,18 +591,19 @@ madplug input plugin for Audacious media player.
 %description -n audacious-input-madplug -l pl.UTF-8
 Wtyczka wejściowa madplug dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-input-sexypsf
-Summary:	Audacious media player - sexypsf input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa sexypsf odtwarzacza multimedialnego Audacious
+%package -n audacious-input-psf2
+Summary:	Audacious media player - psf2 input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa psf2 odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Provides:	audacious-input-sexypsf
+Obsoletes:	audacious-input-sexypsf
 
-%description -n audacious-input-sexypsf
-Playstation music input plugin for Audacious media player.
+%description -n audacious-input-psf2
+psf2 input plugin for Audacious media player.
 
-%description -n audacious-input-sexypsf -l pl.UTF-8
-Wtyczka wejściowa do odgrywania plików muzycznych w formacie
-Playstation dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-input-psf2 -l pl.UTF-8
+Wtyczka wejściowa psf2 dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-sid
 Summary:	Audacious media player - SID input plugin
@@ -670,6 +725,19 @@ WMA input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
 WMA.
 
+%package -n audacious-input-xsf
+Summary:	Audacious media player - xsf input plugin
+Summary(pl.UTF-8):	Wtyczka do odtwarzania plików xsf odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-xsf
+xsf input plugin for Audacious media player.
+
+%description -n audacious-input-xsf -l pl.UTF-8
+Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
+xsf.
+
 %package -n audacious-output-alsa
 Summary:	Audacious media player - ALSA output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa ALSA odtwarzacza multimedialnego Audacious
@@ -683,18 +751,18 @@ Output ALSA plugin for Audacious media player.
 %description -n audacious-output-alsa -l pl.UTF-8
 Wtyczka wyjściowa ALSA dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-arts
-Summary:	Audacious media player - ARTS output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa ARTS odtwarzacza multimedialnego Audacious
+%package -n audacious-output-crossfade
+Summary:	Audacious media player - crossfade output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa crossfade odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
-%description -n audacious-output-arts
-Output arts plugin for Audacious media player.
+%description -n audacious-output-crossfade
+Output crossfade plugin for Audacious media player.
 
-%description -n audacious-output-arts -l pl.UTF-8
-Wtyczka wyjściowa arts dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-output-crossfade -l pl.UTF-8
+Wtyczka wyjściowa crossfade dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-file
 Summary:	Audacious media player - file-writer output plugin
@@ -723,12 +791,26 @@ Output esd plugin for Audacious media player.
 %description -n audacious-output-esd -l pl.UTF-8
 Wtyczka wyjściowa esd dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-output-icecast
+Summary:	Audacious media player - icecast output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa icecast odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+
+%description -n audacious-output-icecast
+Output icecast plugin for Audacious media player.
+
+%description -n audacious-output-icecast -l pl.UTF-8
+Wtyczka wyjściowa icecast dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-output-jack
 Summary:	Audacious media player - JACK output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa JACK odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
+
 %description -n audacious-output-jack
 Output JACK plugin for Audacious media player.
 
@@ -775,6 +857,20 @@ PulseAudio output plugin for Audacious media player.
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-transport-gio
+Summary:	Audacious media player - gio plugin
+Summary(pl.UTF-8):	Wtyczka gio odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-transport-stdio
+Obsoletes:	audacious-transport-stdio
+
+%description -n audacious-transport-gio
+Audacious media player - gio plugin.
+
+%description -n audacious-transport-gio -l pl.UTF-8
+Wtyczka gio odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-transport-neon
 Summary:	Audacious media player - neon plugin
 Summary(pl.UTF-8):	Wtyczka neon odtwarzacza multimedialnego Audacious
@@ -810,18 +906,6 @@ This plugin adds support for mms:// streams.
 
 %description -n audacious-transport-mms -l pl.UTF-8
 Ta wtyczka dodaje wsparcie dla strumieni mms://.
-
-%package -n audacious-transport-stdio
-Summary:	Audacious media player - STDIO plugin
-Summary(pl.UTF-8):	Wtyczka STDIO odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-transport-stdio
-This plugin adds support for file:// streams.
-
-%description -n audacious-transport-stdio -l pl.UTF-8
-Ta wtyczka dodaje wsparcie dla strumieni file://.
 
 %package -n audacious-visualization-blur-scope
 Summary:	Audacious media player - Blur scope visualization plugin
@@ -872,18 +956,6 @@ Rocklight visualization plugin for Audacious media player.
 
 %description -n audacious-visualization-rocklight -l pl.UTF-8
 Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-visualization-rootvis
-Summary:	Audacious media player - rootvis visualization plugin
-Summary(pl.UTF-8):	Wtyczka graficzna rootvis odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-visualization-rootvis
-rootvis visualization plugin for Audacious media player.
-
-%description -n audacious-visualization-rootvis -l pl.UTF-8
-Wtyczka graficzna rootvis dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-visualization-spectrum
 Summary:	Audacious media player - Spectrum visualization plugin
@@ -976,10 +1048,26 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/aosd.so
 
+%files -n audacious-general-gtkui
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
+
 %files -n audacious-general-scrobbler
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/scrobbler.so
 %{_datadir}/audacious/images/audioscrobbler*.png
+
+%files -n audacious-general-skins
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/skins.so
+
+%files -n audacious-general-streambrowser
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/streambrowser.so
+
+%files -n audacious-general-vfstrace
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/vfstrace.so
 
 %files -n audacious-general-evdev
 %defattr(644,root,root,755)
@@ -1037,9 +1125,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/console.so
 
-%files -n audacious-input-cuesheet
+%files -n audacious-input-cuesheet_ng
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/cuesheet.so
+%attr(755,root,root) %{_libdir}/audacious/Input/cuesheet_ng.so
 
 %files -n audacious-input-demac
 %defattr(644,root,root,755)
@@ -1065,9 +1153,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/modplug.so
 
-%files -n audacious-input-sexypsf
+%files -n audacious-input-psf2
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/sexypsf.so
+%attr(755,root,root) %{_libdir}/audacious/Input/psf2.so
 
 %files -n audacious-input-sid
 %defattr(644,root,root,755)
@@ -1105,14 +1193,21 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/wma.so
 
+%files -n audacious-input-xsf
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/xsf.so
+
 %files -n audacious-output-alsa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/ALSA.so
 
-%files -n audacious-output-arts
+%files -n audacious-output-crossfade
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/audacious-arts-helper
-%attr(755,root,root) %{_libdir}/audacious/Output/arts.so
+%attr(755,root,root) %{_libdir}/audacious/Output/crossfade.so
+
+%files -n audacious-output-icecast
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/icecast.so
 
 %files -n audacious-output-file
 %defattr(644,root,root,755)
@@ -1138,6 +1233,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
+%files -n audacious-transport-gio
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
+
 %files -n audacious-transport-neon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
@@ -1149,10 +1248,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-transport-mms
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/mms.so
-
-%files -n audacious-transport-stdio
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Transport/stdio.so
 
 %files -n audacious-visualization-blur-scope
 %defattr(644,root,root,755)
@@ -1172,10 +1267,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-visualization-rocklight
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/rocklight.so
-
-%files -n audacious-visualization-rootvis
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Visualization/rootvis.so
 
 %files -n audacious-visualization-spectrum
 %defattr(644,root,root,755)
