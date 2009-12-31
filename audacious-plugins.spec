@@ -8,12 +8,13 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	2.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
 # Source0-md5:	087fcb1f6fb8429b267f18ed3e3acb7a
 Patch0:		%{name}-libmtp.patch
+Patch1:		%{name}-jack.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -972,6 +973,7 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__aclocal} -I m4
