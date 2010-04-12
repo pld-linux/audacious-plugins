@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	2.1
-Release:	3
+Release:	4
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
@@ -67,21 +67,21 @@ Requires:	audacious-container-m3u = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
-Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
+Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
-Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
 Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
+Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
@@ -113,13 +113,13 @@ Requires:	audacious-input-wma = %{version}-%{release}
 Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-crossfade = %{version}-%{release}
-Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-esd = %{version}-%{release}
+Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-icecast = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
-Requires:	audacious-output-pulse_audio = %{version}-%{release}
+Requires:	audacious-output-pulseaudio = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-lastfm = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
@@ -486,7 +486,8 @@ Requires:	audacious = %{audver}
 cdaudio-ng input plugin for Audacious media player.
 
 %description -n audacious-input-cdaudio-ng -l pl.UTF-8
-Wtyczka wejściowa cdaudio-ng dla odtwarzacza multimedialnego Audacious.
+Wtyczka wejściowa cdaudio-ng dla odtwarzacza multimedialnego
+Audacious.
 
 %package -n audacious-input-console
 Summary:	Audacious media player - console input plugin
@@ -587,7 +588,7 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
 %description -n audacious-input-madplug
-madplug input plugin for Audacious media player.
+MPEG Audio Plugin for Audacious media player.
 
 %description -n audacious-input-madplug -l pl.UTF-8
 Wtyczka wejściowa madplug dla odtwarzacza multimedialnego Audacious.
@@ -620,21 +621,22 @@ Wtyczka wejściowa SID dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-sndfile
 Summary:	Audacious media player - sndfile input plugin that uses libsndfile to read files
-Summary(pl.UTF-8):	Wtyczka wejściowa sndfile odtwarzacza multimedialnego Audacious używająca libsndfile do czytania plików 
+Summary(pl.UTF-8):	Wtyczka wejściowa sndfile odtwarzacza multimedialnego Audacious używająca libsndfile do czytania plików
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
 %description -n audacious-input-sndfile
-sndfile is an input plugin for Audacious. Using sndfile extends
-the capabilities of Audacious to open and play any file which can be opened
-and read by libsndfile, including WAV, AIFF, AU, and SVX files and
-many compressed version of these file formats.
+sndfile is an input plugin for Audacious. Using sndfile extends the
+capabilities of Audacious to open and play any file which can be
+opened and read by libsndfile, including WAV, AIFF, AU, and SVX files
+and many compressed version of these file formats.
 
 %description -n audacious-input-sndfile -l pl.UTF-8
 sndfile to wtyczka wejściowa dla Audacious-a. Jej użycie rozszerza
-możliwości Audacious-a o otwieranie i odtwarzanie dowolnych plików, które
-można otworzyć i odczytać przy pomocy biblioteki libsndfile, w tym
-WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych formatów.
+możliwości Audacious-a o otwieranie i odtwarzanie dowolnych plików,
+które można otworzyć i odczytać przy pomocy biblioteki libsndfile, w
+tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
+formatów.
 
 %package -n audacious-input-timidity
 Summary:	Audacious media player - Timidity input plugin
@@ -844,17 +846,19 @@ Output OSS plugin for Audacious media player.
 %description -n audacious-output-oss -l pl.UTF-8
 Wtyczka wyjściowa OSS dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-pulse_audio
+%package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa PulseAudio odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
+Provides:	audacious-output-pulse_audio
+Obsoletes:	audacious-output-pulse_audio
 
-%description -n audacious-output-pulse_audio
+%description -n audacious-output-pulseaudio
 PulseAudio output plugin for Audacious media player.
 
-%description -n audacious-output-pulse_audio -l pl.UTF-8
+%description -n audacious-output-pulseaudio -l pl.UTF-8
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
@@ -1231,7 +1235,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/OSS.so
 
-%files -n audacious-output-pulse_audio
+%files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
