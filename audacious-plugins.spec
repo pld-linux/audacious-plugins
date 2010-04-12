@@ -3,18 +3,17 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	2.1
+%define		audver	2.3
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	2.1
-Release:	4
+Version:	2.3
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
-# Source0-md5:	087fcb1f6fb8429b267f18ed3e3acb7a
+# Source0-md5:	de350b7612ff42e3719ae19a36389118
 Patch0:		%{name}-libmtp.patch
-Patch1:		%{name}-jack.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -23,28 +22,26 @@ BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf
 BuildRequires:	automake
-# BR by transport-lastfm and general-scrobbler
-BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
+# BR input-aac
+BuildRequires:	faad2-devel
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	gettext-devel
 # BR by visualization-projectM
 BuildRequires:	gtkglext-devel
-BuildRequires:	imlib2-devel >= 1.1.0
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
 # BR by input-cdaudio-ng
 BuildRequires:	libcddb-devel >= 1.1.2
 # BR by input-cdaudio-ng
 BuildRequires:	libcdio-devel >= 0.70
-BuildRequires:	libglade2-devel >= 2.3.1
 BuildRequires:	libmad-devel
+# BR by container-cuesheet
+BuildRequires:	libcue-devel
 # BR by transport-mms
 BuildRequires:	libmms-devel >= 0.3
-BuildRequires:	libmodplug-devel
-BuildRequires:	libmpcdec-devel
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.3.0
 # BR by visualization-projectM
@@ -54,15 +51,18 @@ BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
 BuildRequires:	libvorbis-devel >= 1:1.0
 BuildRequires:	lirc-devel
+BuildRequires:	libxml2-devel
 # BR by transport-neon
 BuildRequires:	neon-devel
 BuildRequires:	pango-devel >= 1.14.7
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.9
-BuildRequires:	taglib-devel >= 1.4
 BuildRequires:	wavpack-devel >= 4.31
+# BR by output-icecast
+BuildRequires:	libshout-devel
 # BR by general-aosd (X Composite Support)
 BuildRequires:	xorg-lib-libXcomposite-devel
+Requires:	audacious-container-cuesheet = %{version}-%{release}
 Requires:	audacious-container-m3u = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
@@ -70,18 +70,19 @@ Requires:	audacious-effect-audiocompress = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
+Requires:	audacious-effect-resample = %{version}-%{release}
 Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
+Requires:	audacious-general-cd-menu-items = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
 Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
-Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
@@ -89,27 +90,21 @@ Requires:	audacious-general-streambrowser = %{version}-%{release}
 Requires:	audacious-general-vfstrace = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
-Requires:	audacious-input-alac = %{version}-%{release}
 Requires:	audacious-input-amidi = %{version}-%{release}
 Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
-Requires:	audacious-input-cuesheet_ng = %{version}-%{release}
-Requires:	audacious-input-demac = %{version}-%{release}
+Requires:	audacious-input-ffaudio = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
 Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
-Requires:	audacious-input-musepack = %{version}-%{release}
 Requires:	audacious-input-psf2 = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
 Requires:	audacious-input-sndfile = %{version}-%{release}
-Requires:	audacious-input-timidity = %{version}-%{release}
 Requires:	audacious-input-tonegen = %{version}-%{release}
-Requires:	audacious-input-tta = %{version}-%{release}
 Requires:	audacious-input-vorbis = %{version}-%{release}
 Requires:	audacious-input-vtx = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
-Requires:	audacious-input-wma = %{version}-%{release}
 Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-crossfade = %{version}-%{release}
@@ -121,9 +116,9 @@ Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulseaudio = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
-Requires:	audacious-transport-lastfm = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
+Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-paranormal = %{version}-%{release}
 Requires:	audacious-visualization-projectM = %{version}-%{release}
@@ -221,6 +216,14 @@ LADSPA plugin for Audacious media player.
 %description -n audacious-effect-ladspa -l pl.UTF-8
 Wtyczka LADSPA dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-effect-resample
+Summary:	Audacious media player - sample rate converter plugin
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-resample
+sample rate converter plugin for Audacious media player.
+
 %package -n audacious-effect-sndstretch
 Summary:	Audacious media player - sndstretch plugin
 Summary(pl.UTF-8):	Wtyczka sndstretch odtwarzacza multimedialnego Audacious
@@ -281,6 +284,14 @@ aosd plugin for Audacious media player.
 %description -n audacious-general-aosd -l pl.UTF-8
 Wtyczka aosd dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-cd-menu-items
+Summary:	Audacious media player - cd menu items plugin
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-cd-menu-items
+cd menu items plugin for Audacious media player.
+
 %package -n audacious-general-gtkui
 Summary:	Audacious media player - gtkui plugin
 Summary(pl.UTF-8):	Wtyczka gtkui odtwarzacza multimedialnego Audacious
@@ -292,18 +303,6 @@ gtkui plugin for Audacious media player.
 
 %description -n audacious-general-gtkui -l pl.UTF-8
 Wtyczka gtkui dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-general-scrobbler
-Summary:	Audacious media player - scrobbler plugin
-Summary(pl.UTF-8):	Wtyczka scrobbler odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-general-scrobbler
-scrobbler plugin for Audacious media player.
-
-%description -n audacious-general-scrobbler -l pl.UTF-8
-Wtyczka scrobbler dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-skins
 Summary:	Audacious media player - skins plugin
@@ -451,18 +450,6 @@ Adplug input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
 Adplug.
 
-%package -n audacious-input-alac
-Summary:	Audacious media player - alac input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa alac odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-alac
-alac input plugin for Audacious media player.
-
-%description -n audacious-input-alac -l pl.UTF-8
-Wtyczka wejściowa alac dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-input-amidi
 Summary:	Audacious media player - midi input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików midi odtwarzacza multimedialnego Audacious
@@ -502,31 +489,27 @@ SPC, GYM, NSF, VGM and GBS input plugin for Audacious media player.
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
 SPC, GYM, NSF, VGM i GBS.
 
-%package -n audacious-input-cuesheet_ng
-Summary:	Audacious media player - cuesheet_ng input plugin
-Summary(pl.UTF-8):	Wtyczka cuesheet_ng odtwarzacza multimedialnego Audacious
+%package -n audacious-container-cuesheet
+Summary:	Audacious media player - cuesheet input plugin
+Summary(pl.UTF-8):	Wtyczka cuesheet odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Provides:	audacious-input-cuesheet
 Obsoletes:	audacious-input-cuesheet
+Obsoletes:	audacious-input-cuesheet_ng
 
-%description -n audacious-input-cuesheet_ng
-cuesheet_ng input plugin for Audacious media player.
+%description -n audacious-container-cuesheet
+cuesheet input plugin for Audacious media player.
 
-%description -n audacious-input-cuesheet_ng -l pl.UTF-8
-cuesheet_ng wtyczka dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-container-cuesheet -l pl.UTF-8
+cuesheet wtyczka dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-input-demac
-Summary:	Audacious media player - demac input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa demac odtwarzacza multimedialnego Audacious
+%package -n audacious-input-ffaudio
+Summary:	Audacious media player - ffaudio input plugin
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
-%description -n audacious-input-demac
-demac input plugin for Audacious media player.
-
-%description -n audacious-input-demac -l pl.UTF-8
-Wtyczka wejściowa demac dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-input-ffaudio
+ffaudio input plugin for Audacious media player.
 
 %package -n audacious-input-flacng
 Summary:	Audacious media player - FLAC input plugin
@@ -564,22 +547,6 @@ modplug input plugin for Audacious media player.
 
 %description -n audacious-input-modplug -l pl.UTF-8
 Wtyczka wejściowa modplug dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-input-musepack
-Summary:	Audacious media player - Musepack input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa Musepack odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-musepack
-This plugin for Audaciuos can play audio files which are encoded with
-Andree Buschmann's encoder Musepack. These files have the filename
-postfixes MPC, MP+ or MPP.
-
-%description -n audacious-input-musepack -l pl.UTF-8
-Ta wtyczka dla Audaciuos odtwarza pliki dźwiękowe zakodowane koderem
-Musepack autorstwa Andree Buschmanna. Te pliki mają rozszerzenie MPC,
-MP+ lub MPP.
 
 %package -n audacious-input-madplug
 Summary:	Audacious media player - madplug input plugin
@@ -638,18 +605,6 @@ które można otworzyć i odczytać przy pomocy biblioteki libsndfile, w
 tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
 formatów.
 
-%package -n audacious-input-timidity
-Summary:	Audacious media player - Timidity input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa Timidity odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-timidity
-Timidity input plugin for Audacious media player.
-
-%description -n audacious-input-timidity -l pl.UTF-8
-Wtyczka wejściowa Timidity dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-input-tonegen
 Summary:	Audacious media player - input plugin to generate sound of given frequency
 Summary(pl.UTF-8):	Wtyczka do generowania dźwięków o danej częstotliwości odtwarzacza multimedialnego Audacious
@@ -661,20 +616,6 @@ Input plugin to generate sound of given frequency for Audacious media
 player.
 
 %description -n audacious-input-tonegen -l pl.UTF-8
-Wtyczka do generowania dźwięków o danej częstotliwości dla odtwarzacza
-multimedialnego Audacious.
-
-%package -n audacious-input-tta
-Summary:	Audacious media player - input plugin to generate sound of given frequency
-Summary(pl.UTF-8):	Wtyczka do generowania dźwięków o danej częstotliwości odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-tta
-Input plugin to generate sound of given frequency for Audacious media
-player.
-
-%description -n audacious-input-tta -l pl.UTF-8
 Wtyczka do generowania dźwięków o danej częstotliwości dla odtwarzacza
 multimedialnego Audacious.
 
@@ -714,19 +655,6 @@ WavPack input plugin for Audacious media player.
 %description -n audacious-input-wavpack -l pl.UTF-8
 Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi
 skompresowanych plików WAV.
-
-%package -n audacious-input-wma
-Summary:	Audacious media player - WMA input plugin
-Summary(pl.UTF-8):	Wtyczka do odtwarzania plików WMA odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-wma
-WMA input plugin for Audacious media player.
-
-%description -n audacious-input-wma -l pl.UTF-8
-Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
-WMA.
 
 %package -n audacious-input-xsf
 Summary:	Audacious media player - xsf input plugin
@@ -876,6 +804,18 @@ Audacious media player - gio plugin.
 %description -n audacious-transport-gio -l pl.UTF-8
 Wtyczka gio odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-transport-unix_io
+Summary:	Audacious media player - unix_io plugin
+Summary(pl.UTF-8):	Wtyczka unix_io odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-transport-unix_io
+Audacious media player - unix_io plugin.
+
+%description -n audacious-transport-unix_io -l pl.UTF-8
+Wtyczka unix_io odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-transport-neon
 Summary:	Audacious media player - neon plugin
 Summary(pl.UTF-8):	Wtyczka neon odtwarzacza multimedialnego Audacious
@@ -887,18 +827,6 @@ Audacious media player - neon plugin.
 
 %description -n audacious-transport-neon -l pl.UTF-8
 Wtyczka neon odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-transport-lastfm
-Summary:	Audacious media player - lastfm plugin
-Summary(pl.UTF-8):	Wtyczka lastfm odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-transport-lastfm
-Audacious media player - lastfm plugin.
-
-%description -n audacious-transport-lastfm -l pl.UTF-8
-Wtyczka lastfm odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-transport-mms
 Summary:	Audacious media player - MMS plugin
@@ -977,14 +905,12 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %configure \
-	--enable-timidity \
 	--enable-amidiplug \
 	--disable-projectm \
 	--enable-projectm-1.0
@@ -1020,7 +946,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-audiocompress
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Effect/audiocompress.so
+%attr(755,root,root) %{_libdir}/audacious/Effect/compressor.so
 
 %files -n audacious-effect-echo
 %defattr(644,root,root,755)
@@ -1033,6 +959,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/ladspa.so
+
+%files -n audacious-effect-resample
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
 
 %files -n audacious-effect-sndstretch
 %defattr(644,root,root,755)
@@ -1054,18 +984,19 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/aosd.so
 
+%files -n audacious-general-cd-menu-items
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/cd-menu-items.so
+
 %files -n audacious-general-gtkui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
 
-%files -n audacious-general-scrobbler
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/scrobbler.so
-%{_datadir}/audacious/images/audioscrobbler*.png
-
 %files -n audacious-general-skins
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/skins.so
+%{_datadir}/audacious/Skins
+%{_datadir}/audacious/images
 
 %files -n audacious-general-streambrowser
 %defattr(644,root,root,755)
@@ -1111,15 +1042,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/adplug.so
 
-%files -n audacious-input-alac
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/alac.so
-
 %files -n audacious-input-amidi
 %defattr(644,root,root,755)
 %dir %{_libdir}/audacious/Input/amidi-plug
 %attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug/ap-alsa.so
-%attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug/ap-dummy.so
 %attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug/ap-fluidsynth.so
 %attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug.so
 
@@ -1131,21 +1057,17 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/console.so
 
-%files -n audacious-input-cuesheet_ng
+%files -n audacious-container-cuesheet
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/cuesheet_ng.so
+%attr(755,root,root) %{_libdir}/audacious/Container/cue.so
 
-%files -n audacious-input-demac
+%files -n audacious-input-ffaudio
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/demac.so
+%attr(755,root,root) %{_libdir}/audacious/Input/ffaudio.so
 
 %files -n audacious-input-flacng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/flacng.so
-
-%files -n audacious-input-musepack
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/musepack.so
 
 %files -n audacious-input-madplug
 %defattr(644,root,root,755)
@@ -1171,17 +1093,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/sndfile.so
 
-%files -n audacious-input-timidity
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/timidity.so
-
 %files -n audacious-input-tonegen
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/tonegen.so
-
-%files -n audacious-input-tta
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/tta.so
 
 %files -n audacious-input-vorbis
 %defattr(644,root,root,755)
@@ -1195,17 +1109,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/wavpack.so
 
-%files -n audacious-input-wma
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/wma.so
-
 %files -n audacious-input-xsf
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/xsf.so
 
 %files -n audacious-output-alsa
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/ALSA.so
+%attr(755,root,root) %{_libdir}/audacious/Output/alsa.so
 
 %files -n audacious-output-crossfade
 %defattr(644,root,root,755)
@@ -1243,13 +1153,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
 
+%files -n audacious-transport-unix_io
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Transport/unix-io.so
+
 %files -n audacious-transport-neon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
-
-%files -n audacious-transport-lastfm
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Transport/lastfm.so
 
 %files -n audacious-transport-mms
 %defattr(644,root,root,755)
