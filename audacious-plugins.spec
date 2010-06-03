@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	2.3
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
@@ -22,7 +22,6 @@ BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	esound-devel >= 0.2.8
 BuildRequires:	flac-devel >= 1.1.2
 # BR input-aac
 BuildRequires:	faad2-devel
@@ -108,7 +107,6 @@ Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-crossfade = %{version}-%{release}
-Requires:	audacious-output-esd = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-icecast = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
@@ -709,19 +707,6 @@ Output file-writer plugin for Audacious media player.
 Wtyczka wyjściowa zapisu do pliku dla odtwarzacza multimedialnego
 Audacious.
 
-%package -n audacious-output-esd
-Summary:	Audacious media player - esd output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa esd odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
-
-%description -n audacious-output-esd
-Output esd plugin for Audacious media player.
-
-%description -n audacious-output-esd -l pl.UTF-8
-Wtyczka wyjściowa esd dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-output-icecast
 Summary:	Audacious media player - icecast output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa icecast odtwarzacza multimedialnego Audacious
@@ -1128,10 +1113,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-output-file
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/filewriter.so
-
-%files -n audacious-output-esd
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/ESD.so
 
 %files -n audacious-output-jack
 %defattr(644,root,root,755)
