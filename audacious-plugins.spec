@@ -3,17 +3,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	2.3
+%define		audver	2.4.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	2.3
-Release:	5
+Version:	2.4.0
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
-# Source0-md5:	de350b7612ff42e3719ae19a36389118
-Patch0:		%{name}-libmtp.patch
+# Source0-md5:	fdf7d4bb660d95e90044556f12213f42
 Patch1:		%{name}-mkdir.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
@@ -26,6 +25,8 @@ BuildRequires:	automake
 BuildRequires:	flac-devel >= 1.1.2
 # BR input-aac
 BuildRequires:	faad2-devel
+# BR ffaudio
+BuildRequires:  ffmpeg-devel
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	gettext-devel
@@ -58,8 +59,6 @@ BuildRequires:	pango-devel >= 1.14.7
 BuildRequires:	pkgconfig
 BuildRequires:	pulseaudio-devel >= 0.9.9
 BuildRequires:	wavpack-devel >= 4.31
-# BR by output-icecast
-BuildRequires:	libshout-devel
 # BR by general-aosd (X Composite Support)
 BuildRequires:	xorg-lib-libXcomposite-devel
 Requires:	audacious-container-cuesheet = %{version}-%{release}
@@ -87,7 +86,6 @@ Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
 Requires:	audacious-general-streambrowser = %{version}-%{release}
-Requires:	audacious-general-vfstrace = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
 Requires:	audacious-input-amidi = %{version}-%{release}
@@ -107,9 +105,8 @@ Requires:	audacious-input-vtx = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
-Requires:	audacious-output-crossfade = %{version}-%{release}
+Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
-Requires:	audacious-output-icecast = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
@@ -326,18 +323,6 @@ streambrowser plugin for Audacious media player.
 
 %description -n audacious-general-streambrowser -l pl.UTF-8
 Wtyczka streambrowser dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-general-vfstrace
-Summary:	Audacious media player - vfstrace plugin
-Summary(pl.UTF-8):	Wtyczka vfstrace odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-general-vfstrace
-vfstrace plugin for Audacious media player.
-
-%description -n audacious-general-vfstrace -l pl.UTF-8
-Wtyczka vfstrace dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-evdev
 Summary:	Audacious media player - evdev plugin
@@ -681,18 +666,19 @@ Output ALSA plugin for Audacious media player.
 %description -n audacious-output-alsa -l pl.UTF-8
 Wtyczka wyjściowa ALSA dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-crossfade
+%package -n audacious-effect-crossfade
 Summary:	Audacious media player - crossfade output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa crossfade odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
+Provides:	audacious-output-effect
+Obsoletes:	audacious-output-effect
 
-%description -n audacious-output-crossfade
-Output crossfade plugin for Audacious media player.
+%description -n audacious-effect-crossfade
+Crossfade plugin for Audacious media player.
 
-%description -n audacious-output-crossfade -l pl.UTF-8
-Wtyczka wyjściowa crossfade dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-effect-crossfade -l pl.UTF-8
+Wtyczka crossfade dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-file
 Summary:	Audacious media player - file-writer output plugin
@@ -707,19 +693,6 @@ Output file-writer plugin for Audacious media player.
 %description -n audacious-output-file -l pl.UTF-8
 Wtyczka wyjściowa zapisu do pliku dla odtwarzacza multimedialnego
 Audacious.
-
-%package -n audacious-output-icecast
-Summary:	Audacious media player - icecast output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa icecast odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
-
-%description -n audacious-output-icecast
-Output icecast plugin for Audacious media player.
-
-%description -n audacious-output-icecast -l pl.UTF-8
-Wtyczka wyjściowa icecast dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-jack
 Summary:	Audacious media player - JACK output plugin
@@ -890,7 +863,6 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 
 %build
@@ -988,10 +960,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-streambrowser
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/streambrowser.so
-
-%files -n audacious-general-vfstrace
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/vfstrace.so
 
 %files -n audacious-general-evdev
 %defattr(644,root,root,755)
@@ -1104,13 +1072,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/alsa.so
 
-%files -n audacious-output-crossfade
+%files -n audacious-effect-crossfade
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/crossfade.so
-
-%files -n audacious-output-icecast
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/icecast.so
+%attr(755,root,root) %{_libdir}/audacious/Effect/crossfade.so
 
 %files -n audacious-output-file
 %defattr(644,root,root,755)
