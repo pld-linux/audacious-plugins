@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	2.4.0
-Release:	0.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
@@ -950,6 +950,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-gtkui
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
+%{_datadir}/audacious/ui
 
 %files -n audacious-general-skins
 %defattr(644,root,root,755)
