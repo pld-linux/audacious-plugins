@@ -3,16 +3,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	2.4.0
+%define		audver	2.4.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	2.4.0
+Version:	2.4.2
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
-# Source0-md5:	fdf7d4bb660d95e90044556f12213f42
+# Source0-md5:	c33d0ea67e8fb8d6ed3891d464d5009b
 Patch1:		%{name}-mkdir.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
@@ -22,6 +22,8 @@ BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf
 BuildRequires:	automake
+# BR by general-scrobbler
+BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	flac-devel >= 1.1.2
 # BR input-aac
 BuildRequires:	faad2-devel
@@ -45,6 +47,8 @@ BuildRequires:	libcue-devel
 BuildRequires:	libmms-devel >= 0.3
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.3.0
+# BR by general-notfy
+BuildRequires:	libnotify-devel
 # BR by visualization-projectM
 BuildRequires:	libprojectM-devel >= 1:1.1
 BuildRequires:	libsamplerate-devel
@@ -82,6 +86,8 @@ Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
+Requires:	audacious-general-notify = %{version}-%{release}
+Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
@@ -300,6 +306,18 @@ gtkui plugin for Audacious media player.
 %description -n audacious-general-gtkui -l pl.UTF-8
 Wtyczka gtkui dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-scrobbler
+Summary:	Audacious media player - scrobbler plugin
+Summary(pl.UTF-8):	Wtyczka scrobbler odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-scrobbler
+scrobbler plugin for Audacious media player.
+
+%description -n audacious-general-scrobbler -l pl.UTF-8
+Wtyczka scrobbler dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-skins
 Summary:	Audacious media player - skins plugin
 Summary(pl.UTF-8):	Wtyczka skins odtwarzacza multimedialnego Audacious
@@ -383,6 +401,18 @@ mtp_up plugin for Audacious media player.
 
 %description -n audacious-general-mtp_up -l pl.UTF-8
 Wtyczka mtp_up dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-notify
+Summary:	Audacious media player - notify plugin
+Summary(pl):	Wtyczka notify odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-notify
+notify plugin for Audacious media player.
+
+%description -n audacious-general-notify -l pl
+Wtyczka notify dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
@@ -952,6 +982,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
 %{_datadir}/audacious/ui
 
+%files -n audacious-general-scrobbler
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/scrobbler.so
+
 %files -n audacious-general-skins
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/skins.so
@@ -981,6 +1015,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-mtp_up
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/mtp_up.so
+
+%files -n audacious-general-notify
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/notify.so
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
