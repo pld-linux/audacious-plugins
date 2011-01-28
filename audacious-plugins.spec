@@ -701,8 +701,7 @@ Summary:	Audacious media player - crossfade output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa crossfade odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Provides:	audacious-output-effect
-Obsoletes:	audacious-output-effect
+Obsoletes:	audacious-output-crossfade
 
 %description -n audacious-effect-crossfade
 Crossfade plugin for Audacious media player.
