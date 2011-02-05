@@ -411,7 +411,7 @@ Requires:	audacious = %{audver}
 %description -n audacious-general-notify
 notify plugin for Audacious media player.
 
-%description -n audacious-general-notify -l pl
+%description -n audacious-general-notify -l pl.UTF-8
 Wtyczka notify dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-song-change
