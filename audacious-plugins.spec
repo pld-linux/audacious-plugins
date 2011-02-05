@@ -404,7 +404,7 @@ Wtyczka mtp_up dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-notify
 Summary:	Audacious media player - notify plugin
-Summary(pl):	Wtyczka notify odtwarzacza multimedialnego Audacious
+Summary(pl.UTF-8):	Wtyczka notify odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
