@@ -1,0 +1,48 @@
+--- buildsys.mk.in.orig	2011-02-07 19:20:48.661369541 +0000
++++ buildsys.mk.in	2011-02-07 19:21:59.930520847 +0000
+@@ -92,7 +92,6 @@
+ 
+ MO_FILES = ${LOCALES:.po=.mo}
+ 
+-.SILENT:
+ .SUFFIXES:
+ .SUFFIXES: .beam .c .cc .cxx .d .dep .erl .mo .m .mm .o .po .py .pyc .xpm .S
+ .PHONY: all subdirs pre-depend depend install install-extra uninstall uninstall-extra clean distclean
+@@ -502,21 +501,21 @@
+ 	# ./configure creates .deps files even in folders not listed in SUBDIRS.
+ 	rm -f `find . -name .deps ! -path ./.hg\*`
+ 
+-DIR_ENTER = printf "\033[K\033[0;36mEntering directory \033[1;36m$$i\033[0;36m.\033[0m\n"; cd $$i || exit 1
+-DIR_LEAVE = printf "\033[K\033[0;36mLeaving directory \033[1;36m$$i\033[0;36m.\033[0m\n"; cd .. || exit 1
+-DEPEND_STATUS = printf "\033[K\033[0;33mGenerating dependencies...\033[0m\r"
+-DEPEND_OK = printf "\033[K\033[0;32mSuccessfully generated dependencies.\033[0m\n"
+-DEPEND_FAILED = printf "\033[K\033[0;31mFailed to generate dependencies!\033[0m\n"; exit 1
+-COMPILE_STATUS = printf "\033[K\033[0;33mCompiling \033[1;33m$<\033[0;33m...\033[0m\r"
+-COMPILE_OK = printf "\033[K\033[0;32mSuccessfully compiled \033[1;32m$<\033[0;32m.\033[0m\n"
+-COMPILE_FAILED = printf "\033[K\033[0;31mFailed to compile \033[1;31m$<\033[0;31m!\033[0m\n"; exit 1
+-LINK_STATUS = printf "\033[K\033[0;33mLinking \033[1;33m$@\033[0;33m...\033[0m\r"
+-LINK_OK = printf "\033[K\033[0;32mSuccessfully linked \033[1;32m$@\033[0;32m.\033[0m\n"
+-LINK_FAILED = printf "\033[K\033[0;31mFailed to link \033[1;31m$@\033[0;31m!\033[0m\n"; exit 1
+-INSTALL_STATUS = printf "\033[K\033[0;33mInstalling \033[1;33m$$i\033[0;33m...\033[0m\r"
+-INSTALL_OK = printf "\033[K\033[0;32mSuccessfully installed \033[1;32m$$i\033[0;32m.\033[0m\n"
+-INSTALL_FAILED = printf "\033[K\033[0;31mFailed to install \033[1;31m$$i\033[0;31m!\033[0m\n"; exit 1
+-DELETE_OK = printf "\033[K\033[0;34mDeleted \033[1;34m$$i\033[0;34m.\033[0m\n"
+-DELETE_FAILED = printf "\033[K\033[0;31mFailed to delete \033[1;31m$$i\033[0;31m!\033[0m\n"; exit 1
++DIR_ENTER = printf "Entering directory $$i.\n"; cd $$i || exit 1
++DIR_LEAVE = printf "Leaving directory $$i.\n"; cd .. || exit 1
++DEPEND_STATUS = printf "Generating dependencies...\n"
++DEPEND_OK = printf "Successfully generated dependencies.\n"
++DEPEND_FAILED = printf "Failed to generate dependencies!\n"; exit 1
++COMPILE_STATUS = printf "Compiling $<...\n"
++COMPILE_OK = printf "Successfully compiled $<.\n"
++COMPILE_FAILED = printf "Failed to compile $<!\n"; exit 1
++LINK_STATUS = printf "Linking $@...\n"
++LINK_OK = printf "Successfully linked $@.\n"
++LINK_FAILED = printf "Failed to link $@!\n"; exit 1
++INSTALL_STATUS = printf "Installing $$i...\n"
++INSTALL_OK = printf "Successfully installed $$i.\n"
++INSTALL_FAILED = printf "Failed to install $$i!\n"; exit 1
++DELETE_OK = printf "Deleted $$i.\n"
++DELETE_FAILED = printf "Failed to delete $$i!\n"; exit 1
+ 
+ include .deps

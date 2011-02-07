@@ -1,0 +1,93 @@
+changeset:   5320:d7f11bf8b7c8
+user:        Tony Vroon <chainsaw@gentoo.org>
+date:        Sun Jan 23 00:28:36 2011 +0000
+summary:     adplug: Two fixes (to protrack & rol) from Michael Schwendt, closes AUDPLUG-320.
+
+diff -r 9f9d51fa2975 -r d7f11bf8b7c8 src/adplug/core/protrack.cxx
+--- a/src/adplug/core/protrack.cxx	Fri Jan 21 23:28:39 2011 -0500
++++ b/src/adplug/core/protrack.cxx	Sun Jan 23 00:28:36 2011 +0000
+@@ -266,6 +266,10 @@
+     else
+       track--;
+ 
++    if (track >= npats*nchans) {  // prevent overflow
++        songend = 1;
++        return !songend;
++    }
+     AdPlug_LogWrite ("%3d%3d%2X%2X%2X|", tracks[track][row].note,
+                      tracks[track][row].inst, tracks[track][row].command,
+                      tracks[track][row].param1, tracks[track][row].param2);
+diff -r 9f9d51fa2975 -r d7f11bf8b7c8 src/adplug/core/rol.cxx
+--- a/src/adplug/core/rol.cxx	Fri Jan 21 23:28:39 2011 -0500
++++ b/src/adplug/core/rol.cxx	Sun Jan 23 00:28:36 2011 +0000
+@@ -257,6 +257,9 @@
+     TVolumeEvents      &vEvents = voiceData.volume_events;
+     TPitchEvents       &pEvents = voiceData.pitch_events;
+ 
++    if (iEvents.empty()) {
++        return;  // prevent out-of-bounds access
++    }
+     if( !(voiceData.mEventStatus & CVoiceData::kES_InstrEnd ) &&
+         iEvents[voiceData.next_instrument_event].time == mCurrTick )
+     {
+@@ -271,6 +274,9 @@
+         }
+     }
+ 
++    if (vEvents.empty()) {
++        return;  // prevent out-of-bounds access
++    }
+     if( !(voiceData.mEventStatus & CVoiceData::kES_VolumeEnd ) &&
+         vEvents[voiceData.next_volume_event].time == mCurrTick )
+     {
+@@ -314,6 +320,9 @@
+         }
+     }
+ 
++    if (pEvents.empty()) {
++        return;  // prevent out-of-bounds access
++    }
+     if( !(voiceData.mEventStatus & CVoiceData::kES_PitchEnd ) &&
+         pEvents[voiceData.next_pitch_event].time == mCurrTick )
+     {
+@@ -454,6 +463,9 @@
+ {
+     int16 const num_tempo_events = f->readInt( 2 );
+ 
++    if (num_tempo_events<0) {
++        return;
++    }
+     mTempoEvents.reserve( num_tempo_events );
+ 
+     for(int i=0; i<num_tempo_events; ++i)
+@@ -538,6 +550,9 @@
+                                          binistream *bnk_file, SBnkHeader const &bnk_header )
+ {
+     int16 const number_of_instrument_events = f->readInt( 2 );
++    if (number_of_instrument_events<0) {
++        return;
++    }
+ 
+     TInstrumentEvents &instrument_events = voice.instrument_events;
+ 
+@@ -563,6 +578,9 @@
+ void CrolPlayer::load_volume_events( binistream *f, CVoiceData &voice )
+ {
+     int16 const number_of_volume_events = f->readInt( 2 );
++    if (number_of_volume_events<0) {
++        return;
++    }
+ 
+     TVolumeEvents &volume_events = voice.volume_events;
+ 
+@@ -583,6 +601,9 @@
+ void CrolPlayer::load_pitch_events( binistream *f, CVoiceData &voice )
+ {
+     int16 const number_of_pitch_events = f->readInt( 2 );
++    if (number_of_pitch_events<0) {
++        return;
++    }
+ 
+     TPitchEvents &pitch_events = voice.pitch_events;
+ 
+

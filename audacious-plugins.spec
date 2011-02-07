@@ -14,6 +14,11 @@ Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
 # Source0-md5:	d2c76253e7a5d83dbd87319790f3c7a5
 Patch1:		%{name}-mkdir.patch
+Patch2:		%{name}-verbose_make.patch
+Patch3:		%{name}-libdir.patch
+Patch4:		%{name}-AUD-289.patch
+Patch5:		%{name}-AUD-320.patch
+Patch6:		%{name}-AUD-323.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -893,6 +898,11 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %prep
 %setup -q
 %patch1 -p1
+%patch2 -p0
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 %{__aclocal} -I m4

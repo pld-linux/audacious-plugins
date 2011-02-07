@@ -1,0 +1,24 @@
+diff -ur audacious-plugins-2.4.3.orig/src/ladspa/ladspa.c audacious-plugins-2.4.3/src/ladspa/ladspa.c
+--- audacious-plugins-2.4.3.orig/src/ladspa/ladspa.c	2011-02-07 20:25:36.222352306 +0000
++++ audacious-plugins-2.4.3/src/ladspa/ladspa.c	2011-01-12 11:13:26.000000000 +0000
+@@ -210,7 +210,7 @@
+     if (ladspa_path == NULL)
+     {
+ 	/* Fallback, look in obvious places */
+-	find_plugins("/usr/lib/ladspa");
++	find_plugins("LIBDIR/ladspa");
+ 	find_plugins("/usr/local/lib/ladspa");
+     }
+     else
+Only in audacious-plugins-2.4.3.orig/src/ladspa: .ladspa.c.swp
+diff -ur audacious-plugins-2.4.3.orig/src/ladspa/Makefile audacious-plugins-2.4.3/src/ladspa/Makefile
+--- audacious-plugins-2.4.3.orig/src/ladspa/Makefile	2011-02-07 20:32:52.790556339 +0000
++++ audacious-plugins-2.4.3/src/ladspa/Makefile	2011-01-12 11:13:26.000000000 +0000
+@@ -8,5 +8,5 @@
+ plugindir := ${plugindir}/${EFFECT_PLUGIN_DIR}
+ 
+ CFLAGS += ${PLUGIN_CFLAGS}
+-CPPFLAGS += ${PLUGIN_CPPFLAGS} ${MOWGLI_CFLAGS} ${GTK_CFLAGS} ${GLIB_CFLAGS}  -I../..
++CPPFLAGS += ${PLUGIN_CPPFLAGS} ${MOWGLI_CFLAGS} ${GTK_CFLAGS} ${GLIB_CFLAGS}  -I../.. -DLIBDIR=${libdir}
+ LIBS += ${GTK_LIBS} ${GLIB_LIBS} -ldl
+Only in audacious-plugins-2.4.3.orig/src/ladspa: .Makefile.swp
