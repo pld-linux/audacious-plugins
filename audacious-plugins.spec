@@ -17,8 +17,8 @@ Patch1:		%{name}-mkdir.patch
 Patch2:		%{name}-verbose_make.patch
 Patch3:		%{name}-libdir.patch
 Patch4:		%{name}-AUD-289.patch
-Patch5:		%{name}-AUD-320.patch
-Patch6:		%{name}-AUD-323.patch
+Patch5:		%{name}-AUDPLUG-320.patch
+Patch6:		%{name}-AUDPLUG-323.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
