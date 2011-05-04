@@ -3,16 +3,16 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	2.4.4
+%define		audver	2.5.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	2.4.4
-Release:	2
+Version:	2.5.0
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tgz
-# Source0-md5:	e0b097beeba9da70896d1e36888996c8
+# Source0-md5:	d22dfc7e47a4ef0fb1e5d99e6a8ed42f
 Patch1:		%{name}-mkdir.patch
 Patch2:		%{name}-verbose_make.patch
 Patch3:		%{name}-libdir.patch
@@ -30,7 +30,7 @@ BuildRequires:	flac-devel >= 1.1.2
 # BR input-aac
 BuildRequires:	faad2-devel
 # BR ffaudio
-BuildRequires:  ffmpeg-devel
+BuildRequires:	ffmpeg-devel
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	gettext-devel
@@ -57,8 +57,8 @@ BuildRequires:	libsamplerate-devel
 BuildRequires:	libsidplay-devel
 BuildRequires:	libsndfile-devel >= 0.19
 BuildRequires:	libvorbis-devel >= 1:1.0
-BuildRequires:	lirc-devel
 BuildRequires:	libxml2-devel
+BuildRequires:	lirc-devel
 # BR by transport-neon
 BuildRequires:	neon-devel
 BuildRequires:	pango-devel >= 1.14.7
@@ -67,19 +67,23 @@ BuildRequires:	pulseaudio-devel >= 0.9.9
 BuildRequires:	wavpack-devel >= 4.31
 # BR by general-aosd (X Composite Support)
 BuildRequires:	xorg-lib-libXcomposite-devel
+Requires:	audacious-container-asx = %{version}-%{release}
 Requires:	audacious-container-cuesheet = %{version}-%{release}
 Requires:	audacious-container-m3u = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
+Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
+Requires:	audacious-effect-mixdown = %{version}-%{release}
 Requires:	audacious-effect-resample = %{version}-%{release}
 Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
+Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-cd-menu-items = %{version}-%{release}
 Requires:	audacious-general-evdev = %{version}-%{release}
@@ -87,6 +91,7 @@ Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
+Requires:	audacious-general-lyricwiki = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-scrobbler = %{version}-%{release}
@@ -113,17 +118,19 @@ Requires:	audacious-input-vtx = %{version}-%{release}
 Requires:	audacious-input-wavpack = %{version}-%{release}
 Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
-Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
 Requires:	audacious-output-null = %{version}-%{release}
 Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulseaudio = %{version}-%{release}
+Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
 Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
+Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
+Requires:	audacious-visualization-moodbar = %{version}-%{release}
 Requires:	audacious-visualization-paranormal = %{version}-%{release}
 Requires:	audacious-visualization-projectM = %{version}-%{release}
 Requires:	audacious-visualization-rocklight = %{version}-%{release}
@@ -135,6 +142,18 @@ Plugins for Audacious media player (metapackage).
 
 %description -l pl.UTF-8
 Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet).
+
+%package -n audacious-container-asx
+Summary:	Audacious media player - ASX plugin
+Summary(pl.UTF-8):	Wtyczka ASX odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-container-asx
+This plugin adds support for playlists in ASX format.
+
+%description -n audacious-container-asx -l pl.UTF-8
+Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie ASX.
 
 %package -n audacious-container-m3u
 Summary:	Audacious media player - M3U plugin
@@ -220,6 +239,18 @@ LADSPA plugin for Audacious media player.
 %description -n audacious-effect-ladspa -l pl.UTF-8
 Wtyczka LADSPA dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-effect-mixdown
+Summary:	Audacious media player - mixdown plugin
+Summary(pl.UTF-8):	Wtyczka mixdown odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-mixdown
+mixdown plugin for Audacious media player.
+
+%description -n audacious-effect-mixdown -l pl.UTF-8
+Wtyczka mixdown dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-effect-resample
 Summary:	Audacious media player - sample rate converter plugin
 Group:		X11/Applications/Sound
@@ -275,6 +306,18 @@ alarm plugin for Audacious media player.
 
 %description -n audacious-general-alarm -l pl.UTF-8
 Wtyczka alarm dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-albumart
+Summary:	Audacious media player - albumart plugin
+Summary(pl.UTF-8):	Wtyczka albumart odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-albumart
+albumart plugin for Audacious media player.
+
+%description -n audacious-general-albumart -l pl.UTF-8
+Wtyczka albumart dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
@@ -391,6 +434,18 @@ LIRC plugin for Audacious media player.
 
 %description -n audacious-general-lirc -l pl.UTF-8
 Wtyczka LIRC dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-lyricwiki
+Summary:	Audacious media player - lyricwiki plugin
+Summary(pl.UTF-8):	Wtyczka lyricwiki odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-lyricwiki
+lyricwiki plugin for Audacious media player.
+
+%description -n audacious-general-lyricwiki -l pl.UTF-8
+Wtyczka lyricwiki dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-mtp_up
 Summary:	Audacious media player - mtp_up plugin
@@ -780,6 +835,21 @@ PulseAudio output plugin for Audacious media player.
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-output-sdlout
+Summary:	Audacious media player - sdlout output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa sdlout odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+Provides:	audacious-output-pulse_audio
+Obsoletes:	audacious-output-pulse_audio
+
+%description -n audacious-output-sdlout
+sdlout output plugin for Audacious media player.
+
+%description -n audacious-output-sdlout -l pl.UTF-8
+Wtyczka wyjściowa sdlout dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-transport-gio
 Summary:	Audacious media player - gio plugin
 Summary(pl.UTF-8):	Wtyczka gio odtwarzacza multimedialnego Audacious
@@ -843,6 +913,31 @@ Blur scope visualization plugin for Audacious media player.
 Wtyczka graficzna Blur scope dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-visualization-cairo-spectrum
+Summary:	Audacious media player - Blur cairo-spectrum visualization plugin
+Summary(pl.UTF-8):	Wtyczka graficzna cairo-spectrum odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-visualization-cairo-spectrum
+cairo-spectrum visualization plugin for Audacious media player.
+
+%description -n audacious-visualization-cairo-spectrum -l pl.UTF-8
+Wtyczka graficzna cairo-spectrum dla odtwarzacza multimedialnego
+Audacious.
+
+%package -n audacious-visualization-moodbar
+Summary:	Audacious media player - moodbar visualization plugin
+Summary(pl.UTF-8):	Wtyczka graficzna moodbar odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-visualization-moodbar
+moodbar visualization plugin for Audacious media player.
+
+%description -n audacious-visualization-moodbar -l pl.UTF-8
+Wtyczka graficzna moodbar dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-visualization-paranormal
 Summary:	Audacious media player - Paranormal visualization plugin
 Summary(pl.UTF-8):	Wtyczka graficzna Paranormal odtwarzacza multimedialnego Audacious
@@ -895,7 +990,7 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p0
+%patch2 -p1
 %patch3 -p1
 
 %build
@@ -923,6 +1018,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
+
+%files -n audacious-container-asx
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Container/asx.so
 
 %files -n audacious-container-m3u
 %defattr(644,root,root,755)
@@ -952,6 +1051,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/ladspa.so
 
+%files -n audacious-effect-mixdown
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/mixdown.so
+
 %files -n audacious-effect-resample
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
@@ -971,6 +1074,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-alarm
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/alarm.so
+
+%files -n audacious-general-albumart
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/albumart.so
 
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
@@ -1014,6 +1121,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-lirc
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/lirc.so
+
+%files -n audacious-general-lyricwiki
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki.so
 
 %files -n audacious-general-mtp_up
 %defattr(644,root,root,755)
@@ -1138,6 +1249,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
+%files -n audacious-output-sdlout
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/sdlout.so
+
 %files -n audacious-transport-gio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
@@ -1157,6 +1272,14 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-visualization-blur-scope
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope.so
+
+%files -n audacious-visualization-cairo-spectrum
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/cairo-spectrum.so
+
+%files -n audacious-visualization-moodbar
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/moodbar.so
 
 %files -n audacious-visualization-paranormal
 %defattr(644,root,root,755)
