@@ -841,8 +841,6 @@ Summary(pl.UTF-8):	Wtyczka wyjściowa sdlout odtwarzacza multimedialnego Audacio
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
-Provides:	audacious-output-pulse_audio
-Obsoletes:	audacious-output-pulse_audio
 
 %description -n audacious-output-sdlout
 sdlout output plugin for Audacious media player.
