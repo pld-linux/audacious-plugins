@@ -92,7 +92,6 @@ Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
 Requires:	audacious-input-ffaudio = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
-Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-psf2 = %{version}-%{release}
@@ -542,18 +541,6 @@ modplug input plugin for Audacious media player.
 %description -n audacious-input-modplug -l pl.UTF-8
 Wtyczka wejściowa modplug dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-input-madplug
-Summary:	Audacious media player - madplug input plugin
-Summary(pl.UTF-8):	Wtyczka wejściowa madplug odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-input-madplug
-MPEG Audio Plugin for Audacious media player.
-
-%description -n audacious-input-madplug -l pl.UTF-8
-Wtyczka wejściowa madplug dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-input-psf2
 Summary:	Audacious media player - psf2 input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa psf2 odtwarzacza multimedialnego Audacious
@@ -883,7 +870,7 @@ Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
 %configure \
 	--enable-amidiplug \
 	--disable-projectm \
-	--enable-projectm-1.0
+	--enable-gio
 
 %{__make}
 
@@ -974,7 +961,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/skins.so
 %{_datadir}/audacious/Skins
-%{_datadir}/audacious/images
+#%%{_datadir}/audacious/images
 
 %files -n audacious-general-gnomeshortcuts
 %defattr(644,root,root,755)
@@ -1038,10 +1025,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-input-flacng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/flacng.so
-
-%files -n audacious-input-madplug
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/madplug.so
 
 %files -n audacious-input-metronom
 %defattr(644,root,root,755)
