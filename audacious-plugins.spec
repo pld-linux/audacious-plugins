@@ -3,19 +3,18 @@
 #
 # NOTE:
 # - projectM plugin is available in two versions, building only newest
-%define		audver	2.5.3
+%define		audver	3.0
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	2.5.3
-Release:	3
+Version:	3.0
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
-# Source0-md5:	a4da732ca92b5c694883758bea925b6b
-Patch1:		%{name}-mkdir.patch
-Patch2:		%{name}-verbose_make.patch
-Patch3:		%{name}-libdir.patch
+# Source0-md5:	4fa6cbfacb4c74ea2291adfab01f0830
+Patch0:		%{name}-verbose_make.patch
+#Patch1:		%{name}-libdir.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-projectM
 BuildRequires:	OpenGL-GLU-devel
@@ -987,9 +986,8 @@ Wtyczka graficzna Spectrum dla odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch0 -p1
+#%%patch1 -p1
 
 %build
 %{__aclocal} -I m4
