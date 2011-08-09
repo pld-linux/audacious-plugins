@@ -786,17 +786,17 @@ Audacious media player - smb plugin.
 %description -n audacious-transport-smb -l pl.UTF-8
 Wtyczka smb odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-transport-unix_io
-Summary:	Audacious media player - unix_io plugin
-Summary(pl.UTF-8):	Wtyczka unix_io odtwarzacza multimedialnego Audacious
+%package -n audacious-transport-mms
+Summary:	Audacious media player - MMS plugin
+Summary(pl.UTF-8):	Wtyczka MMS odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
-%description -n audacious-transport-unix_io
-Audacious media player - unix_io plugin.
+%description -n audacious-transport-mms
+This plugin adds support for mms:// streams.
 
-%description -n audacious-transport-unix_io -l pl.UTF-8
-Wtyczka unix_io odtwarzacza multimedialnego Audacious.
+%description -n audacious-transport-mms -l pl.UTF-8
+Ta wtyczka dodaje wsparcie dla strumieni mms://.
 
 %package -n audacious-transport-neon
 Summary:	Audacious media player - neon plugin
@@ -810,17 +810,17 @@ Audacious media player - neon plugin.
 %description -n audacious-transport-neon -l pl.UTF-8
 Wtyczka neon odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-transport-mms
-Summary:	Audacious media player - MMS plugin
-Summary(pl.UTF-8):	Wtyczka MMS odtwarzacza multimedialnego Audacious
+%package -n audacious-transport-unix_io
+Summary:	Audacious media player - unix_io plugin
+Summary(pl.UTF-8):	Wtyczka unix_io odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
-%description -n audacious-transport-mms
-This plugin adds support for mms:// streams.
+%description -n audacious-transport-unix_io
+Audacious media player - unix_io plugin.
 
-%description -n audacious-transport-mms -l pl.UTF-8
-Ta wtyczka dodaje wsparcie dla strumieni mms://.
+%description -n audacious-transport-unix_io -l pl.UTF-8
+Wtyczka unix_io odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-visualization-blur-scope
 Summary:	Audacious media player - Blur scope visualization plugin
@@ -1114,6 +1114,14 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
 
+%files -n audacious-transport-mms
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Transport/mms.so
+
+%files -n audacious-transport-neon
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
+
 %files -n audacious-transport-smb
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/smb.so
@@ -1121,14 +1129,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-transport-unix_io
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/unix-io.so
-
-%files -n audacious-transport-neon
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
-
-%files -n audacious-transport-mms
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Transport/mms.so
 
 %files -n audacious-visualization-blur-scope
 %defattr(644,root,root,755)
