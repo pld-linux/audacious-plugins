@@ -29,6 +29,8 @@ BuildRequires:	ffmpeg-devel
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	gettext-devel
+# BR by output-jack
+BuildRequires:	jack-audio-connection-kit-devel >= 1.9.7
 BuildRequires:	lame-libs-devel
 BuildRequires:	libbinio-devel >= 1.4
 # BR by input-cdaudio-ng
