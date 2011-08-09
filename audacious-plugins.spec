@@ -12,7 +12,6 @@ Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
 # Source0-md5:	4fa6cbfacb4c74ea2291adfab01f0830
 Patch0:		%{name}-verbose_make.patch
-#Patch1:		%{name}-libdir.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-paranormal
 BuildRequires:	SDL-devel >= 1.2.5
@@ -114,6 +113,7 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
+Requires:	audacious-transport-smb = %{version}-%{release}
 Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
@@ -774,6 +774,18 @@ Audacious media player - gio plugin.
 %description -n audacious-transport-gio -l pl.UTF-8
 Wtyczka gio odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-transport-smb
+Summary:	Audacious media player - smb plugin
+Summary(pl.UTF-8):	Wtyczka smb odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-transport-smb
+Audacious media player - smb plugin.
+
+%description -n audacious-transport-smb -l pl.UTF-8
+Wtyczka smb odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-transport-unix_io
 Summary:	Audacious media player - unix_io plugin
 Summary(pl.UTF-8):	Wtyczka unix_io odtwarzacza multimedialnego Audacious
@@ -863,7 +875,6 @@ Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
 %prep
 %setup -q
 %patch0 -p1
-#%%patch1 -p1
 
 %build
 %{__aclocal} -I m4
@@ -963,7 +974,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/skins.so
 %{_datadir}/audacious/Skins
-#%%{_datadir}/audacious/images
 
 %files -n audacious-general-gnomeshortcuts
 %defattr(644,root,root,755)
@@ -1103,6 +1113,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-transport-gio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
+
+%files -n audacious-transport-smb
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Transport/smb.so
 
 %files -n audacious-transport-unix_io
 %defattr(644,root,root,755)
