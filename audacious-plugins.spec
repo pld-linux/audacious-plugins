@@ -1,5 +1,7 @@
+#
 # TODO:
 # - build oss4 plugin
+# - sort subpackages
 #
 %define		audver	3.0
 Summary:	Plugins for Audacious media player (metapackage)
