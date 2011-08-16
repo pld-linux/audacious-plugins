@@ -3,16 +3,16 @@
 # - build oss4 plugin
 # - sort subpackages
 #
-%define		audver	3.0
+%define		audver	3.0.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.0
+Version:	3.0.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
-# Source0-md5:	4fa6cbfacb4c74ea2291adfab01f0830
+# Source0-md5:	8678af4aef6b07b6b2d1eebf8657187d
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 # BR by visualization-paranormal
