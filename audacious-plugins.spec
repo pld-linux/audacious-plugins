@@ -15,8 +15,6 @@ Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
 # Source0-md5:	8678af4aef6b07b6b2d1eebf8657187d
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
-# BR by visualization-paranormal
-BuildRequires:	SDL-devel >= 1.2.5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf
 BuildRequires:	automake
