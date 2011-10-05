@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.0.1
-Release:	2
+Release:	3
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
@@ -41,6 +41,7 @@ BuildRequires:	libmad-devel
 BuildRequires:	libcue-devel
 # BR by transport-mms
 BuildRequires:	libmms-devel >= 0.3
+BuildRequires:	libmpg123-devel
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.3.0
 # BR by general-notfy
@@ -93,6 +94,7 @@ Requires:	audacious-input-cdaudio-ng = %{version}-%{release}
 Requires:	audacious-input-console = %{version}-%{release}
 Requires:	audacious-input-ffaudio = %{version}-%{release}
 Requires:	audacious-input-flacng = %{version}-%{release}
+Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-psf2 = %{version}-%{release}
@@ -542,6 +544,18 @@ modplug input plugin for Audacious media player.
 
 %description -n audacious-input-modplug -l pl.UTF-8
 Wtyczka wejściowa modplug dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-input-madplug
+Summary:	Audacious media player - madplug input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa madplug odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-madplug
+MPEG Audio Plugin for Audacious media player.
+
+%description -n audacious-input-madplug -l pl.UTF-8
+Wtyczka wejściowa madplug dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-psf2
 Summary:	Audacious media player - psf2 input plugin
@@ -1037,6 +1051,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-input-flacng
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/flacng.so
+
+%files -n audacious-input-madplug
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/madplug.so
 
 %files -n audacious-input-metronom
 %defattr(644,root,root,755)
