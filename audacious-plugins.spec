@@ -3,16 +3,16 @@
 # - build oss4 plugin
 # - sort subpackages
 #
-%define		audver	3.0.3
+%define		audver	3.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.0.3
+Version:	3.1
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
-# Source0-md5:	f4cc706d4cd23249d1ed488fa5bb8eff
+# Source0-md5:	46606131a9fd11d190b9a0181cc4ffa2
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	audacious-devel >= %{audver}
@@ -69,11 +69,13 @@ Requires:	audacious-effect-audiocompress = %{version}-%{release}
 Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
-Requires:	audacious-effect-mixdown = %{version}-%{release}
+Requires:	audacious-effect-ladspa = %{version}-%{release}
+Requires:	audacious-effect-mixer = %{version}-%{release}
 Requires:	audacious-effect-resample = %{version}-%{release}
 Requires:	audacious-effect-sndstretch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
+Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-cd-menu-items = %{version}-%{release}
@@ -119,8 +121,6 @@ Requires:	audacious-transport-smb = %{version}-%{release}
 Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
-Requires:	audacious-visualization-moodbar = %{version}-%{release}
-Requires:	audacious-visualization-rocklight = %{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -213,17 +213,29 @@ crystalizer plugin for Audacious media player.
 %description -n audacious-effect-crystalizer -l pl.UTF-8
 Wtyczka crystalizer dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-effect-mixdown
-Summary:	Audacious media player - mixdown plugin
-Summary(pl.UTF-8):	Wtyczka mixdown odtwarzacza multimedialnego Audacious
+%package -n audacious-effect-mixer
+Summary:	Audacious media player - mixer plugin
+Summary(pl.UTF-8):	Wtyczka mixer odtwarzacza multimedialnego Audacious
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
-%description -n audacious-effect-mixdown
-mixdown plugin for Audacious media player.
+%description -n audacious-effect-mixer
+mixer plugin for Audacious media player.
 
-%description -n audacious-effect-mixdown -l pl.UTF-8
-Wtyczka mixdown dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-effect-mixer -l pl.UTF-8
+Wtyczka mixer dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-effect-ladspa
+Summary:	Audacious media player - ladspa plugin
+Summary(pl.UTF-8):	Wtyczka ladspa odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-ladspa
+ladspa plugin for Audacious media player.
+
+%description -n audacious-effect-ladspa -l pl.UTF-8
+Wtyczka ladspa dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-resample
 Summary:	Audacious media player - sample rate converter plugin
@@ -280,6 +292,18 @@ albumart plugin for Audacious media player.
 
 %description -n audacious-general-albumart -l pl.UTF-8
 Wtyczka albumart dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-alarm
+Summary:	Audacious media player - alarm plugin
+Summary(pl.UTF-8):	Wtyczka alarm odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-alarm
+alarm plugin for Audacious media player.
+
+%description -n audacious-general-alarm -l pl.UTF-8
+Wtyczka alarm dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
@@ -862,30 +886,6 @@ cairo-spectrum visualization plugin for Audacious media player.
 Wtyczka graficzna cairo-spectrum dla odtwarzacza multimedialnego
 Audacious.
 
-%package -n audacious-visualization-moodbar
-Summary:	Audacious media player - moodbar visualization plugin
-Summary(pl.UTF-8):	Wtyczka graficzna moodbar odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-visualization-moodbar
-moodbar visualization plugin for Audacious media player.
-
-%description -n audacious-visualization-moodbar -l pl.UTF-8
-Wtyczka graficzna moodbar dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-visualization-rocklight
-Summary:	Audacious media player - Rocklight visualization plugin
-Summary(pl.UTF-8):	Wtyczka graficzna Rocklight odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-visualization-rocklight
-Rocklight visualization plugin for Audacious media player.
-
-%description -n audacious-visualization-rocklight -l pl.UTF-8
-Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
-
 %prep
 %setup -q
 %patch0 -p1
@@ -895,6 +895,8 @@ Wtyczka graficzna Rocklight dla odtwarzacza multimedialnego Audacious.
 %{__autoconf}
 %{__autoheader}
 %configure \
+	--enable-oss \
+	--enable-smb \
 	--enable-amidiplug \
 	--disable-projectm \
 	--enable-gio
@@ -943,9 +945,13 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/crystalizer.so
 
-%files -n audacious-effect-mixdown
+%files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Effect/mixdown.so
+%attr(755,root,root) %{_libdir}/audacious/Effect/ladspa.so
+
+%files -n audacious-effect-mixer
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/mixer.so
 
 %files -n audacious-effect-resample
 %defattr(644,root,root,755)
@@ -966,6 +972,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-albumart
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/albumart.so
+
+%files -n audacious-general-alarm
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/alarm.so
 
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
@@ -1155,11 +1165,3 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-visualization-cairo-spectrum
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/cairo-spectrum.so
-
-%files -n audacious-visualization-moodbar
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Visualization/moodbar.so
-
-%files -n audacious-visualization-rocklight
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Visualization/rocklight.so
