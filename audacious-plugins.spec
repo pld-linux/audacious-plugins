@@ -3,16 +3,16 @@
 # - build oss4 plugin
 # - sort subpackages
 #
-%define		audver	3.1.1
+%define		audver	3.2.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.1.1
-Release:	2
+Version:	3.2.1
+Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
-Source0:	http://distfiles.atheme.org/%{name}-%{version}.tar.gz
-# Source0-md5:	0491ff8561d556926f3080444735ce2f
+Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+# Source0-md5:	d7ce63e2e1837e41334d60eef325a80e
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	audacious-devel >= %{audver}
@@ -60,9 +60,12 @@ BuildRequires:	pulseaudio-devel >= 0.9.9
 BuildRequires:	wavpack-devel >= 4.31
 # BR by general-aosd (X Composite Support)
 BuildRequires:	xorg-lib-libXcomposite-devel
+# BR by modplug
+BuildRequires:	libmodplug-devel
 Requires:	audacious-container-asx = %{version}-%{release}
 Requires:	audacious-container-cuesheet = %{version}-%{release}
 Requires:	audacious-container-m3u = %{version}-%{release}
+Requires:	audacious-container-pl = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
@@ -83,9 +86,11 @@ Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lyricwiki = %{version}-%{release}
+Requires:	audacious-general-mpris2 = %{version}-%{release}
 Requires:	audacious-general-mtp_up = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-scrobbler = %{version}-%{release}
+Requires:	audacious-general-search-tool = %{version}-%{release}
 Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
 Requires:	audacious-general-statusicon = %{version}-%{release}
@@ -152,6 +157,18 @@ This plugin adds support for playlists in M3U format.
 
 %description -n audacious-container-m3u -l pl.UTF-8
 Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie M3U.
+
+%package -n audacious-container-pl
+Summary:	Audacious media player - Audacious playlist format plugin
+Summary(pl.UTF-8):	Wtyczka playlist odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-container-pl
+This plugin adds support for Audacious playlists format.
+
+%description -n audacious-container-pl -l pl.UTF-8
+Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie Audacious.
 
 %package -n audacious-container-pls
 Summary:	Audacious media player - PLS plugin
@@ -397,6 +414,18 @@ lyricwiki plugin for Audacious media player.
 %description -n audacious-general-lyricwiki -l pl.UTF-8
 Wtyczka lyricwiki dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-mpris2
+Summary:	Audacious media player - mpris2 plugin
+Summary(pl.UTF-8):	Wtyczka mpris2 odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-mpris2
+mpris2 plugin for Audacious media player.
+
+%description -n audacious-general-mpris2 -l pl.UTF-8
+Wtyczka mpris2 dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-mtp_up
 Summary:	Audacious media player - mtp_up plugin
 Summary(pl.UTF-8):	Wtyczka mtp_up odtwarzacza multimedialnego Audacious
@@ -420,6 +449,18 @@ notify plugin for Audacious media player.
 
 %description -n audacious-general-notify -l pl.UTF-8
 Wtyczka notify dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-search-tool
+Summary:	Audacious media player - search tool plugin
+Summary(pl.UTF-8):	Wtyczka wyszukiwania utworu odtwarzacza multimedialnego Audacious
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-search-tool
+Song search tool plugin for Audacious media player.
+
+%description -n audacious-general-search-tool -l pl.UTF-8
+Wtyczka wyszukiwania utworu dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
@@ -622,8 +663,8 @@ and many compressed version of these file formats.
 %description -n audacious-input-sndfile -l pl.UTF-8
 sndfile to wtyczka wejściowa dla Audacious-a. Jej użycie rozszerza
 możliwości Audacious-a o otwieranie i odtwarzanie dowolnych plików,
-które można otworzyć i odczytać przy pomocy biblioteki libsndfile, w
-tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
+które można otworzyć i odczytać przy pomocy biblioteki libsndfile,
+w tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
 formatów.
 
 %package -n audacious-input-tonegen
@@ -637,8 +678,8 @@ Input plugin to generate sound of given frequency for Audacious media
 player.
 
 %description -n audacious-input-tonegen -l pl.UTF-8
-Wtyczka do generowania dźwięków o danej częstotliwości dla odtwarzacza
-multimedialnego Audacious.
+Wtyczka do generowania dźwięków o danej częstotliwości dla
+odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-vorbis
 Summary:	Audacious media player - Vorbis input plugin
@@ -925,6 +966,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Container/m3u.so
 
+%files -n audacious-container-pl
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Container/audpl.so
+
 %files -n audacious-container-pls
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Container/pls.so
@@ -1011,6 +1056,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/lyricwiki.so
 
+%files -n audacious-general-mpris2
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/mpris2.so
+
 %files -n audacious-general-mtp_up
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/mtp_up.so
@@ -1018,6 +1067,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-notify
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/notify.so
+
+%files -n audacious-general-search-tool
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/search-tool.so
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
