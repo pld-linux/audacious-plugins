@@ -3,21 +3,23 @@
 # - build oss4 plugin
 # - sort subpackages
 #
-%define		audver	3.2.1
+%define		audver	3.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.2.1
+Version:	3.2.3
 Release:	1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	d7ce63e2e1837e41334d60eef325a80e
+# Source0-md5:	9645637fb108f4d5cc47e72d194c5574
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
+BuildRequires:	SDL-devel >= 1.2.11
 BuildRequires:	audacious-devel >= %{audver}
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
+BuildRequires:	cairo-devel >= 1.2.4
 # BR by general-scrobbler
 BuildRequires:	curl-devel >= 7.9.7
 BuildRequires:	flac-devel >= 1.1.2
@@ -28,6 +30,8 @@ BuildRequires:	ffmpeg-devel
 # BR by output-jack and input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
 BuildRequires:	gettext-devel
+BuildRequires:	glib2-devel >= 1:2.30
+BuildRequires:	gtk+3-devel >= 3.0.0
 # BR by output-jack
 BuildRequires:	jack-audio-connection-kit-devel >= 1.9.7
 BuildRequires:	lame-libs-devel
@@ -41,7 +45,7 @@ BuildRequires:	libmad-devel
 BuildRequires:	libcue-devel
 # BR by transport-mms
 BuildRequires:	libmms-devel >= 0.3
-BuildRequires:	libmpg123-devel
+BuildRequires:	libmpg123-devel >= 1.12
 # BR by general-mtp_up
 BuildRequires:	libmtp-devel >= 0.3.0
 # BR by general-notfy
@@ -663,8 +667,8 @@ and many compressed version of these file formats.
 %description -n audacious-input-sndfile -l pl.UTF-8
 sndfile to wtyczka wejściowa dla Audacious-a. Jej użycie rozszerza
 możliwości Audacious-a o otwieranie i odtwarzanie dowolnych plików,
-które można otworzyć i odczytać przy pomocy biblioteki libsndfile,
-w tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
+które można otworzyć i odczytać przy pomocy biblioteki libsndfile, w
+tym WAV, AIFF, AU i SVX oraz wiele skompresowanych wersji tych
 formatów.
 
 %package -n audacious-input-tonegen
@@ -678,8 +682,8 @@ Input plugin to generate sound of given frequency for Audacious media
 player.
 
 %description -n audacious-input-tonegen -l pl.UTF-8
-Wtyczka do generowania dźwięków o danej częstotliwości dla
-odtwarzacza multimedialnego Audacious.
+Wtyczka do generowania dźwięków o danej częstotliwości dla odtwarzacza
+multimedialnego Audacious.
 
 %package -n audacious-input-vorbis
 Summary:	Audacious media player - Vorbis input plugin
