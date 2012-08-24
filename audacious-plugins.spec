@@ -1005,7 +1005,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-container-pl
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/audpl/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/audpl.so
 
 %files -n audacious-container-pls
@@ -1018,7 +1018,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-audiocompress
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/compressor/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/compressor.so
 
 %files -n audacious-effect-echo
@@ -1027,27 +1027,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-crystalizer
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/crystalizer/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/crystalizer.so
 
 %files -n audacious-effect-ladspa
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/ladspa/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/ladspa.so
 
 %files -n audacious-effect-mixer
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/mixer/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/mixer.so
 
 %files -n audacious-effect-resample
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/resample/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
 
 %files -n audacious-effect-speed-pitch
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/speed-pitch/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/speed-pitch.so
 
 %files -n audacious-effect-stereo
@@ -1056,12 +1056,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-voice_removal
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/voice_removal/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/voice_removal.so
 
 %files -n audacious-general-albumart
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/albumart/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/albumart.so
 
 %files -n audacious-general-alarm
@@ -1074,12 +1074,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-cd-menu-items
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/cd-menu-items/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/cd-menu-items.so
 
 %files -n audacious-general-gtkui
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/gtkui/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
 %{_datadir}/audacious/ui
 
@@ -1102,12 +1102,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-lyricwiki
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/lyricwiki/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/lyricwiki.so
 
 %files -n audacious-general-mpris2
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/mpris2/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/mpris2.so
 
 %files -n audacious-general-notify
@@ -1116,7 +1116,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-search-tool
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/search-tool/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/search-tool.so
 
 %files -n audacious-general-song-change
@@ -1152,12 +1152,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-container-cuesheet
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/cue/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/cue.so
 
 %files -n audacious-input-ffaudio
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/ffaudio/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/ffaudio.so
 
 %files -n audacious-input-flacng
@@ -1166,7 +1166,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-madplug
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/mpg123/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/madplug.so
 
 %files -n audacious-input-metronom
@@ -1179,7 +1179,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-psf2
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/psf/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/psf2.so
 
 %files -n audacious-input-sid
@@ -1208,17 +1208,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-xsf
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/xsf/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/xsf.so
 
 %files -n audacious-output-alsa
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/alsa/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/alsa.so
 
 %files -n audacious-effect-crossfade
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/crossfade/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/crossfade.so
 
 %files -n audacious-output-file
@@ -1235,17 +1235,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-output-sdlout
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/sdlout/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/sdlout.so
 
 %files -n audacious-transport-gio
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/gio/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Transport/gio.so
 
 %files -n audacious-transport-mms
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/mms/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Transport/mms.so
 
 %files -n audacious-transport-neon
@@ -1254,7 +1254,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-transport-unix_io
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/unix-io/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Transport/unix-io.so
 
 %files -n audacious-visualization-blur-scope
@@ -1263,5 +1263,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-visualization-cairo-spectrum
 %defattr(644,root,root,755)
-%doc LICENSE
+%doc src/cairo-spectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/cairo-spectrum.so
