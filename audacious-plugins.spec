@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.3.1
-Release:	0.1
+Release:	1
 License:	GPLv2+ and LGPLv2+ and GPLv3 and MIT and BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -89,6 +89,7 @@ Requires:	audacious-general-cd-menu-items = %{version}-%{release}
 Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
+Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-lyricwiki = %{version}-%{release}
 Requires:	audacious-general-mpris2 = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
@@ -367,6 +368,19 @@ gtkui plugin for Audacious media player.
 
 %description -n audacious-general-gtkui -l pl.UTF-8
 Wtyczka gtkui dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-lirc
+Summary:	Audacious media player - lirc plugin
+Summary(pl.UTF-8):	Wtyczka lirc odtwarzacza multimedialnego Audacious
+License:	GPLv2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-lirc
+lirc plugin for Audacious media player.
+
+%description -n audacious-general-lirc -l pl.UTF-8
+Wtyczka lirc dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-scrobbler
 Summary:	Audacious media player - scrobbler plugin
@@ -1100,6 +1114,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-hotkey
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/hotkey.so
+
+%files -n audacious-general-lirc
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/lirc.so
 
 %files -n audacious-general-lyricwiki
 %defattr(644,root,root,755)
