@@ -3,16 +3,16 @@
 # - build oss4 plugin
 # - sort subpackages
 #
-%define		audver	3.2.4
+%define		audver	3.3.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.2.4
-Release:	1
+Version:	3.3.1
+Release:	0.1
 License:	GPL
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	c54d998fc280d83286fb637294723717
+# Source0-md5:	cc8c6b035279d6ef976bc7775881b42a
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	SDL-devel >= 1.2.11
@@ -79,7 +79,7 @@ Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-mixer = %{version}-%{release}
 Requires:	audacious-effect-resample = %{version}-%{release}
-Requires:	audacious-effect-sndstretch = %{version}-%{release}
+Requires:	audacious-effect-speed-pitch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
 Requires:	audacious-general-alarm = %{version}-%{release}
@@ -91,7 +91,6 @@ Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lyricwiki = %{version}-%{release}
 Requires:	audacious-general-mpris2 = %{version}-%{release}
-Requires:	audacious-general-mtp_up = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-scrobbler = %{version}-%{release}
 Requires:	audacious-general-search-tool = %{version}-%{release}
@@ -119,14 +118,11 @@ Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
-Requires:	audacious-output-null = %{version}-%{release}
-Requires:	audacious-output-oss = %{version}-%{release}
 Requires:	audacious-output-pulseaudio = %{version}-%{release}
 Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
-Requires:	audacious-transport-smb = %{version}-%{release}
 Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
@@ -260,23 +256,22 @@ Wtyczka ladspa dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-resample
 Summary:	Audacious media player - sample rate converter plugin
+License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
 %description -n audacious-effect-resample
 sample rate converter plugin for Audacious media player.
 
-%package -n audacious-effect-sndstretch
-Summary:	Audacious media player - sndstretch plugin
-Summary(pl.UTF-8):	Wtyczka sndstretch odtwarzacza multimedialnego Audacious
+%package -n audacious-effect-speed-pitch
+Summary:	Audacious media player - speed change plugin
+License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-effect-sndstretch
 
-%description -n audacious-effect-sndstretch
-sndstretch plugin for Audacious media player.
-
-%description -n audacious-effect-sndstretch -l pl.UTF-8
-Wtyczka sndstretch dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-effect-speed-pitch
+speed change plugin for Audacious media player.
 
 %package -n audacious-effect-stereo
 Summary:	Audacious media player - stereo plugin
@@ -429,18 +424,6 @@ mpris2 plugin for Audacious media player.
 
 %description -n audacious-general-mpris2 -l pl.UTF-8
 Wtyczka mpris2 dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-general-mtp_up
-Summary:	Audacious media player - mtp_up plugin
-Summary(pl.UTF-8):	Wtyczka mtp_up odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-general-mtp_up
-mtp_up plugin for Audacious media player.
-
-%description -n audacious-general-mtp_up -l pl.UTF-8
-Wtyczka mtp_up dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-notify
 Summary:	Audacious media player - notify plugin
@@ -788,32 +771,6 @@ Output JACK plugin for Audacious media player.
 %description -n audacious-output-jack -l pl.UTF-8
 Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-output-null
-Summary:	Audacious media player - null output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa null odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
-
-%description -n audacious-output-null
-null output plugin for Audacious media player.
-
-%description -n audacious-output-null -l pl.UTF-8
-Wtyczka wyjściowa null dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-output-oss
-Summary:	Audacious media player - OSS output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa OSS odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
-
-%description -n audacious-output-oss
-Output OSS plugin for Audacious media player.
-
-%description -n audacious-output-oss -l pl.UTF-8
-Wtyczka wyjściowa OSS dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa PulseAudio odtwarzacza multimedialnego Audacious
@@ -850,24 +807,13 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-transport-stdio
 Obsoletes:	audacious-transport-stdio
+Obsoletes:	audacious-transport-smb
 
 %description -n audacious-transport-gio
 Audacious media player - gio plugin.
 
 %description -n audacious-transport-gio -l pl.UTF-8
 Wtyczka gio odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-transport-smb
-Summary:	Audacious media player - smb plugin
-Summary(pl.UTF-8):	Wtyczka smb odtwarzacza multimedialnego Audacious
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-transport-smb
-Audacious media player - smb plugin.
-
-%description -n audacious-transport-smb -l pl.UTF-8
-Wtyczka smb odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-transport-mms
 Summary:	Audacious media player - MMS plugin
@@ -1008,9 +954,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
 
-%files -n audacious-effect-sndstretch
+%files -n audacious-effect-speed-pitch
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Effect/sndstretch.so
+%attr(755,root,root) %{_libdir}/audacious/Effect/speed-pitch.so
 
 %files -n audacious-effect-stereo
 %defattr(644,root,root,755)
@@ -1065,10 +1011,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-mpris2
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/mpris2.so
-
-%files -n audacious-general-mtp_up
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/mtp_up.so
 
 %files -n audacious-general-notify
 %defattr(644,root,root,755)
@@ -1181,14 +1123,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/jackout.so
 
-%files -n audacious-output-null
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/null.so
-
-%files -n audacious-output-oss
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/OSS.so
-
 %files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
@@ -1208,10 +1142,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-transport-neon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
-
-%files -n audacious-transport-smb
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Transport/smb.so
 
 %files -n audacious-transport-unix_io
 %defattr(644,root,root,755)
