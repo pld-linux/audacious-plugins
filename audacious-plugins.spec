@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.3.1
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+ and GPLv3 and MIT and BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -138,7 +138,7 @@ Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet).
 %package -n audacious-container-asx
 Summary:	Audacious media player - ASX plugin
 Summary(pl.UTF-8):	Wtyczka ASX odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -151,7 +151,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie ASX.
 %package -n audacious-container-m3u
 Summary:	Audacious media player - M3U plugin
 Summary(pl.UTF-8):	Wtyczka M3U odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -177,7 +177,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie Audacious.
 %package -n audacious-container-pls
 Summary:	Audacious media player - PLS plugin
 Summary(pl.UTF-8):	Wtyczka PLS odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -190,7 +190,7 @@ Ta wtyczka dodaje wsparcie dla list odtwarzania w formacie PLS.
 %package -n audacious-container-xspf
 Summary:	Audacious media player - XSPF plugin
 Summary(pl.UTF-8):	Wtyczka XSPF odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -324,7 +324,7 @@ Wtyczka albumart dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-alarm
 Summary:	Audacious media player - alarm plugin
 Summary(pl.UTF-8):	Wtyczka alarm odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -337,7 +337,7 @@ Wtyczka alarm dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
 Summary(pl.UTF-8):	Wtyczka aosd odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -349,8 +349,8 @@ Wtyczka aosd dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-cd-menu-items
 Summary:	Audacious media player - cd menu items plugin
-Group:		X11/Applications/Sound
 License:	BSD
+Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
 %description -n audacious-general-cd-menu-items
@@ -372,7 +372,7 @@ Wtyczka gtkui dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-lirc
 Summary:	Audacious media player - lirc plugin
 Summary(pl.UTF-8):	Wtyczka lirc odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -397,7 +397,7 @@ Wtyczka scrobbler dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-skins
 Summary:	Audacious media player - skins plugin
 Summary(pl.UTF-8):	Wtyczka skins odtwarzacza multimedialnego Audacious
-License:	GPLv3
+License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -410,7 +410,7 @@ Wtyczka skins dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-gnomeshortcuts
 Summary:	Audacious media player - gnomeshortcuts plugin
 Summary(pl.UTF-8):	Wtyczka gnomeshortcuts odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -423,7 +423,7 @@ Wtyczka gnomeshortcuts odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-hotkey
 Summary:	Audacious media player - hotkey plugin
 Summary(pl.UTF-8):	Wtyczka hotkey odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -462,7 +462,7 @@ Wtyczka mpris2 dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-notify
 Summary:	Audacious media player - notify plugin
 Summary(pl.UTF-8):	Wtyczka notify odtwarzacza multimedialnego Audacious
-License:	GPLv3
+License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -488,7 +488,7 @@ Wtyczka wyszukiwania utworu dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
 Summary(pl.UTF-8):	Wtyczka zmiany utworu odtwarzacza multimedialnego Audacious
-License:	GPLv3
+License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -501,7 +501,7 @@ Wtyczka zmiany utworu dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-general-statusicon
 Summary:	Audacious media player - status icon plugin
 Summary(pl.UTF-8):	Wtyczka ikonki statusu odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -514,7 +514,7 @@ Wtyczka ikonki statusu dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-input-aac
 Summary:	Audacious media player - AAC input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików AAC odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -542,7 +542,7 @@ Adplug.
 %package -n audacious-input-amidi
 Summary:	Audacious media player - midi input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików midi odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -556,7 +556,7 @@ midi poprzez ALSA.
 %package -n audacious-input-cdaudio-ng
 Summary:	Audacious media player - cdaudio-ng input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa cdaudio-ng odtwarzacza multimedialnego Audacious
-License:	GPLv3
+License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -608,7 +608,7 @@ ffaudio input plugin for Audacious media player.
 %package -n audacious-input-flacng
 Summary:	Audacious media player - FLAC input plugin
 Summary(pl.UTF-8):	Wtyczka do odtwarzania plików FLAC odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -622,7 +622,7 @@ FLAC.
 %package -n audacious-input-metronom
 Summary:	Audacious media player - metronom input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa metronom odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -676,7 +676,7 @@ Wtyczka wejściowa psf2 dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-input-sid
 Summary:	Audacious media player - SID input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa SID odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -689,7 +689,7 @@ Wtyczka wejściowa SID dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-input-sndfile
 Summary:	Audacious media player - sndfile input plugin that uses libsndfile to read files
 Summary(pl.UTF-8):	Wtyczka wejściowa sndfile odtwarzacza multimedialnego Audacious używająca libsndfile do czytania plików
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -709,7 +709,7 @@ formatów.
 %package -n audacious-input-tonegen
 Summary:	Audacious media player - input plugin to generate sound of given frequency
 Summary(pl.UTF-8):	Wtyczka do generowania dźwięków o danej częstotliwości odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -724,7 +724,7 @@ multimedialnego Audacious.
 %package -n audacious-input-vorbis
 Summary:	Audacious media player - Vorbis input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa Vorbis odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -737,7 +737,7 @@ Wtyczka wejściowa Vorbis dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-input-vtx
 Summary:	Audacious media player - vtx input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa vtx odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -805,7 +805,7 @@ Wtyczka crossfade dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-output-file
 Summary:	Audacious media player - file-writer output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa zapisu do pliku odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
@@ -834,7 +834,7 @@ Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
 %package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa PulseAudio odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
@@ -869,8 +869,8 @@ License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-transport-stdio
-Obsoletes:	audacious-transport-stdio
 Obsoletes:	audacious-transport-smb
+Obsoletes:	audacious-transport-stdio
 
 %description -n audacious-transport-gio
 Audacious media player - gio plugin.
@@ -894,7 +894,7 @@ Ta wtyczka dodaje wsparcie dla strumieni mms://.
 %package -n audacious-transport-neon
 Summary:	Audacious media player - neon plugin
 Summary(pl.UTF-8):	Wtyczka neon odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -920,7 +920,7 @@ Wtyczka unix_io odtwarzacza multimedialnego Audacious.
 %package -n audacious-visualization-blur-scope
 Summary:	Audacious media player - Blur scope visualization plugin
 Summary(pl.UTF-8):	Wtyczka graficzna Blur scope odtwarzacza multimedialnego Audacious
-License:	GPLv2+
+License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
@@ -1001,6 +1001,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mv $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
 
+mv $RPM_BUILD_ROOT%{_localedir}/sr{_RS,}
 %find_lang %{name}
 
 %clean
