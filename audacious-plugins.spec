@@ -8,7 +8,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.3.4
-Release:	1
+Release:	2
 License:	GPLv2+ and LGPLv2+ and GPLv3 and MIT and BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -999,9 +999,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv $RPM_BUILD_ROOT%{_localedir}/{pt_PT,pt}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/id{_ID,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/pt{_PT,}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/sr{_RS,}
 
-mv $RPM_BUILD_ROOT%{_localedir}/sr{_RS,}
 %find_lang %{name}
 
 %clean
