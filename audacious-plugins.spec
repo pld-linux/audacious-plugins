@@ -582,6 +582,7 @@ License:	unknown
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	curl-libs >= 7.9.7
+Obsoletes:	bmp-general-audioscrobbler
 Obsoletes:	bmp-general-scrobbler
 
 %description -n audacious-general-scrobbler
@@ -733,6 +734,7 @@ License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Obsoletes:	bmp-input-mplayer
+Obsoletes:	bmp-input-mpc
 Obsoletes:	bmp-input-musepack
 
 %description -n audacious-input-ffaudio
