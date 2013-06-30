@@ -1,21 +1,23 @@
 # TODO:
 # - build oss4 plugin
+# /usr/lib64/audacious/Effect/sox-resampler.so
+# /usr/lib64/audacious/Visualization/gl-spectrum.so
+# - stop subpackages madness(?)
 #
 # Conditional build:
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack0		# JACK 0.12x instead of JACK 2
-%bcond_with	sidplay1	# libsidplay 1.x instead of libsidplay2
 #
-%define		audver	3.3.4
+%define		audver	3.4
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.3.4
-Release:	3
+Version:	3.4
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	c7fc344b802557cbbe208c31e5289ef1
+# Source0-md5:	ea59b4023f32ca096519d01b8f6f33c0
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	audacious-devel >= %{audver}
@@ -79,11 +81,7 @@ BuildRequires:	libogg-devel >= 2:1.0
 # effect-resample, effect-speed-pitch, output-jack
 BuildRequires:	libsamplerate-devel
 # input-sid
-%if %{with sidplay1}
-BuildRequires:	libsidplay-devel
-%else
-BuildRequires:	libsidplay2-devel
-%endif
+BuildRequires:	libsidplayfp-devel
 # input-sndfile
 BuildRequires:	libsndfile-devel >= 0.19
 # input-vorbis (>= 1.0), output-file
@@ -1145,9 +1143,7 @@ EOF
 %{__autoheader}
 %configure \
 	%{!?with_bs2b:--disable-bs2b} \
-	--enable-amidiplug \
-	--enable-ipv6 \
-	%{?with_sidplay1:--without-sidplay1}
+	--enable-amidiplug
 
 %{__make}
 
