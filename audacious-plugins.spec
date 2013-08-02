@@ -13,7 +13,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.4
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -293,7 +293,6 @@ Summary(pl.UTF-8):	Wtyczka efektu crossfade dla odtwarzacza multimedialnego Auda
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-output-crossfade
 Obsoletes:	bmp-output-crossfade
 
 %description -n audacious-effect-crossfade
