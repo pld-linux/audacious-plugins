@@ -1,7 +1,5 @@
 # TODO:
 # - build oss4 plugin
-# /usr/lib64/audacious/Effect/sox-resampler.so
-# /usr/lib64/audacious/Visualization/gl-spectrum.so
 # - stop subpackages madness(?)
 #
 # Conditional build:
@@ -26,7 +24,9 @@ BuildRequires:	automake
 BuildRequires:	gettext-devel
 BuildRequires:	pkgconfig
 ### for plugins
-# output-sdlout
+# visualization-gl-spectrum
+BuildRequires:	OpenGL-GLX-devel
+# output-sdlout (could be also SDL2-devel >= 2.0)
 BuildRequires:	SDL-devel >= 1.2.11
 # input-amidi (>= 1.0), output-alsa (>= 1.0.16)
 BuildRequires:	alsa-lib-devel >= 1.0.16
@@ -96,6 +96,8 @@ BuildRequires:	neon-devel >= 0.26
 BuildRequires:	pango-devel >= 1:1.14.7
 # output-pulseaudio
 BuildRequires:	pulseaudio-devel >= 0.9.9
+# effect-sox-resampler
+BuildRequires:	soxr-devel
 # input-wavpack
 BuildRequires:	wavpack-devel >= 4.31
 # general-aosd (aosd-xcomp option)
@@ -118,6 +120,7 @@ Requires:	audacious-effect-echo = %{version}-%{release}
 Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-mixer = %{version}-%{release}
 Requires:	audacious-effect-resample = %{version}-%{release}
+Requires:	audacious-effect-sox-resampler = %{version}-%{release}
 Requires:	audacious-effect-speed-pitch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
@@ -166,6 +169,7 @@ Requires:	audacious-transport-neon = %{version}-%{release}
 Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
+Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -369,6 +373,20 @@ Sample rate converter plugin for Audacious media player.
 %description -n audacious-effect-resample -l pl.UTF-8
 Wtyczka konwertera częstotliwości próbkowania dla odtwarzacza
 multimedialnego Audacious.
+
+%package -n audacious-effect-sox-resampler
+Summary:	Audacious media player - sox-resampler plugin
+Summary(pl.UTF-8):	Wtyczka sox-resampler dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-sox-resampler
+SoX based sample rate converter plugin for Audacious media player.
+
+%description -n audacious-effect-sox-resampler -l pl.UTF-8
+Oparta na SoX wtyczka konwertera częstotliwości próbkowania dla
+odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-speed-pitch
 Summary:	Audacious media player - speed-pitch plugin
@@ -1088,18 +1106,34 @@ Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialnego
 Audacious.
 
 %package -n audacious-visualization-cairo-spectrum
-Summary:	Audacious media player - Blur cairo-spectrum visualization plugin
+Summary:	Audacious media player - cairo-spectrum visualization plugin
 Summary(pl.UTF-8):	Wtyczka wizualizacji cairo-spectrum odtwarzacza multimedialnego Audacious
 License:	MIT
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 
 %description -n audacious-visualization-cairo-spectrum
-cairo-spectrum visualization plugin for Audacious media player.
+Cairo spectrum analyzer visualization plugin for Audacious media
+player.
 
 %description -n audacious-visualization-cairo-spectrum -l pl.UTF-8
-Wtyczka wizualizacji cairo-spectrum dla odtwarzacza multimedialnego
-Audacious.
+Oparta na Cairo wtyczka wizualizacji analizująca widmo dla odtwarzacza
+multimedialnego Audacious.
+
+%package -n audacious-visualization-gl-spectrum
+Summary:	Audacious media player - gl-spectrum visualization plugin
+Summary(pl.UTF-8):	Wtyczka wizualizacji gl-spectrum odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-visualization-gl-spectrum
+OpenGL spectrum analyzer visualization plugin for Audacious media
+player.
+
+%description -n audacious-visualization-gl-spectrum -l pl.UTF-8
+Oparta na OpenGL wtyczka wizualizacji analizująca widmo dla
+odtwarzacza multimedialnego Audacious.
 
 %prep
 %setup -q
@@ -1230,6 +1264,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/resample/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
+
+%files -n audacious-effect-sox-resampler
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/sox-resampler.so
 
 %files -n audacious-effect-speed-pitch
 %defattr(644,root,root,755)
@@ -1446,3 +1484,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/cairo-spectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/cairo-spectrum.so
+
+%files -n audacious-visualization-gl-spectrum
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum.so
