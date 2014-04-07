@@ -6,16 +6,16 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack0		# JACK 0.12x instead of JACK 2
 #
-%define		audver	3.4.2
+%define		audver	3.4.3
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.4.2
-Release:	3
+Version:	3.4.3
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	ac105d093eb819e6346abe19134a40e9
+# Source0-md5:	a52e1ec2f37e9269e26ee67b41153d73
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	audacious-devel >= %{audver}
