@@ -21,7 +21,7 @@ URL:		http://audacious-media-player.org/
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	pkgconfig
 ### for plugins
 # visualization-gl-spectrum
