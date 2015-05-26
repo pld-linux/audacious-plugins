@@ -1,23 +1,23 @@
 # TODO:
-# - build oss4 plugin
-# - stop subpackages madness(?)
+# - stop subpackages madness
 #
 # Conditional build:
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack0		# JACK 0.12x instead of JACK 2
 #
-%define		audver	3.4.3
+%define		audver	3.6.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.4.3
-Release:	3
+Version:	3.6.1
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	a52e1ec2f37e9269e26ee67b41153d73
+# Source0-md5:	f1a2ef5fac0afa08d7f54b12f6f64a4e
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
+BuildRequires:	Qt5Multimedia-devel
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -51,8 +51,8 @@ BuildRequires:	glib2-devel >= 1:2.30
 BuildRequires:	gtk+3-devel >= 3.0.0
 # output-jack
 %if %{with jack0}
-BuildRequires:	jack-audio-connection-kit-devel >= 0.120.1
 BuildRequires:	jack-audio-connection-kit-devel < 1.0
+BuildRequires:	jack-audio-connection-kit-devel >= 0.120.1
 %else
 BuildRequires:	jack-audio-connection-kit-devel >= 1.9.7
 %endif
@@ -129,7 +129,6 @@ Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-cd-menu-items = %{version}-%{release}
 Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
-Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-lyricwiki = %{version}-%{release}
@@ -166,10 +165,11 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
-Requires:	audacious-transport-unix_io = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
 Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
+Suggests:	audacious-general-gtkui = %{version}-%{release}
+Suggests:	audacious-general-qtui = %{version}-%{release}
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -515,6 +515,19 @@ GTK+ UI lugin for Audacious media player.
 Wtyczka interfejsu graficznego GTK+ dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-qt
+Summary:	Audacious media player - Qt related plugins
+Summary(pl.UTF-8):	Wtyczki Qt dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-qt
+Qt plugins for Audacious media player.
+
+%description -n audacious-qt -l pl.UTF-8
+Wtyczki związane z Qt dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-general-hotkey
 Summary:	Audacious media player - hotkey plugin
 Summary(pl.UTF-8):	Wtyczka hotkey dla odtwarzacza multimedialnego Audacious
@@ -721,8 +734,8 @@ Obsoletes:	bmp-input-cdaudio
 CD Digital Audio input plugin for Audacious media player.
 
 %description -n audacious-input-cdaudio-ng -l pl.UTF-8
-Wtyczka wejściowa odtwarzacza multimedialnego Audacious pozwalająca
-na odtwarzanie płyt CD Digital Audio.
+Wtyczka wejściowa odtwarzacza multimedialnego Audacious pozwalająca na
+odtwarzanie płyt CD Digital Audio.
 
 %package -n audacious-input-console
 Summary:	Audacious media player - console input plugin
@@ -748,8 +761,8 @@ Summary(pl.UTF-8):	Wtyczka wejściowa ffaudio dla odtwarzacza multimedialnego Au
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	bmp-input-mplayer
 Obsoletes:	bmp-input-mpc
+Obsoletes:	bmp-input-mplayer
 Obsoletes:	bmp-input-musepack
 
 %description -n audacious-input-ffaudio
@@ -922,8 +935,8 @@ Requires:	wavpack-libs >= 4.31
 WavPack input plugin for Audacious media player.
 
 %description -n audacious-input-wavpack -l pl.UTF-8
-Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi
-plików skompresowanych w formacie WavPack.
+Wtyczka dla odtwarzacza multimedialnego Audacious do obsługi plików
+skompresowanych w formacie WavPack.
 
 %package -n audacious-input-xsf
 Summary:	Audacious media player - xsf input plugin
@@ -1142,33 +1155,35 @@ odtwarzacza multimedialnego Audacious.
 while read file no; do
 	head -n "$no" "$file" > $(dirname "$file")/LICENSE
 done <<EOF
-src/albumart/albumart.c 19
-src/alsa/alsa.c 18
-src/audpl/audpl.c 18
-src/cairo-spectrum/cairo-spectrum.c 19
-src/cd-menu-items/cd-menu-items.c 18
-src/compressor/compressor.c 18
-src/crossfade/crossfade.c 18
-src/cue/cue.c 18
-src/gio/gio.c 18
-src/mixer/mixer.c 18
-src/resample/resample.c 18
-src/sdlout/sdlout.c 18
-src/search-tool/search-tool.c 18
-src/speed-pitch/speed-pitch.c 18
-src/unix-io/unix-io.c 18
-src/gtkui/ui_gtk.c 18
-src/ladspa/plugin.c 18
-src/mpris2/plugin.c 18
-src/psf/plugin.c 25
-src/xsf/plugin.c 25
-src/crystalizer/crystalizer.c 19
-src/lyricwiki/lyricwiki.c 19
-src/voice_removal/voice_removal.c 19
-src/ffaudio/ffaudio-core.c 19
-src/mpg123/mpg123.c 20
-src/mms/mms.c 18
+src/albumart/albumart.cc 19
+src/alsa/alsa.cc 18
+src/audpl/audpl.cc 18
+src/cairo-spectrum/cairo-spectrum.cc 19
+src/cd-menu-items/cd-menu-items.cc 18
+src/compressor/compressor.cc 18
+src/crossfade/crossfade.cc 18
+src/cue/cue.cc 18
+src/gio/gio.cc 18
+src/mixer/mixer.cc 18
+src/resample/resample.cc 18
+src/sdlout/sdlout.cc 18
+src/search-tool/search-tool.cc 18
+src/speed-pitch/speed-pitch.cc 18
+src/gtkui/ui_gtk.cc 18
+src/ladspa/plugin.cc 18
+src/mpris2/plugin.cc 18
+src/psf/plugin.cc 25
+src/xsf/plugin.cc 25
+src/crystalizer/crystalizer.cc 19
+src/lyricwiki/lyricwiki.cc 19
+src/voice_removal/voice_removal.cc 19
+src/ffaudio/ffaudio-core.cc 19
+src/mpg123/mpg123.cc 20
+src/mms/mms.cc 18
 EOF
+
+# verbose build
+sed -i '\,^.SILENT:,d' buildsys.mk.in
 
 %build
 %{__aclocal} -I m4
@@ -1176,7 +1191,9 @@ EOF
 %{__autoheader}
 %configure \
 	%{!?with_bs2b:--disable-bs2b} \
-	--enable-amidiplug
+	--enable-amidiplug \
+	--enable-qt \
+	--enable-qtaudio
 
 %{__make}
 
@@ -1198,11 +1215,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc COPYING AUTHORS
+%doc COPYING
+%attr(755,root,root) %{_libdir}/audacious/Effect/silence-removal.so
+%attr(755,root,root) %{_libdir}/audacious/General/delete-files.so
+%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager.so
+%attr(755,root,root) %{_libdir}/audacious/Output/oss4.so
 
 %files -n audacious-container-asx
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Container/asx.so
+%attr(755,root,root) %{_libdir}/audacious/Container/asx3.so
 
 %files -n audacious-container-cuesheet
 %defattr(644,root,root,755)
@@ -1310,7 +1332,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/gtkui/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
-%{_datadir}/audacious/ui
 
 %files -n audacious-general-hotkey
 %defattr(644,root,root,755)
@@ -1358,7 +1379,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-aac
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Input/aac.so
+%attr(755,root,root) %{_libdir}/audacious/Input/aac-raw.so
 
 %files -n audacious-input-adplug
 %defattr(644,root,root,755)
@@ -1366,9 +1387,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-amidi
 %defattr(644,root,root,755)
-%dir %{_libdir}/audacious/Input/amidi-plug
-%attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug/ap-alsa.so
-%attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug/ap-fluidsynth.so
 %attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug.so
 
 %files -n audacious-input-cdaudio-ng
@@ -1447,7 +1465,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-output-jack
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/Output/jackout.so
+%attr(755,root,root) %{_libdir}/audacious/Output/jack-ng.so
 
 %files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
@@ -1472,11 +1490,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
 
-%files -n audacious-transport-unix_io
-%defattr(644,root,root,755)
-%doc src/unix-io/LICENSE
-%attr(755,root,root) %{_libdir}/audacious/Transport/unix-io.so
-
 %files -n audacious-visualization-blur-scope
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope.so
@@ -1489,3 +1502,12 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-visualization-gl-spectrum
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum.so
+
+%files -n audacious-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/qtui.so
+%attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/song-info-qt.so
+%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
+%attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum-qt.so
