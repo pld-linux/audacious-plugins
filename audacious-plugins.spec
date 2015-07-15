@@ -18,6 +18,7 @@ Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	Qt5Multimedia-devel
+BuildRequires:	Qt5OpenGL-devel
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
