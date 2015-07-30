@@ -1090,20 +1090,6 @@ Neon HTTP/HTTPS transport plugin for Audacious media player.
 Wtyczka transportu neon (HTTP/HTTPS) dla odtwarzacza multimedialnego
 Audacious.
 
-%package -n audacious-transport-unix_io
-Summary:	Audacious media player - unix-io transportu plugin
-Summary(pl.UTF-8):	Wtyczka transportu unix-io dla odtwarzacza multimedialnego Audacious
-License:	BSD
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-
-%description -n audacious-transport-unix_io
-Unix file I/O transport plugin for Audacious media player.
-
-%description -n audacious-transport-unix_io -l pl.UTF-8
-Wtyczka transportu unix-io dla odtwarzacza multimedialnego Audacious,
-obsługująca odtwarzanie z plików uniksowych.
-
 %package -n audacious-visualization-blur-scope
 Summary:	Audacious media player - Blur scope visualization plugin
 Summary(pl.UTF-8):	Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialnego Audacious
