@@ -5,20 +5,25 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack0		# JACK 0.12x instead of JACK 2
 #
-%define		audver	3.6.1
+%define		audver	3.6.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.6.1
-Release:	2
+Version:	3.6.2
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	f1a2ef5fac0afa08d7f54b12f6f64a4e
+# Source0-md5:	b4340be4d3c1ec577937a2c5399c6d53
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
-BuildRequires:	Qt5Multimedia-devel
-BuildRequires:	Qt5OpenGL-devel
+BuildRequires:	Qt5Core-devel >= 5
+BuildRequires:	Qt5Gui-devel >= 5
+# audacious-qt/qtaudio part
+BuildRequires:	Qt5Multimedia-devel >= 5
+# audacious-qt/gl-spectrum-qt part
+BuildRequires:	Qt5OpenGL-devel >= 5
+BuildRequires:	Qt5Widgets-devel >= 5
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
@@ -27,8 +32,8 @@ BuildRequires:	pkgconfig
 ### for plugins
 # visualization-gl-spectrum
 BuildRequires:	OpenGL-GLX-devel
-# output-sdlout (could be also SDL2-devel >= 2.0)
-BuildRequires:	SDL-devel >= 1.2.11
+# output-sdlout (could be also SDL-devel >= 1.2.11)
+BuildRequires:	SDL2-devel >= 2.0
 # input-amidi (>= 1.0), output-alsa (>= 1.0.16)
 BuildRequires:	alsa-lib-devel >= 1.0.16
 # general-aosd
@@ -42,14 +47,14 @@ BuildRequires:	dbus-glib-devel >= 0.60
 BuildRequires:	flac-devel >= 1.2.1
 # input-aac
 BuildRequires:	faad2-devel >= 2
-# input-ffaudio (libavcodec >= 53.40.0, libavformat >= 53.5.0, libavutil >= 50.42.0)
+# input-ffaudio (libavcodec >= 53.40.0, libavformat >= 53.21.0, libavutil >= 51.27.0)
 BuildRequires:	ffmpeg-devel
 # input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
-# general-lyricwiki (>= 2.14), general-mpris2 (>= 2.30), transport-gio (>= 2.22)
-BuildRequires:	glib2-devel >= 1:2.30
+# AUD_COMMON_PROGS (>= 2.32), general-lyricwiki (>= 2.14), general-mpris2 (>= 2.30), transport-gio (>= 2.22)
+BuildRequires:	glib2-devel >= 1:2.32
 # general-hotkey
-BuildRequires:	gtk+3-devel >= 3.0.0
+BuildRequires:	gtk+2-devel >= 2:2.24
 # output-jack
 %if %{with jack0}
 BuildRequires:	jack-audio-connection-kit-devel < 1.0
@@ -82,9 +87,11 @@ BuildRequires:	libogg-devel >= 2:1.0
 # effect-resample, effect-speed-pitch, output-jack
 BuildRequires:	libsamplerate-devel
 # input-sid
-BuildRequires:	libsidplayfp-devel
+BuildRequires:	libsidplayfp-devel >= 1.0
 # input-sndfile
 BuildRequires:	libsndfile-devel >= 0.19
+# -std=gnu++11
+BuildRequires:	libstdc++-devel >= 6:4.7
 # input-vorbis (>= 1.0), output-file
 BuildRequires:	libvorbis-devel >= 1:1.0
 # container-xspf
@@ -92,7 +99,7 @@ BuildRequires:	libxml2-devel
 # general-lirc
 BuildRequires:	lirc-devel
 # transport-neon
-BuildRequires:	neon-devel >= 0.26
+BuildRequires:	neon-devel >= 0.27
 # general-aosd
 BuildRequires:	pango-devel >= 1:1.14.7
 # output-pulseaudio
@@ -101,6 +108,8 @@ BuildRequires:	pulseaudio-devel >= 0.9.9
 BuildRequires:	soxr-devel
 # input-wavpack
 BuildRequires:	wavpack-devel >= 4.31
+# visualization-gl-spectrum
+BuildRequires:	xorg-lib-libX11-devel
 # general-aosd (aosd-xcomp option)
 BuildRequires:	xorg-lib-libXcomposite-devel
 # general-aosd
@@ -850,6 +859,7 @@ Summary(pl.UTF-8):	Wtyczka wejściowa SID dla odtwarzacza multimedialnego Audaci
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	libsidplayfp >= 1.0
 
 %description -n audacious-input-sid
 SID input plugin for Audacious media player.
@@ -1034,7 +1044,7 @@ Summary:	Audacious media player - sdlout output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa sdlout dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
-Requires:	SDL >= 1.2.11
+Requires:	SDL2 >= 2.0
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
@@ -1081,7 +1091,7 @@ Summary(pl.UTF-8):	Wtyczka transportu neon dla odtwarzacza multimedialnego Audac
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Requires:	neon >= 0.26
+Requires:	neon >= 0.27
 
 %description -n audacious-transport-neon
 Neon HTTP/HTTPS transport plugin for Audacious media player.
