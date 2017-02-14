@@ -1165,7 +1165,6 @@ src/mixer/mixer.cc 18
 src/resample/resample.cc 18
 src/sdlout/sdlout.cc 18
 src/search-tool/search-tool.cc 18
-src/speed-pitch/speed-pitch.cc 18
 src/gtkui/ui_gtk.cc 18
 src/ladspa/plugin.cc 18
 src/mpris2/plugin.cc 18
@@ -1292,7 +1291,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-speed-pitch
 %defattr(644,root,root,755)
-%doc src/speed-pitch/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/speed-pitch.so
 
 %files -n audacious-effect-stereo
@@ -1503,9 +1501,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-qt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/qtui.so
 %attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
 %attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/qtui.so
+%attr(755,root,root) %{_libdir}/audacious/General/search-tool-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/skins-qt.so
 %attr(755,root,root) %{_libdir}/audacious/General/song-info-qt.so
+%attr(755,root,root) %{_libdir}/audacious/General/statusicon-qt.so
 %attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum-qt.so
