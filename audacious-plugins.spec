@@ -3,7 +3,7 @@
 #
 # Conditional build:
 %bcond_without	bs2b		# BS2B effect plugin
-%bcond_with	jack0		# JACK 0.12x instead of JACK 2
+%bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
 %define		audver	3.8.2
 Summary:	Plugins for Audacious media player (metapackage)
@@ -56,7 +56,7 @@ BuildRequires:	glib2-devel >= 1:2.32
 # general-hotkey
 BuildRequires:	gtk+2-devel >= 2:2.24
 # output-jack
-%if %{with jack0}
+%if %{with jack1}
 BuildRequires:	jack-audio-connection-kit-devel < 1.0
 BuildRequires:	jack-audio-connection-kit-devel >= 0.120.1
 %else
@@ -1005,7 +1005,7 @@ Summary(pl.UTF-8):	Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audac
 License:	LGPL v2.1+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-%if %{with jack0}
+%if %{with jack1}
 Requires:	jack-audio-connection-kit-libs >= 0.120.1
 %else
 Requires:	jack-audio-connection-kit-libs >= 1.9.7
