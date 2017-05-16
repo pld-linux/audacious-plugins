@@ -10,7 +10,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.8.2
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -25,6 +25,8 @@ BuildRequires:	Qt5Multimedia-devel >= 5
 BuildRequires:	Qt5OpenGL-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
 BuildRequires:	audacious-devel >= %{audver}
+BuildRequires:	audacious-libs-gtk-devel >= %{audver}
+BuildRequires:	audacious-libs-qt-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	gettext-tools
@@ -51,6 +53,7 @@ BuildRequires:	faad2-devel >= 2
 BuildRequires:	ffmpeg-devel
 # input-amidi
 BuildRequires:	fluidsynth-devel >= 1.0.6
+BuildRequires:	gdk-pixbuf2-devel >= 2.26
 # AUD_COMMON_PROGS (>= 2.32), general-lyricwiki (>= 2.14), general-mpris2 (>= 2.30), transport-gio (>= 2.22)
 BuildRequires:	glib2-devel >= 1:2.32
 # general-hotkey
@@ -95,7 +98,7 @@ BuildRequires:	libstdc++-devel >= 6:4.7
 # input-vorbis (>= 1.0), output-file
 BuildRequires:	libvorbis-devel >= 1:1.0
 # container-xspf
-BuildRequires:	libxml2-devel
+BuildRequires:	libxml2-devel >= 2.0
 # general-lirc
 BuildRequires:	lirc-devel
 # transport-neon
@@ -179,7 +182,7 @@ Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
 Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
 Suggests:	audacious-general-gtkui = %{version}-%{release}
-Suggests:	audacious-general-qtui = %{version}-%{release}
+Suggests:	audacious-qt = %{version}-%{release}
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -347,6 +350,7 @@ Summary(pl.UTF-8):	Wtyczka hosta LADSPA dla odtwarzacza multimedialnego Audaciou
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk >= %{audver}
 
 %description -n audacious-effect-ladspa
 LADSPA host plugin for Audacious media player. It allows to use LADSPA
@@ -445,6 +449,7 @@ Summary(pl.UTF-8):	Wtyczka alarm dla odtwarzacza multimedialnego Audacious
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-alarm
 Alarm plugin for Audacious media player.
@@ -458,6 +463,7 @@ Summary(pl.UTF-8):	Wtyczka albumart dla odtwarzacza multimedialnego Audacious
 License:	MIT
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-albumart
 Album art plugin for Audacious media player.
@@ -517,6 +523,7 @@ Summary(pl.UTF-8):	Wtyczka gtkui dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-gtkui
 GTK+ UI lugin for Audacious media player.
@@ -531,6 +538,7 @@ Summary(pl.UTF-8):	Wtyczki Qt dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt >= %{audver}
 
 %description -n audacious-qt
 Qt plugins for Audacious media player.
@@ -544,6 +552,7 @@ Summary(pl.UTF-8):	Wtyczka hotkey dla odtwarzacza multimedialnego Audacious
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 Requires:	gtk+3 >= 3.0.0
 Obsoletes:	bmp-general-xf86audio
 
@@ -604,6 +613,9 @@ Summary(pl.UTF-8):	Wtyczka notify dla odtwarzacza multimedialnego Audacious
 License:	GPL v3+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
+Requires:	audacious-libs-qt >= %{audver}
+Requires:	gdk-pixbuf2-devel >= 2.26
 Requires:	libnotify >= 0.7
 
 %description -n audacious-general-notify
@@ -635,6 +647,7 @@ Summary(pl.UTF-8):	Wtyczka wyszukiwania dla odtwarzacza multimedialnego Audaciou
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-search-tool
 Song search tool plugin for Audacious media player.
@@ -648,6 +661,7 @@ Summary(pl.UTF-8):	Wtyczka skins dla odtwarzacza multimedialnego Audacious
 License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-skins
 Skins plugin for Audacious media player.
@@ -674,6 +688,7 @@ Summary(pl.UTF-8):	Wtyczka ikonki statusu dla odtwarzacza multimedialnego Audaci
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 Obsoletes:	bmp-status-docklet
 
 %description -n audacious-general-statusicon
@@ -928,6 +943,7 @@ Summary(pl.UTF-8):	Wtyczka wejściowa vtx dla odtwarzacza multimedialnego Audaci
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-input-vtx
 vtx input plugin for Audacious media player.
