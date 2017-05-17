@@ -1219,6 +1219,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/id{_ID,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/ml{_IN,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/pt{_PT,}
+# outdated version of sr
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr_RS
 
 %find_lang %{name}
