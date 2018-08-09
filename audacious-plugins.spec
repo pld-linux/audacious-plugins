@@ -5,16 +5,16 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	3.9
+%define		audver	3.10
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.9
+Version:	3.10
 Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	fe467c4dcee8abbf571e69ed980a56b6
+# Source0-md5:	26268359f4f21171de35cc10d0545733
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	Qt5Core-devel >= 5
@@ -24,6 +24,7 @@ BuildRequires:	Qt5Multimedia-devel >= 5
 # audacious-qt/gl-spectrum-qt part
 BuildRequires:	Qt5OpenGL-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
+BuildRequires:	adplug-devel
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	audacious-libs-gtk-devel >= %{audver}
 BuildRequires:	audacious-libs-qt-devel >= %{audver}
@@ -42,9 +43,6 @@ BuildRequires:	alsa-lib-devel >= 1.0.16
 BuildRequires:	cairo-devel >= 1.2.4
 # general-scrobbler
 BuildRequires:	curl-devel >= 7.9.7
-# general-gnomeshortcuts
-BuildRequires:	dbus-devel >= 0.60
-BuildRequires:	dbus-glib-devel >= 0.60
 # input-flacng (>= 1.2.1), output-file (>= 1.1.3)
 BuildRequires:	flac-devel >= 1.2.1
 # input-aac
@@ -141,7 +139,6 @@ Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-cd-menu-items = %{version}-%{release}
-Requires:	audacious-general-gnomeshortcuts = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
 Requires:	audacious-general-lyricwiki = %{version}-%{release}
@@ -501,21 +498,6 @@ CD menu items plugin for Audacious media player.
 %description -n audacious-general-cd-menu-items -l pl.UTF-8
 Wtyczka z menu odtwarzacza CD dla odtwarzacza multimedialnego
 Audacious.
-
-%package -n audacious-general-gnomeshortcuts
-Summary:	Audacious media player - gnomeshortcuts plugin
-Summary(pl.UTF-8):	Wtyczka gnomeshortcuts dla odtwarzacza multimedialnego Audacious
-License:	GPL v2+
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Requires:	dbus >= 0.60
-Requires:	dbus-glib >= 0.60
-
-%description -n audacious-general-gnomeshortcuts
-GNOME Shortcut plugin for Audacious media player.
-
-%description -n audacious-general-gnomeshortcuts -l pl.UTF-8
-Wtyczka skrótów GNOME dla odtwarzacza multimedialnego Audacious..
 
 %package -n audacious-general-gtkui
 Summary:	Audacious media player - gtkui plugin
@@ -1336,10 +1318,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/cd-menu-items/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/cd-menu-items.so
-
-%files -n audacious-general-gnomeshortcuts
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/gnomeshortcuts.so
 
 %files -n audacious-general-gtkui
 %defattr(644,root,root,755)

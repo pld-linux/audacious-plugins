@@ -1,3 +1,87 @@
+--- a/m4/buildsys.m4~	2018-08-09 00:41:00.000000000 +0200
++++ b/m4/buildsys.m4	2018-08-09 17:58:09.579552969 +0200
+@@ -28,73 +28,14 @@ AC_DEFUN([BUILDSYS_INIT], [
+ 		AC_SUBST(OBJC_DEPENDS, $GOBJC)
+ 		AC_SUBST(OBJCXX_DEPENDS, $GOBJCXX)
+ 
+-		AC_PATH_PROG(TPUT, tput)
+-
+-		AS_IF([test x"$TPUT" != x""], [
+-			if x=$($TPUT el 2>/dev/null); then
+-				AC_SUBST(TERM_EL, "$x")
+-			else
+-				AC_SUBST(TERM_EL, "$($TPUT ce 2>/dev/null)")
+-			fi
+-
+-			if x=$($TPUT sgr0 2>/dev/null); then
+-				AC_SUBST(TERM_SGR0, "$x")
+-			else
+-				AC_SUBST(TERM_SGR0, "$($TPUT me 2>/dev/null)")
+-			fi
+-
+-			if x=$($TPUT bold 2>/dev/null); then
+-				AC_SUBST(TERM_BOLD, "$x")
+-			else
+-				AC_SUBST(TERM_BOLD, "$($TPUT md 2>/dev/null)")
+-			fi
+-
+-			if x=$($TPUT setaf 1 2>/dev/null); then
+-				AC_SUBST(TERM_SETAF1, "$x")
+-				AC_SUBST(TERM_SETAF2,
+-					"$($TPUT setaf 2 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF3,
+-					"$($TPUT setaf 3 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF4,
+-					"$($TPUT setaf 4 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF6,
+-					"$($TPUT setaf 6 2>/dev/null)")
+-			dnl OpenBSD seems to want 3 parameters for terminals
+-			dnl ending in -256color, but the additional two
+-			dnl parameters don't seem to do anything, so we set
+-			dnl them to 0.
+-			elif x=$($TPUT setaf 1 0 0 2>/dev/null); then
+-				AC_SUBST(TERM_SETAF1, "$x")
+-				AC_SUBST(TERM_SETAF2,
+-					"$($TPUT setaf 2 0 0 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF3,
+-					"$($TPUT setaf 3 0 0 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF4,
+-					"$($TPUT setaf 4 0 0 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF6,
+-					"$($TPUT setaf 6 0 0 2>/dev/null)")
+-			else
+-				AC_SUBST(TERM_SETAF1,
+-					"$($TPUT AF 1 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF2,
+-					"$($TPUT AF 2 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF3,
+-					"$($TPUT AF 3 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF4,
+-					"$($TPUT AF 4 2>/dev/null)")
+-				AC_SUBST(TERM_SETAF6,
+-					"$($TPUT AF 6 2>/dev/null)")
+-			fi
+-		], [
+-			AC_SUBST(TERM_EL, '\033\133K')
+-			AC_SUBST(TERM_SGR0, '\033\133m')
+-			AC_SUBST(TERM_BOLD, '\033\1331m')
+-			AC_SUBST(TERM_SETAF1, '\033\13331m')
+-			AC_SUBST(TERM_SETAF2, '\033\13332m')
+-			AC_SUBST(TERM_SETAF3, '\033\13333m')
+-			AC_SUBST(TERM_SETAF4, '\033\13334m')
+-			AC_SUBST(TERM_SETAF6, '\033\13336m')
+-		])
++			AC_SUBST(TERM_EL, '')
++			AC_SUBST(TERM_SGR0, '')
++			AC_SUBST(TERM_BOLD, '')
++			AC_SUBST(TERM_SETAF1, '')
++			AC_SUBST(TERM_SETAF2, '')
++			AC_SUBST(TERM_SETAF3, '')
++			AC_SUBST(TERM_SETAF4, '')
++			AC_SUBST(TERM_SETAF6, '')
+ 	])
+ ])
+ 
 --- audacious-plugins-2.5.0/buildsys.mk.in~	2011-04-16 18:10:09.000000000 +0200
 +++ audacious-plugins-2.5.0/buildsys.mk.in	2011-05-04 13:15:04.393333839 +0200
 @@ -93,7 +93,6 @@
@@ -8,53 +92,4 @@
  .SUFFIXES:
  .SUFFIXES: .beam .c .c.dep .cc .cc.dep .cxx .cxx.dep .d .erl .lib.o .mo .m .m.dep .mm .mm.dep .o .plugin.o .po .py .pyc .xpm .S .S.dep
  .PHONY: all subdirs pre-depend depend install install-extra uninstall uninstall-extra clean distclean locales
-@@ -714,27 +714,27 @@
- 		fi \
- 	done
- 
--DIR_ENTER = printf "@TERM_EL@@TERM_SETAF6@Entering directory @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF6@.@TERM_SGR0@\n"; cd $$i || exit $$?
--DIR_LEAVE = printf "@TERM_EL@@TERM_SETAF6@Leaving directory @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF6@.@TERM_SGR0@\n"; cd .. || exit $$?
--DEPEND_STATUS = printf "@TERM_EL@@TERM_SETAF3@Generating dependencies...@TERM_SGR0@\r"
--DEPEND_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully generated dependencies.@TERM_SGR0@\n"
--DEPEND_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to generate dependencies!@TERM_SGR0@\n"; exit $$err
--COMPILE_STATUS = printf "@TERM_EL@@TERM_SETAF3@Compiling @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF3@...@TERM_SGR0@\r"
--COMPILE_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully compiled @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF2@.@TERM_SGR0@\n"
--COMPILE_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to compile @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF1@!@TERM_SGR0@\n"; exit $$err
--COMPILE_LIB_STATUS = printf "@TERM_EL@@TERM_SETAF3@Compiling @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF3@ (lib)...@TERM_SGR0@\r"
--COMPILE_LIB_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully compiled @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF2@ (lib).@TERM_SGR0@\n"
--COMPILE_LIB_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to compile @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF1@ (lib)!@TERM_SGR0@\n"; exit $$err
--COMPILE_PLUGIN_STATUS = printf "@TERM_EL@@TERM_SETAF3@Compiling @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF3@ (plugin)...@TERM_SGR0@\r"
--COMPILE_PLUGIN_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully compiled @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF2@ (plugin).@TERM_SGR0@\n"
--COMPILE_PLUGIN_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to compile @TERM_BOLD@$<@TERM_SGR0@@TERM_SETAF1@ (plugin)!@TERM_SGR0@\n"; exit $$err
--LINK_STATUS = printf "@TERM_EL@@TERM_SETAF3@Linking @TERM_BOLD@$@@TERM_SGR0@@TERM_SETAF3@...@TERM_SGR0@\r"
--LINK_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully linked @TERM_BOLD@$@@TERM_SGR0@@TERM_SETAF2@.@TERM_SGR0@\n"
--LINK_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to link @TERM_BOLD@$@@TERM_SGR0@@TERM_SETAF1@!@TERM_SGR0@\n"; exit $$err
--INSTALL_STATUS = printf "@TERM_EL@@TERM_SETAF3@Installing @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF3@...@TERM_SGR0@\r"
--INSTALL_OK = printf "@TERM_EL@@TERM_SETAF2@Successfully installed @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF2@.@TERM_SGR0@\n"
--INSTALL_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to install @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF1@!@TERM_SGR0@\n"; exit $$err
--DELETE_OK = printf "@TERM_EL@@TERM_SETAF4@Deleted @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF4@.@TERM_SGR0@\n"
--DELETE_FAILED = err=$$?; printf "@TERM_EL@@TERM_SETAF1@Failed to delete @TERM_BOLD@$$i@TERM_SGR0@@TERM_SETAF1@!@TERM_SGR0@\n"; exit $$err
-+DIR_ENTER = printf "Entering directory $$i.\n"; cd $$i || exit $$?
-+DIR_LEAVE = printf "Leaving directory $$i.\n"; cd .. || exit $$?
-+DEPEND_STATUS = printf "Generating dependencies...\r"
-+DEPEND_OK = printf "Successfully generated dependencies.\n"
-+DEPEND_FAILED = err=$$?; printf "Failed to generate dependencies!\n"; exit $$err
-+COMPILE_STATUS = printf "Compiling $<...\r"
-+COMPILE_OK = printf "Successfully compiled $<.\n"
-+COMPILE_FAILED = err=$$?; printf "Failed to compile $<!\n"; exit $$err
-+COMPILE_LIB_STATUS = printf "Compiling $< (lib)...\r"
-+COMPILE_LIB_OK = printf "Successfully compiled $< (lib).\n"
-+COMPILE_LIB_FAILED = err=$$?; printf "Failed to compile $< (lib)!\n"; exit $$err
-+COMPILE_PLUGIN_STATUS = printf "Compiling $< (plugin)...\r"
-+COMPILE_PLUGIN_OK = printf "Successfully compiled $< (plugin).\n"
-+COMPILE_PLUGIN_FAILED = err=$$?; printf "Failed to compile $< (plugin)!\n"; exit $$err
-+LINK_STATUS = printf "Linking $@...\r"
-+LINK_OK = printf "Successfully linked $@.\n"
-+LINK_FAILED = err=$$?; printf "Failed to link $@!\n"; exit $$err
-+INSTALL_STATUS = printf "Installing $$i...\r"
-+INSTALL_OK = printf "Successfully installed $$i.\n"
-+INSTALL_FAILED = err=$$?; printf "Failed to install $$i!\n"; exit $$err
-+DELETE_OK = printf "Deleted $$i.\n"
-+DELETE_FAILED = err=$$?; printf "Failed to delete $$i!\n"; exit $$err
- 
- include .deps
+
