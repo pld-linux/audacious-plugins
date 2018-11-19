@@ -10,7 +10,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	3.10
-Release:	1
+Release:	2
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -50,7 +50,7 @@ BuildRequires:	faad2-devel >= 2
 # input-ffaudio (libavcodec >= 53.40.0, libavformat >= 53.21.0, libavutil >= 51.27.0)
 BuildRequires:	ffmpeg-devel
 # input-amidi
-BuildRequires:	fluidsynth-devel >= 1.0.6
+BuildRequires:	fluidsynth-devel >= 2.0.0
 BuildRequires:	gdk-pixbuf2-devel >= 2.26
 # AUD_COMMON_PROGS (>= 2.32), general-lyricwiki (>= 2.14), general-mpris2 (>= 2.30), transport-gio (>= 2.22)
 BuildRequires:	glib2-devel >= 1:2.32
@@ -716,7 +716,7 @@ License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	alsa-lib >= 1.0
 Requires:	audacious = %{audver}
-Requires:	fluidsynth >= 1.0.6
+Requires:	fluidsynth >= 2.0.0
 
 %description -n audacious-input-amidi
 ALSA midi input plugin for Audacious media player.
