@@ -5,16 +5,18 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	3.10
+%define		audver	4.0.5
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	3.10
-Release:	4
+Version:	4.0.5
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	26268359f4f21171de35cc10d0545733
+# Source0-md5:	b545aa271955cfd67630ea13655236a3
+Source1:	audacious-gtk.desktop
+Source2:	audacious.desktop
 Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	Qt5Core-devel >= 5
@@ -79,6 +81,8 @@ BuildRequires:	libcue-devel
 BuildRequires:	libmms-devel >= 0.3
 # input-modplug
 BuildRequires:	libmodplug-devel
+# input-openmpt
+BuildRequires:	libopenmpt-devel
 # input-madplug
 BuildRequires:	libmpg123-devel >= 1.12
 # general-notify
@@ -128,27 +132,19 @@ Requires:	audacious-effect-audiocompress = %{version}-%{release}
 Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
 Requires:	audacious-effect-echo = %{version}-%{release}
-Requires:	audacious-effect-ladspa = %{version}-%{release}
 Requires:	audacious-effect-mixer = %{version}-%{release}
 Requires:	audacious-effect-resample = %{version}-%{release}
+Requires:	audacious-effect-silence-removal = %{version}-%{release}
 Requires:	audacious-effect-sox-resampler = %{version}-%{release}
 Requires:	audacious-effect-speed-pitch = %{version}-%{release}
 Requires:	audacious-effect-stereo = %{version}-%{release}
 Requires:	audacious-effect-voice_removal = %{version}-%{release}
-Requires:	audacious-general-alarm = %{version}-%{release}
-Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-aosd = %{version}-%{release}
 Requires:	audacious-general-cd-menu-items = %{version}-%{release}
-Requires:	audacious-general-hotkey = %{version}-%{release}
 Requires:	audacious-general-lirc = %{version}-%{release}
-Requires:	audacious-general-lyricwiki = %{version}-%{release}
 Requires:	audacious-general-mpris2 = %{version}-%{release}
-Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-scrobbler = %{version}-%{release}
-Requires:	audacious-general-search-tool = %{version}-%{release}
-Requires:	audacious-general-skins = %{version}-%{release}
 Requires:	audacious-general-song-change = %{version}-%{release}
-Requires:	audacious-general-statusicon = %{version}-%{release}
 Requires:	audacious-input-aac = %{version}-%{release}
 Requires:	audacious-input-adplug = %{version}-%{release}
 Requires:	audacious-input-amidi = %{version}-%{release}
@@ -159,6 +155,7 @@ Requires:	audacious-input-flacng = %{version}-%{release}
 Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
+Requires:	audacious-input-openmpt = %{version}-%{release}
 Requires:	audacious-input-psf2 = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
 Requires:	audacious-input-sndfile = %{version}-%{release}
@@ -175,19 +172,15 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
-Requires:	audacious-visualization-blur-scope = %{version}-%{release}
-Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
-Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
-Suggests:	audacious-general-gtkui = %{version}-%{release}
-Suggests:	audacious-qt = %{version}-%{release}
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Plugins for Audacious media player (metapackage).
+GUI-independet plugins for Audacious media player (metapackage).
 
 %description -l pl.UTF-8
-Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet).
+Niezależne od graficznego interfejsu wtyczki dla odtwarzacza
+multimedialnego Audacious (metapakiet).
 
 %package -n audacious-container-asx
 Summary:	Audacious media player - ASX container plugin
@@ -385,6 +378,19 @@ Sample rate converter plugin for Audacious media player.
 Wtyczka konwertera częstotliwości próbkowania dla odtwarzacza
 multimedialnego Audacious.
 
+%package -n audacious-effect-silence-removal
+Summary:	Audacious media player - silence-removal plugin
+Summary(pl.UTF-8):	Wtyczka usuwająca ciszę dla odtwarzacza multimedialnego Audacious.
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-silence-removal
+Silence removal plugin for Audacious media player.
+
+%description -n audacious-effect-silence-removal -l pl.UTF-8
+Wtyczka usuwająca ciszę dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-effect-sox-resampler
 Summary:	Audacious media player - sox-resampler plugin
 Summary(pl.UTF-8):	Wtyczka sox-resampler dla odtwarzacza multimedialnego Audacious
@@ -469,6 +475,21 @@ Album art plugin for Audacious media player.
 Wtyczka prezentująca okładki albumów dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-general-albumart-qt
+Summary:	Audacious media player - albumart-qt plugin
+Summary(pl.UTF-8):	Wtyczka albumart-qt dla odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-albumart-qt
+Album art plugin for Audacious media player - for QT interface.
+
+%description -n audacious-general-albumart-qt -l pl.UTF-8
+Wtyczka prezentująca okładki albumów dla odtwarzacza multimedialnego
+Audacious. Wersja dla inferfejsu QT.
+
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
 Summary(pl.UTF-8):	Wtyczka aosd dla odtwarzacza multimedialnego Audacious
@@ -499,6 +520,20 @@ CD menu items plugin for Audacious media player.
 Wtyczka z menu odtwarzacza CD dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-general-delete-files
+Summary:	Audacious media player - delete-files plugin
+Summary(pl.UTF-8):	Wtyczka delete-files dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-delete-files
+A plugin allowing deleting files for for Audacious media player.
+
+%description -n audacious-general-delete-files -l pl.UTF-8
+Wtyczka umożliwiająca usuwanie plików z poziomu odtwarzacza
+multimedialnego Audacious.
+
 %package -n audacious-general-gtkui
 Summary:	Audacious media player - gtkui plugin
 Summary(pl.UTF-8):	Wtyczka gtkui dla odtwarzacza multimedialnego Audacious
@@ -506,27 +541,31 @@ License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-gtk = %{audver}
+Suggests:	audacious-plugins-gtk = %{audver}
 
 %description -n audacious-general-gtkui
-GTK+ UI lugin for Audacious media player.
+GTK+ UI plugin for Audacious media player.
 
 %description -n audacious-general-gtkui -l pl.UTF-8
 Wtyczka interfejsu graficznego GTK+ dla odtwarzacza multimedialnego
 Audacious.
 
-%package -n audacious-qt
-Summary:	Audacious media player - Qt related plugins
-Summary(pl.UTF-8):	Wtyczki Qt dla odtwarzacza multimedialnego Audacious
+%package -n audacious-general-qtui
+Summary:	Audacious media player - qtui plugins
+Summary(pl.UTF-8):	Wtyczki Qtui dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-qt >= %{audver}
+Suggests:	audacious-plugins-qt = %{audver}
+Obsoletes:	audacious-qt
 
-%description -n audacious-qt
-Qt plugins for Audacious media player.
+%description -n audacious-general-qtui
+Qt UI plugin for Audacious media player.
 
-%description -n audacious-qt -l pl.UTF-8
-Wtyczki związane z Qt dla odtwarzacza multimedialnego Audacious.
+%description -n audacious-general-qtui -l pl.UTF-8
+Wtyczka interfejsu graficznego QT dla odtwarzacza multimedialnego
+Audacious.
 
 %package -n audacious-general-hotkey
 Summary:	Audacious media player - hotkey plugin
@@ -575,6 +614,21 @@ LyricWiki plugin for Audacious media player.
 %description -n audacious-general-lyricwiki -l pl.UTF-8
 Wtyczka LyricWiki dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-lyricwiki-qt
+Summary:	Audacious media player - lyricwiki-qt plugin
+Summary(pl.UTF-8):	Wtyczka lyricwiki-qt dla odtwarzacza multimedialnego Audacious
+License:	MIT
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-lyricwiki-qt
+LyricWiki plugin for Audacious media player. For QT interface.
+
+%description -n audacious-general-lyricwiki-qt -l pl.UTF-8
+Wtyczka LyricWiki dla odtwarzacza multimedialnego Audacious. Dla
+interfejsu QT.
+
 %package -n audacious-general-mpris2
 Summary:	Audacious media player - mpris2 plugin
 Summary(pl.UTF-8):	Wtyczka mpris2 dla odtwarzacza multimedialnego Audacious
@@ -606,6 +660,35 @@ Desktop notifications plugin for Audacious media player.
 Wtyczka powiadomień w środowisku graficznym dla odtwarzacza
 multimedialnego Audacious.
 
+%package -n audacious-general-playlist-manager
+Summary:	Audacious media player - playlist-manager plugin
+Summary(pl.UTF-8):	Wtyczka playlist-manager dla odtwarzacza multimedialnego Audacious
+License:	GPL v3+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
+
+%description -n audacious-general-playlist-manager
+Playlist Manager Plugin for Audacious media player.
+
+%description -n audacious-general-playlist-manager -l pl.UTF-8
+Wtyczka zarządzania playlistą odtwarzac zamultimedialnego Audacious.
+
+%package -n audacious-general-playlist-manager-qt
+Summary:	Audacious media player - playlist-manager-qt plugin
+Summary(pl.UTF-8):	Wtyczka playlist-manager-qt dla odtwarzacza multimedialnego Audacious
+License:	GPL v3+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-playlist-manager-qt
+Playlist Manager Plugin for Audacious media player. For QT interface.
+
+%description -n audacious-general-playlist-manager-qt -l pl.UTF-8
+Wtyczka zarządzania playlistą odtwarzac zamultimedialnego Audacious.
+Dla interfejsu QT.
+
 %package -n audacious-general-scrobbler
 Summary:	Audacious media player - scrobbler plugin
 Summary(pl.UTF-8):	Wtyczka scrobbler dla odtwarzacza multimedialnego Audacious
@@ -636,12 +719,28 @@ Song search tool plugin for Audacious media player.
 %description -n audacious-general-search-tool -l pl.UTF-8
 Wtyczka wyszukiwania utworu dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-general-search-tool-qt
+Summary:	Audacious media player - search tool plugin (QT version)
+Summary(pl.UTF-8):	Wtyczka wyszukiwania dla odtwarzacza multimedialnego Audacious (wersja dla QT)
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-search-tool-qt
+Song search tool plugin for Audacious media player. (QT version)
+
+%description -n audacious-general-search-tool-qt -l pl.UTF-8
+Wtyczka wyszukiwania utworu dla odtwarzacza multimedialnego Audacious.
+Wersja dla interfejsu QT.
+
 %package -n audacious-general-skins
 Summary:	Audacious media player - skins plugin
 Summary(pl.UTF-8):	Wtyczka skins dla odtwarzacza multimedialnego Audacious
 License:	GPL v3
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Requires:	audacious-general-skins-data
 Requires:	audacious-libs-gtk = %{audver}
 
 %description -n audacious-general-skins
@@ -649,6 +748,36 @@ Skins plugin for Audacious media player.
 
 %description -n audacious-general-skins -l pl.UTF-8
 Wtyczka skórek dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-skins-data
+Summary:	Audacious media player - skins themes
+Summary(pl.UTF-8):	Pliki skórek dla odtwarzacza multimedialnego Audacious
+License:	GPL v3
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+BuildArch:	noarch
+
+%description -n audacious-general-skins-data
+Skins themes for Audacious media player.
+
+%description -n audacious-general-skins-data -l pl.UTF-8
+Pliki skórek dla odtwarzacza multimedialnego Audacious
+
+%package -n audacious-general-skins-qt
+Summary:	Audacious media player - skins plugin for QT interface
+Summary(pl.UTF-8):	Wtyczka obsługi skórek dla odtwarzacza multimedialnego Audacious. Interfejs QT.
+License:	GPL v3
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-general-skins-data = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-skins-qt
+Skins plugin for Audacious media player. For QT interface.
+
+%description -n audacious-general-skins-qt -l pl.UTF-8
+Wtyczka skórek dla odtwarzacza multimedialnego Audaciou dla interfejsu
+QT.
 
 %package -n audacious-general-song-change
 Summary:	Audacious media player - song change plugin
@@ -662,6 +791,20 @@ Song change plugin for Audacious media player.
 
 %description -n audacious-general-song-change -l pl.UTF-8
 Wtyczka zmiany utworu dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-song-info-qt
+Summary:	Audacious media player - song info plugin
+Summary(pl.UTF-8):	Wtyczka informacji o utworze dla odtwarzacza multimedialnego Audacious
+License:	GPL v3
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-song-info-qt
+Song info plugin for Audacious media player.
+
+%description -n audacious-general-song-info-qt -l pl.UTF-8
+Wtyczka informacji o utworze dla odtwarzacza multimedialnego Audacious
 
 %package -n audacious-general-statusicon
 Summary:	Audacious media player - status icon plugin
@@ -677,6 +820,21 @@ Status icon plugin for Audacious media player.
 
 %description -n audacious-general-statusicon -l pl.UTF-8
 Wtyczka ikonki statusu dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-general-statusicon-qt
+Summary:	Audacious media player - status icon plugin
+Summary(pl.UTF-8):	Wtyczka ikonki statusu dla odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-statusicon-qt
+Status icon plugin for Audacious media player. For QT interface.
+
+%description -n audacious-general-statusicon-qt -l pl.UTF-8
+Wtyczka ikonki statusu dla odtwarzacza multimedialnego Audacious. Dla
+interfejsu QT.
 
 %package -n audacious-input-aac
 Summary:	Audacious media player - AAC input plugin
@@ -833,6 +991,19 @@ modplug input plugin for Audacious media player.
 
 %description -n audacious-input-modplug -l pl.UTF-8
 Wtyczka wejściowa modplug dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-input-openmpt
+Summary:	Audacious media player - openmpt input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa openmpt dla odtwarzacza multimedialnego Audacious
+License:	Public Domain
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-openmpt
+openmpt input plugin for Audacious media player.
+
+%description -n audacious-input-openmpt -l pl.UTF-8
+Wtyczka wejściowa openmpt dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-input-psf2
 Summary:	Audacious media player - psf2 input plugin
@@ -1015,6 +1186,20 @@ Output JACK plugin for Audacious media player.
 %description -n audacious-output-jack -l pl.UTF-8
 Wtyczka wyjściowa JACK dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-output-oss4
+Summary:	Audacious media player - oss4 output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa oss4 dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+
+%description -n audacious-output-oss4
+Oss4 output plugin for Audacious media player.
+
+%description -n audacious-output-oss4 -l pl.UTF-8
+Wtyczka wyjściowaoss4 dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego Audacious
@@ -1036,6 +1221,21 @@ PulseAudio output plugin for Audacious media player.
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-output-qtaudio
+Summary:	Audacious media player - qtaudio output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa qtaudio dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+
+%description -n audacious-output-qtaudio
+QtMultimedia Audio Output Plugin for Audacious.
+
+%description -n audacious-output-qtaudio -l pl.UTF-8
+Wtyczka wyjściowaQtMultimedia Audio dla odtwarzacza multimedialnego
+Audacious.
+
 %package -n audacious-output-sdlout
 Summary:	Audacious media player - sdlout output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa sdlout dla odtwarzacza multimedialnego Audacious
@@ -1050,6 +1250,64 @@ SDL output plugin for Audacious media player.
 
 %description -n audacious-output-sdlout -l pl.UTF-8
 Wtyczka wyjściowa SDL dla odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-plugins-gtk
+Summary:	Audacious media player - GTK plugins (metapackage)
+Summary(pl.UTF-8):	Wtyczki GTK dla odtwarzacza multimedialnego Audacious (metapakiet)
+Group:		X11/Applications/Sound
+Requires:	audacious-effect-ladspa = %{version}-%{release}
+Requires:	audacious-general-alarm = %{version}-%{release}
+Requires:	audacious-general-albumart = %{version}-%{release}
+Requires:	audacious-general-delete-files = %{version}-%{release}
+Requires:	audacious-general-delete-files = %{version}-%{release}
+Requires:	audacious-general-gtkui = %{version}-%{release}
+Requires:	audacious-general-hotkey = %{version}-%{release}
+Requires:	audacious-general-lyricwiki = %{version}-%{release}
+Requires:	audacious-general-notify = %{version}-%{release}
+Requires:	audacious-general-playlist-manager = %{version}-%{release}
+Requires:	audacious-general-search-tool = %{version}-%{release}
+Requires:	audacious-general-skins = %{version}-%{release}
+Requires:	audacious-general-statusicon = %{version}-%{release}
+Requires:	audacious-plugins = %{version}-%{release}
+Requires:	audacious-visualization-blur-scope = %{version}-%{release}
+Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
+Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
+BuildArch:	noarch
+
+%description -n audacious-plugins-gtk
+GTK interface plugins for Audacious media player (metapackage).
+
+%description -n audacious-plugins-gtk -l pl.UTF-8
+Wtyczki dla odtwarzacza multimedialnego Audacious działające z
+intefejsem GTK (metapakiet)
+
+%package -n audacious-plugins-qt
+Summary:	Audacious media player - QT plugins (metapackage)
+Summary(pl.UTF-8):	Wtyczki QT dla odtwarzacza multimedialnego Audacious (metapakiet)
+Group:		X11/Applications/Sound
+Requires:	audacious-general-albumart-qt = %{version}-%{release}
+Requires:	audacious-general-delete-files = %{version}-%{release}
+Requires:	audacious-general-lyricwiki-qt = %{version}-%{release}
+Requires:	audacious-general-notify = %{version}-%{release}
+Requires:	audacious-general-playlist-manager-qt = %{version}-%{release}
+Requires:	audacious-general-qtui = %{version}-%{release}
+Requires:	audacious-general-search-tool-qt = %{version}-%{release}
+Requires:	audacious-general-skins-qt = %{version}-%{release}
+Requires:	audacious-general-song-info-qt = %{version}-%{release}
+Requires:	audacious-general-statusicon-qt = %{version}-%{release}
+Requires:	audacious-plugins = %{version}-%{release}
+Requires:	audacious-visualization-blur-scope-qt = %{version}-%{release}
+Requires:	audacious-visualization-gl-spectrum-qt = %{version}-%{release}
+Requires:	audacious-visualization-qt-spectrum = %{version}-%{release}
+Requires:	audacious-visualization-vumeter-qt = %{version}-%{release}
+BuildArch:	noarch
+
+%description -n audacious-plugins-qt
+QT interface plugins for Audacious media player (metapackage).
+
+%description -n audacious-plugins-qt -l pl.UTF-8
+Wtyczki dla odtwarzacza multimedialnego Audacious działające z
+intefejsem QT (metapakiet)
 
 %package -n audacious-transport-gio
 Summary:	Audacious media player - gio transport plugin
@@ -1112,6 +1370,22 @@ Blur scope visualization plugin for Audacious media player.
 Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialnego
 Audacious.
 
+%package -n audacious-visualization-blur-scope-qt
+Summary:	Audacious media player - Blur scope visualization plugin for QT interface
+Summary(pl.UTF-8):	Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialnego Audacious dla interfejsu QT
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Obsoletes:	bmp-visualization-blursk
+
+%description -n audacious-visualization-blur-scope-qt
+Blur scope visualization plugin for Audacious media player for QT
+interface
+
+%description -n audacious-visualization-blur-scope-qt -l pl.UTF-8
+Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialnego dla
+interfejsu QT Audacious.
+
 %package -n audacious-visualization-cairo-spectrum
 Summary:	Audacious media player - cairo-spectrum visualization plugin
 Summary(pl.UTF-8):	Wtyczka wizualizacji cairo-spectrum odtwarzacza multimedialnego Audacious
@@ -1141,6 +1415,54 @@ player.
 %description -n audacious-visualization-gl-spectrum -l pl.UTF-8
 Oparta na OpenGL wtyczka wizualizacji analizująca widmo dla
 odtwarzacza multimedialnego Audacious.
+
+%package -n audacious-visualization-gl-spectrum-qt
+Summary:	Audacious media player - gl-spectrum-qt visualization plugin
+Summary(pl.UTF-8):	Wtyczka wizualizacji gl-spectrum-qt odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-visualization-gl-spectrum-qt
+OpenGL spectrum analyzer visualization plugin for Audacious media
+player. For QT interface
+
+%description -n audacious-visualization-gl-spectrum-qt -l pl.UTF-8
+Oparta na OpenGL wtyczka wizualizacji analizująca widmo dla
+odtwarzacza multimedialnego Audacious. Dla interfejsu QT.
+
+%package -n audacious-visualization-qt-spectrum
+Summary:	Audacious media player - qt-spectrum visualization plugin
+Summary(pl.UTF-8):	Wtyczka wizualizacji qt-spectrum odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-visualization-qt-spectrum
+Spectrum analyzer visualization plugin for Audacious media player. For
+QT interface
+
+%description -n audacious-visualization-qt-spectrum -l pl.UTF-8
+Wtyczka wizualizacji analizująca widmo dla odtwarzacza multimedialnego
+Audacious. Dla interfejsu QT.
+
+%package -n audacious-visualization-vumeter-qt
+Summary:	Audacious media player - vumeter-qt visualization plugin
+Summary(pl.UTF-8):	Wtyczka wizualizacji vumeter-qt odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-visualization-vumeter-qt
+VU meter visualization plugin for Audacious media player. For QT
+interface
+
+%description -n audacious-visualization-vumeter-qt -l pl.UTF-8
+Wskaźnik wysterowania dla odtwarzacza multimedialnego Audacious Dla
+interfejsu QT.
 
 %prep
 %setup -q
@@ -1185,7 +1507,7 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 %configure \
 	%{!?with_bs2b:--disable-bs2b} \
 	--enable-amidiplug \
-	--enable-qt \
+	--enable-gtk \
 	--enable-qtaudio
 
 %{__make}
@@ -1195,8 +1517,9 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/fa{_IR,}
+install -d $RPM_BUILD_ROOT%{_desktopdir}
+install -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+install -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/id{_ID,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/ml{_IN,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/pt{_PT,}
@@ -1208,13 +1531,21 @@ rm -rf $RPM_BUILD_ROOT
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post -n audacious-general-gtkui
+%update_desktop_database_post
+
+%postun -n audacious-general-gtkui
+%update_desktop_database_postun
+
+%post -n audacious-general-qtui
+%update_desktop_database_post
+
+%postun -n audacious-general-qtui
+%update_desktop_database_postun
+
 %files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc COPYING
-%attr(755,root,root) %{_libdir}/audacious/Effect/silence-removal.so
-%attr(755,root,root) %{_libdir}/audacious/General/delete-files.so
-%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager.so
-%attr(755,root,root) %{_libdir}/audacious/Output/oss4.so
 
 %files -n audacious-container-asx
 %defattr(644,root,root,755)
@@ -1283,6 +1614,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/resample/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/resample.so
 
+%files -n audacious-effect-silence-removal
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Effect/silence-removal.so
+
 %files -n audacious-effect-sox-resampler
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Effect/sox-resampler.so
@@ -1309,6 +1644,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/albumart/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/albumart.so
 
+%files -n audacious-general-albumart-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
+
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/aosd.so
@@ -1318,10 +1657,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/cd-menu-items/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/cd-menu-items.so
 
+%files -n audacious-general-delete-files
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/delete-files.so
+
 %files -n audacious-general-gtkui
 %defattr(644,root,root,755)
 %doc src/gtkui/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/gtkui.so
+%{_desktopdir}/audacious-gtk.desktop
 
 %files -n audacious-general-hotkey
 %defattr(644,root,root,755)
@@ -1336,6 +1680,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/lyricwiki/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/lyricwiki.so
 
+%files -n audacious-general-lyricwiki-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
+
 %files -n audacious-general-mpris2
 %defattr(644,root,root,755)
 %doc src/mpris2/LICENSE
@@ -1344,6 +1692,19 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-general-notify
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/notify.so
+
+%files -n audacious-general-playlist-manager
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager.so
+
+%files -n audacious-general-playlist-manager-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager-qt.so
+
+%files -n audacious-general-qtui
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/qtui.so
+%{_desktopdir}/audacious.desktop
 
 %files -n audacious-general-scrobbler
 %defattr(644,root,root,755)
@@ -1354,18 +1715,37 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/search-tool/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/search-tool.so
 
+%files -n audacious-general-search-tool-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/search-tool-qt.so
+
 %files -n audacious-general-skins
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/skins.so
+
+%files -n audacious-general-skins-data
+%defattr(644,root,root,755)
 %{_datadir}/audacious/Skins
+
+%files -n audacious-general-skins-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/skins-qt.so
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/song_change.so
 
+%files -n audacious-general-song-info-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/song-info-qt.so
+
 %files -n audacious-general-statusicon
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/General/statusicon.so
+
+%files -n audacious-general-statusicon-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/General/statusicon-qt.so
 
 %files -n audacious-input-aac
 %defattr(644,root,root,755)
@@ -1409,6 +1789,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n audacious-input-modplug
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Input/modplug.so
+
+%files -n audacious-input-openmpt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Input/openmpt.so
 
 %files -n audacious-input-psf2
 %defattr(644,root,root,755)
@@ -1457,14 +1841,28 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/jack-ng.so
 
+%files -n audacious-output-oss4
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/oss4.so
+
 %files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
+
+%files -n audacious-output-qtaudio
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 
 %files -n audacious-output-sdlout
 %defattr(644,root,root,755)
 %doc src/sdlout/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/sdlout.so
+
+%files -n audacious-plugins-gtk
+%defattr(644,root,root,755)
+
+%files -n audacious-plugins-qt
+%defattr(644,root,root,755)
 
 %files -n audacious-transport-gio
 %defattr(644,root,root,755)
@@ -1484,6 +1882,10 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope.so
 
+%files -n audacious-visualization-blur-scope-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope-qt.so
+
 %files -n audacious-visualization-cairo-spectrum
 %defattr(644,root,root,755)
 %doc src/cairo-spectrum/LICENSE
@@ -1493,15 +1895,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum.so
 
-%files -n audacious-qt
+%files -n audacious-visualization-gl-spectrum-qt
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/playlist-manager-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/qtui.so
-%attr(755,root,root) %{_libdir}/audacious/General/search-tool-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/skins-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/song-info-qt.so
-%attr(755,root,root) %{_libdir}/audacious/General/statusicon-qt.so
-%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum-qt.so
+
+%files -n audacious-visualization-qt-spectrum
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/qt-spectrum.so
+
+%files -n audacious-visualization-vumeter-qt
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/audacious/Visualization/vumeter-qt.so
+
