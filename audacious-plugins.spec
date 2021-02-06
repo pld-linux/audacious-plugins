@@ -17,7 +17,6 @@ Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 # Source0-md5:	740d83757b49b82bc75e256c96b09bfd
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
-Patch0:		%{name}-verbose_make.patch
 URL:		http://audacious-media-player.org/
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5Gui-devel >= 5
@@ -1487,7 +1486,6 @@ interfejsu QT.
 
 %prep
 %setup -q
-#%patch0 -p1
 
 while read file no; do
 	head -n "$no" "$file" > $(dirname "$file")/LICENSE
@@ -1582,6 +1580,7 @@ sed -i '\,^.SILENT:,d' buildsys.mk.in
 %{__autoconf}
 %{__autoheader}
 %configure \
+	TPUT="" \
 	%{!?with_bs2b:--disable-bs2b} \
 	--enable-amidiplug \
 	--enable-gtk \
