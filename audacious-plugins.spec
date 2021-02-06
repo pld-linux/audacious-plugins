@@ -5,16 +5,16 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.0.5
+%define		audver	4.1
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.0.5
-Release:	2
+Version:	4.1
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	b545aa271955cfd67630ea13655236a3
+# Source0-md5:	740d83757b49b82bc75e256c96b09bfd
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 Patch0:		%{name}-verbose_make.patch
@@ -26,6 +26,7 @@ BuildRequires:	Qt5Multimedia-devel >= 5
 # audacious-qt/gl-spectrum-qt part
 BuildRequires:	Qt5OpenGL-devel >= 5
 BuildRequires:	Qt5Widgets-devel >= 5
+BuildRequires:	Qt5X11Extras-devel >= 5
 BuildRequires:	adplug-devel
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	audacious-libs-gtk-devel >= %{audver}
@@ -172,6 +173,7 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
+Obsoletes:	audacious-general-lyricwiki
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -688,6 +690,25 @@ Playlist Manager Plugin for Audacious media player. For QT interface.
 %description -n audacious-general-playlist-manager-qt -l pl.UTF-8
 Wtyczka zarządzania playlistą odtwarzac zamultimedialnego Audacious.
 Dla interfejsu QT.
+
+
+%package -n audacious-general-qthotkey
+Summary:	Audacious media player - qthotkey plugin
+Summary(pl.UTF-8):	Wtyczka qthotkey dla odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt = %{audver}
+
+%description -n audacious-general-qthotkey
+Global Hotkey plugin for Audacious media player. It allows to control
+the player with global key combinations or multimedia keys. For QT
+interface.
+
+%description -n audacious-general-qthotkey -l pl.UTF-8
+Wtyczka Global Hotkey dla odtwarzacza multimedialnego Audacious.
+Pozwala na sterowanie odtwarzaczem przy użyciu globalnych kombinacji
+klawiszy lub klawiszy multimedialnych. Dla interfejsu QT.
 
 %package -n audacious-general-scrobbler
 Summary:	Audacious media player - scrobbler plugin
@@ -1262,7 +1283,6 @@ Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
-Requires:	audacious-general-lyricwiki = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-playlist-manager = %{version}-%{release}
 Requires:	audacious-general-search-tool = %{version}-%{release}
@@ -1290,6 +1310,7 @@ Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-lyricwiki-qt = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-playlist-manager-qt = %{version}-%{release}
+Requires:	audacious-general-qthotkey = %{version}-%{release}
 Requires:	audacious-general-qtui = %{version}-%{release}
 Requires:	audacious-general-search-tool-qt = %{version}-%{release}
 Requires:	audacious-general-skins-qt = %{version}-%{release}
@@ -1466,35 +1487,91 @@ interfejsu QT.
 
 %prep
 %setup -q
-%patch0 -p1
+#%patch0 -p1
 
 while read file no; do
 	head -n "$no" "$file" > $(dirname "$file")/LICENSE
 done <<EOF
+src/adplug/adplug-xmms.cc 18
+src/alarm/alarm.cc 19
 src/albumart/albumart.cc 19
+src/albumart-qt/albumart.cc 19
 src/alsa/alsa.cc 18
+src/amidiplug/amidi-plug.cc 20
+src/ampache/ampache.cc 7
+src/aosd/aosd.cc 20
+src/asx3/asx3.cc 19
+src/asx/asx.cc 19
 src/audpl/audpl.cc 18
+src/blur_scope/blur_scope.cc 25
+src/blur_scope-qt/blur_scope.cc 26
+src/bs2b/plugin.cc 21
 src/cairo-spectrum/cairo-spectrum.cc 19
+src/cdaudio/cdaudio-ng.cc 20
 src/cd-menu-items/cd-menu-items.cc 18
 src/compressor/compressor.cc 18
+src/coreaudio/coreaudio.cc 23
 src/crossfade/crossfade.cc 18
-src/cue/cue.cc 18
-src/gio/gio.cc 18
-src/mixer/mixer.cc 18
-src/resample/resample.cc 18
-src/sdlout/sdlout.cc 18
-src/search-tool/search-tool.cc 18
-src/gtkui/ui_gtk.cc 18
-src/ladspa/plugin.cc 18
-src/mpris2/plugin.cc 18
-src/psf/plugin.cc 25
-src/xsf/plugin.cc 25
 src/crystalizer/crystalizer.cc 19
-src/lyricwiki/lyricwiki.cc 19
-src/voice_removal/voice_removal.cc 19
+src/cue/cue.cc 18
+src/delete-files/delete-files.cc 19
 src/ffaudio/ffaudio-core.cc 19
-src/mpg123/mpg123.cc 20
+src/filewriter/convert.cc 22
+src/flac/metadata.cc 21
+src/gio/gio.cc 18
+src/glspectrum/gl-spectrum.cc 23
+src/gtkui/ui_gtk.cc 18
+src/hotkey/plugin.cc 36
+src/jack/jack-ng.cc 21
+src/ladspa/plugin.cc 18
+src/lirc/lirc.cc 28
+src/lyricwiki-qt/lyricwiki.cc 19
+src/m3u/m3u.cc 19
+src/metronom/metronom.cc 18
+src/mixer/mixer.cc 18
 src/mms/mms.cc 18
+src/modplug/plugin_main.cc 8
+src/moonstone/moonstone.cc 19
+src/mpg123/mpg123.cc 20
+src/mpris2/plugin.cc 18
+src/neon/neon.cc 19
+src/notify/notify.cc 20
+src/openmpt/mpt.cc 25
+src/oss4/oss.cc 21
+src/playlist-manager/playlist-manager.cc 19
+src/playlist-manager-qt/playlist-manager-qt.cc 19
+src/pls/pls.cc 21
+src/psf/plugin.cc 26
+src/pulse/pulse_audio.cc 22
+src/qtaudio/qtaudio.cc 23
+src/qtglspectrum/gl-spectrum.cc 24
+src/qthotkey/plugin.cc 38
+src/qt-spectrum/qt-spectrum.cc 20
+src/qtui/qtui.cc 19
+src/resample/resample.cc 18
+src/scrobbler2/scrobbler.cc 9
+src/sdlout/sdlout.cc 18
+src/search-tool-qt/search-tool-qt.cc 18
+src/search-tool/search-tool.cc 18
+src/sid/xmms-sid.cc 23
+src/silence-removal/silence-removal.cc 19
+src/sndfile/plugin.cc 20
+src/sndio/sndio.cc 19
+src/songchange/song_change.cc 5
+src/song-info-qt/song-info.cc 19
+src/soxr/sox-resampler.cc 22
+src/speedpitch/speed-pitch.cc 19
+src/statusicon-qt/statusicon.cc 19
+src/statusicon/statusicon.cc 20
+src/streamtuner/streamtuner.cc 10
+src/tonegen/tonegen.cc 18
+src/voice_removal/voice_removal.cc 19
+src/vorbis/vorbis.cc 27
+src/vtx/vtx.cc 20
+src/vumeter-qt/vumeter_qt.cc 20
+src/waveout/waveout.cc 19
+src/xsf/plugin.cc 25
+src/xspf/xspf.cc 22
 EOF
 
 # verbose build
@@ -1549,6 +1626,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-container-asx
 %defattr(644,root,root,755)
+%doc src/asx/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/asx.so
 %attr(755,root,root) %{_libdir}/audacious/Container/asx3.so
 
@@ -1559,6 +1637,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-container-m3u
 %defattr(644,root,root,755)
+%doc src/m3u/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/m3u.so
 
 %files -n audacious-container-pl
@@ -1568,10 +1647,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-container-pls
 %defattr(644,root,root,755)
+%doc src/pls/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/pls.so
 
 %files -n audacious-container-xspf
 %defattr(644,root,root,755)
+%doc src/xspf/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Container/xspf.so
 
 %files -n audacious-effect-audiocompress
@@ -1582,6 +1663,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with bs2b}
 %files -n audacious-effect-bs2b
 %defattr(644,root,root,755)
+%doc src/bs2b/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/bs2b.so
 %endif
 
@@ -1616,14 +1698,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-effect-silence-removal
 %defattr(644,root,root,755)
+%doc src/silence-removal/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/silence-removal.so
 
 %files -n audacious-effect-sox-resampler
 %defattr(644,root,root,755)
+%doc src/soxr/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/sox-resampler.so
 
 %files -n audacious-effect-speed-pitch
 %defattr(644,root,root,755)
+%doc src/speedpitch/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/speed-pitch.so
 
 %files -n audacious-effect-stereo
@@ -1637,6 +1722,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-alarm
 %defattr(644,root,root,755)
+%doc src/alarm/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/alarm.so
 
 %files -n audacious-general-albumart
@@ -1646,10 +1732,12 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-albumart-qt
 %defattr(644,root,root,755)
+%doc src/albumart-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
 
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
+%doc src/aosd/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/aosd.so
 
 %files -n audacious-general-cd-menu-items
@@ -1659,6 +1747,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-delete-files
 %defattr(644,root,root,755)
+%doc src/delete-files/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/delete-files.so
 
 %files -n audacious-general-gtkui
@@ -1669,19 +1758,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-hotkey
 %defattr(644,root,root,755)
+%doc src/hotkey/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/hotkey.so
 
 %files -n audacious-general-lirc
 %defattr(644,root,root,755)
+%doc src/lirc/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/lirc.so
-
-%files -n audacious-general-lyricwiki
-%defattr(644,root,root,755)
-%doc src/lyricwiki/LICENSE
-%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki.so
 
 %files -n audacious-general-lyricwiki-qt
 %defattr(644,root,root,755)
+%doc src/lyricwiki-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
 
 %files -n audacious-general-mpris2
@@ -1691,23 +1778,33 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-notify
 %defattr(644,root,root,755)
+%doc src/notify/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/notify.so
 
 %files -n audacious-general-playlist-manager
 %defattr(644,root,root,755)
+%doc src/playlist-manager/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/playlist-manager.so
 
 %files -n audacious-general-playlist-manager-qt
 %defattr(644,root,root,755)
+%doc src/playlist-manager-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/playlist-manager-qt.so
+
+%files -n audacious-general-qthotkey
+%defattr(644,root,root,755)
+%doc src/qthotkey/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/General/qthotkey.so
 
 %files -n audacious-general-qtui
 %defattr(644,root,root,755)
+%doc src/qtui/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/qtui.so
 %{_desktopdir}/audacious.desktop
 
 %files -n audacious-general-scrobbler
 %defattr(644,root,root,755)
+%doc src/scrobbler2/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/scrobbler.so
 
 %files -n audacious-general-search-tool
@@ -1717,6 +1814,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-search-tool-qt
 %defattr(644,root,root,755)
+%doc src/search-tool-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/search-tool-qt.so
 
 %files -n audacious-general-skins
@@ -1733,18 +1831,22 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-general-song-change
 %defattr(644,root,root,755)
+%doc src/songchange/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/song_change.so
 
 %files -n audacious-general-song-info-qt
 %defattr(644,root,root,755)
+%doc src/song-info-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/song-info-qt.so
 
 %files -n audacious-general-statusicon
 %defattr(644,root,root,755)
+%doc src/statusicon/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/statusicon.so
 
 %files -n audacious-general-statusicon-qt
 %defattr(644,root,root,755)
+%doc src/statusicon-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/statusicon-qt.so
 
 %files -n audacious-input-aac
@@ -1753,14 +1855,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-adplug
 %defattr(644,root,root,755)
+%doc src/adplug/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/adplug.so
 
 %files -n audacious-input-amidi
 %defattr(644,root,root,755)
+%doc src/amidiplug/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/amidi-plug.so
 
 %files -n audacious-input-cdaudio-ng
 %defattr(644,root,root,755)
+%doc src/cdaudio/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/cdaudio-ng.so
 
 %files -n audacious-input-console
@@ -1775,6 +1880,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-flacng
 %defattr(644,root,root,755)
+%doc src/flac/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/flacng.so
 
 %files -n audacious-input-madplug
@@ -1784,6 +1890,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-metronom
 %defattr(644,root,root,755)
+%doc src/metronom/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/metronom.so
 
 %files -n audacious-input-modplug
@@ -1792,6 +1899,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-openmpt
 %defattr(644,root,root,755)
+%doc src/openmpt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/openmpt.so
 
 %files -n audacious-input-psf2
@@ -1801,22 +1909,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-input-sid
 %defattr(644,root,root,755)
+%doc src/sid/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/sid.so
 
 %files -n audacious-input-sndfile
 %defattr(644,root,root,755)
+%doc src/sndfile/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/sndfile.so
 
 %files -n audacious-input-tonegen
 %defattr(644,root,root,755)
+%doc src/tonegen/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/tonegen.so
 
 %files -n audacious-input-vorbis
 %defattr(644,root,root,755)
+%doc src/vorbis/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/vorbis.so
 
 %files -n audacious-input-vtx
 %defattr(644,root,root,755)
+%doc src/vtx/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/vtx.so
 
 %files -n audacious-input-wavpack
@@ -1835,22 +1948,27 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-output-file
 %defattr(644,root,root,755)
+%doc src/filewriter/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/filewriter.so
 
 %files -n audacious-output-jack
 %defattr(644,root,root,755)
+%doc src/jack/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/jack-ng.so
 
 %files -n audacious-output-oss4
 %defattr(644,root,root,755)
+%doc src/oss4/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/oss4.so
 
 %files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
+%doc src/pulse/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
 %files -n audacious-output-qtaudio
 %defattr(644,root,root,755)
+%doc src/qtaudio/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 
 %files -n audacious-output-sdlout
@@ -1876,14 +1994,17 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-transport-neon
 %defattr(644,root,root,755)
+%doc src/neon/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Transport/neon.so
 
 %files -n audacious-visualization-blur-scope
 %defattr(644,root,root,755)
+%doc src/blur_scope/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope.so
 
 %files -n audacious-visualization-blur-scope-qt
 %defattr(644,root,root,755)
+%doc src/blur_scope-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/blur_scope-qt.so
 
 %files -n audacious-visualization-cairo-spectrum
@@ -1893,17 +2014,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n audacious-visualization-gl-spectrum
 %defattr(644,root,root,755)
+%doc src/glspectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum.so
 
 %files -n audacious-visualization-gl-spectrum-qt
 %defattr(644,root,root,755)
+%doc src/qtglspectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/gl-spectrum-qt.so
 
 %files -n audacious-visualization-qt-spectrum
 %defattr(644,root,root,755)
+%doc src/qt-spectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/qt-spectrum.so
 
 %files -n audacious-visualization-vumeter-qt
 %defattr(644,root,root,755)
+%doc src/vumeter-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/vumeter-qt.so
 
