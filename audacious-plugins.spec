@@ -173,7 +173,6 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
-Obsoletes:	audacious-general-lyricwiki
 Obsoletes:	bmp-extra-plugins
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -203,8 +202,8 @@ Summary(pl.UTF-8):	Wtyczka list cue dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-input-cuesheet
-Obsoletes:	audacious-input-cuesheet_ng
+Obsoletes:	audacious-input-cuesheet < 2.1
+Obsoletes:	audacious-input-cuesheet_ng < 2.3
 
 %description -n audacious-container-cuesheet
 Cue Sheet list plugin for Audacious media player.
@@ -315,6 +314,7 @@ Summary(pl.UTF-8):	Wtyczka efektu crossfade dla odtwarzacza multimedialnego Auda
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-output-crossfade < 1.1
 Obsoletes:	bmp-output-crossfade
 
 %description -n audacious-effect-crossfade
@@ -426,7 +426,7 @@ Summary(pl.UTF-8):	Wtyczka speed-pitch dla odtwarzacza multimedialnego Audacious
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	audacious-effect-sndstretch
+Obsoletes:	audacious-effect-sndstretch < 3.3
 
 %description -n audacious-effect-speed-pitch
 Speed and pitch effect plugin for Audacious media player.
@@ -573,7 +573,7 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-qt >= %{audver}
 Suggests:	audacious-plugins-qt = %{audver}
-Obsoletes:	audacious-qt
+Obsoletes:	audacious-qt < 4.0
 
 %description -n audacious-general-qtui
 Qt UI plugin for Audacious media player.
@@ -615,20 +615,6 @@ LIRC plugin for Audacious media player.
 %description -n audacious-general-lirc -l pl.UTF-8
 Wtyczka LIRC dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-general-lyricwiki
-Summary:	Audacious media player - lyricwiki plugin
-Summary(pl.UTF-8):	Wtyczka lyricwiki dla odtwarzacza multimedialnego Audacious
-License:	MIT
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Requires:	glib2 >= 1:2.14
-
-%description -n audacious-general-lyricwiki
-LyricWiki plugin for Audacious media player.
-
-%description -n audacious-general-lyricwiki -l pl.UTF-8
-Wtyczka LyricWiki dla odtwarzacza multimedialnego Audacious.
-
 %package -n audacious-general-lyricwiki-qt
 Summary:	Audacious media player - lyricwiki-qt plugin
 Summary(pl.UTF-8):	Wtyczka lyricwiki-qt dla odtwarzacza multimedialnego Audacious
@@ -636,6 +622,7 @@ License:	MIT
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-qt = %{audver}
+Obsoletes:	audacious-general-lyricwiki < 4.1
 
 %description -n audacious-general-lyricwiki-qt
 LyricWiki plugin for Audacious media player. For QT interface.
@@ -730,6 +717,7 @@ License:	unknown
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	curl-libs >= 7.9.7
+Obsoletes:	audacious-general-audioscrobbler < 1.4
 Obsoletes:	bmp-general-audioscrobbler
 Obsoletes:	bmp-general-scrobbler
 
@@ -925,6 +913,7 @@ Requires:	audacious = %{audver}
 Requires:	libcddb >= 1.2.1
 Requires:	libcdio >= 0.70
 Requires:	libcdio-paranoia >= 0.70
+Obsoletes:	audacious-input-cdaudio < 1.4
 Obsoletes:	beep-media-player-input-cdaudio
 Obsoletes:	bmp-input-cdaudio
 
@@ -959,6 +948,9 @@ Summary(pl.UTF-8):	Wtyczka wejściowa ffaudio dla odtwarzacza multimedialnego Au
 License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-input-mpc < 1.4
+Obsoletes:	audacious-input-mplayer < 1.4
+Obsoletes:	audacious-input-musepack < 2.3
 Obsoletes:	bmp-input-mpc
 Obsoletes:	bmp-input-mplayer
 Obsoletes:	bmp-input-musepack
@@ -976,6 +968,7 @@ License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	flac >= 1.2.1
+Obsoletes:	audacious-input-flac < 1.4
 
 %description -n audacious-input-flacng
 FLAC input plugin for Audacious media player.
@@ -1004,6 +997,7 @@ License:	MIT
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	libmpg123 >= 1.12
+Obsoletes:	audacious-input-mpg123 < 1.3
 Obsoletes:	beep-media-player-input-mpg123
 Obsoletes:	bmp-input-mpg123
 
@@ -1019,6 +1013,7 @@ Summary(pl.UTF-8):	Wtyczka wejściowa modplug dla odtwarzacza multimedialnego Au
 License:	Public Domain
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
+Obsoletes:	audacious-input-mikmod < 0.1.2
 
 %description -n audacious-input-modplug
 modplug input plugin for Audacious media player.
@@ -1046,7 +1041,7 @@ License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Provides:	audacious-input-sexypsf
-Obsoletes:	audacious-input-sexypsf
+Obsoletes:	audacious-input-sexypsf < 2.1
 
 %description -n audacious-input-psf2
 psf2 input plugin for Audacious media player.
@@ -1075,6 +1070,7 @@ License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	libsndfile >= 0.19
+Obsoletes:	audacious-input-wav < 1.5
 Obsoletes:	beep-media-player-input-wav
 Obsoletes:	bmp-input-wav
 
@@ -1173,6 +1169,7 @@ Group:		X11/Applications/Sound
 Requires:	alsa-lib >= 1.0.16
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
+Obsoletes:	audacious-output-ALSA < 0.1.1-1
 Obsoletes:	beep-media-player-output-ALSA
 Obsoletes:	beep-media-player-output-OSS
 Obsoletes:	bmp-output-ALSA
@@ -1243,7 +1240,9 @@ Requires:	audacious = %{audver}
 Requires:	pulseaudio-libs >= 0.9.9
 Provides:	audacious-output-plugin
 Provides:	audacious-output-pulse_audio
-Obsoletes:	audacious-output-pulse_audio
+Obsoletes:	audacious-output-arts < 2.1
+Obsoletes:	audacious-output-esd < 2.3-3
+Obsoletes:	audacious-output-pulse_audio < 2.1-4
 Obsoletes:	beep-media-player-output-esd
 Obsoletes:	bmp-output-arts
 Obsoletes:	bmp-output-esd
@@ -1351,8 +1350,8 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	glib2 >= 1:2.22
 Provides:	audacious-transport-stdio
-Obsoletes:	audacious-transport-smb
-Obsoletes:	audacious-transport-stdio
+Obsoletes:	audacious-transport-smb < 3.3
+Obsoletes:	audacious-transport-stdio < 2.1
 
 %description -n audacious-transport-gio
 GIO transport plugin for Audacious media player.
