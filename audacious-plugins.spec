@@ -9,12 +9,12 @@
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.1
-Release:	2
+Version:	4.2
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	740d83757b49b82bc75e256c96b09bfd
+# Source0-md5:	029d1ee500e8941812ddbf65b23988c8
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 URL:		http://audacious-media-player.org/
@@ -128,6 +128,7 @@ Requires:	audacious-container-pl = %{version}-%{release}
 Requires:	audacious-container-pls = %{version}-%{release}
 Requires:	audacious-container-xspf = %{version}-%{release}
 Requires:	audacious-effect-audiocompress = %{version}-%{release}
+Requires:	audacious-effect-bitcrusher = %{version}-%{release}
 %{?with_bs2b:Requires:	audacious-effect-bs2b = %{version}-%{release}}
 Requires:	audacious-effect-crossfade = %{version}-%{release}
 Requires:	audacious-effect-crystalizer = %{version}-%{release}
@@ -278,6 +279,19 @@ Dynamic range compression plugin for Audacious media player.
 %description -n audacious-effect-audiocompress -l pl.UTF-8
 Wtyczka kompresji dynamiki dźwięku dla odtwarzacza multimedialnego
 Audacious.
+
+%package -n audacious-effect-bitcrusher
+Summary:	Audacious media player - Bitcrusher effect plugin
+Summary(pl.UTF-8):	Wtyczka bitcrusher dla odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-bitcrusher
+Bitcrusher plugin for Audacious media player.
+
+%description -n audacious-effect-bitcrusher -l pl.UTF-8
+Wtyczka bitcrusher dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-effect-bs2b
 Summary:	Audacious media player - BS2B effect plugin
@@ -1503,6 +1517,7 @@ src/asx/asx.cc 19
 src/audpl/audpl.cc 18
 src/blur_scope/blur_scope.cc 25
 src/blur_scope-qt/blur_scope.cc 26
+src/bitcrusher/bitcrusher.cc 19
 src/bs2b/plugin.cc 21
 src/cairo-spectrum/cairo-spectrum.cc 19
 src/cdaudio/cdaudio-ng.cc 20
@@ -1658,6 +1673,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/compressor/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/compressor.so
+
+%files -n audacious-effect-bitcrusher
+%defattr(644,root,root,755)
+%doc src/bitcrusher/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Effect/bitcrusher.so
 
 %if %{with bs2b}
 %files -n audacious-effect-bs2b
