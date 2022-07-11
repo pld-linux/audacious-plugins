@@ -13,11 +13,11 @@ Version:	4.2
 Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
-Source0:	http://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
+Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
 # Source0-md5:	029d1ee500e8941812ddbf65b23988c8
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
-URL:		http://audacious-media-player.org/
+URL:		https://audacious-media-player.org/
 BuildRequires:	Qt5Core-devel >= 5
 BuildRequires:	Qt5Gui-devel >= 5
 # audacious-qt/qtaudio part
