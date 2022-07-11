@@ -5,7 +5,7 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.1
+%define		audver	4.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
