@@ -34,6 +34,7 @@ BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-build >= 4.6
 ### for plugins
 # visualization-gl-spectrum
 BuildRequires:	OpenGL-GLX-devel
