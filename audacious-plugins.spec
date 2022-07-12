@@ -1613,13 +1613,12 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_desktopdir}
 install -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install -p %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/fa{_IR,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/id{_ID,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/ml{_IN,}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/pt{_PT,}
 # outdated version of sr
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr_RS
-# unsupported
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/fa_IR
 
 %find_lang %{name}
 
@@ -2054,4 +2053,3 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/vumeter-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/vumeter-qt.so
-
