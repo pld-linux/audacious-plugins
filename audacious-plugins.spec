@@ -173,7 +173,7 @@ Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
-Obsoletes:	bmp-extra-plugins
+Obsoletes:	bmp-extra-plugins < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -315,7 +315,7 @@ License:	BSD
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Obsoletes:	audacious-output-crossfade < 1.1
-Obsoletes:	bmp-output-crossfade
+Obsoletes:	bmp-output-crossfade < 1
 
 %description -n audacious-effect-crossfade
 Crossfade effect plugin for Audacious media player.
@@ -590,7 +590,7 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-gtk = %{audver}
 Requires:	gtk+3 >= 3.0.0
-Obsoletes:	bmp-general-xf86audio
+Obsoletes:	bmp-general-xf86audio < 1
 
 %description -n audacious-general-hotkey
 Global Hotkey plugin for Audacious media player. It allows to control
@@ -607,7 +607,7 @@ Summary(pl.UTF-8):	Wtyczka lirc dla odtwarzacza multimedialnego Audacious
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	bmp-general-lirc
+Obsoletes:	bmp-general-lirc < 1
 
 %description -n audacious-general-lirc
 LIRC plugin for Audacious media player.
@@ -718,8 +718,8 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	curl-libs >= 7.9.7
 Obsoletes:	audacious-general-audioscrobbler < 1.4
-Obsoletes:	bmp-general-audioscrobbler
-Obsoletes:	bmp-general-scrobbler
+Obsoletes:	bmp-general-audioscrobbler < 1
+Obsoletes:	bmp-general-scrobbler < 1
 
 %description -n audacious-general-scrobbler
 Scrobbler plugin for Audacious media player.
@@ -835,7 +835,7 @@ License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-gtk = %{audver}
-Obsoletes:	bmp-status-docklet
+Obsoletes:	bmp-status-docklet < 1
 
 %description -n audacious-general-statusicon
 Status icon plugin for Audacious media player.
@@ -914,8 +914,8 @@ Requires:	libcddb >= 1.2.1
 Requires:	libcdio >= 0.70
 Requires:	libcdio-paranoia >= 0.70
 Obsoletes:	audacious-input-cdaudio < 1.4
-Obsoletes:	beep-media-player-input-cdaudio
-Obsoletes:	bmp-input-cdaudio
+Obsoletes:	beep-media-player-input-cdaudio < 1
+Obsoletes:	bmp-input-cdaudio < 1
 
 %description -n audacious-input-cdaudio-ng
 CD Digital Audio input plugin for Audacious media player.
@@ -951,9 +951,9 @@ Requires:	audacious = %{audver}
 Obsoletes:	audacious-input-mpc < 1.4
 Obsoletes:	audacious-input-mplayer < 1.4
 Obsoletes:	audacious-input-musepack < 2.3
-Obsoletes:	bmp-input-mpc
-Obsoletes:	bmp-input-mplayer
-Obsoletes:	bmp-input-musepack
+Obsoletes:	bmp-input-mpc < 1
+Obsoletes:	bmp-input-mplayer < 1
+Obsoletes:	bmp-input-musepack < 1
 
 %description -n audacious-input-ffaudio
 FFaudio input plugin for Audacious media player.
@@ -998,8 +998,8 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	libmpg123 >= 1.12
 Obsoletes:	audacious-input-mpg123 < 1.3
-Obsoletes:	beep-media-player-input-mpg123
-Obsoletes:	bmp-input-mpg123
+Obsoletes:	beep-media-player-input-mpg123 < 1
+Obsoletes:	bmp-input-mpg123 < 1
 
 %description -n audacious-input-madplug
 MPEG Audio Plugin for Audacious media player.
@@ -1071,8 +1071,8 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	libsndfile >= 0.19
 Obsoletes:	audacious-input-wav < 1.5
-Obsoletes:	beep-media-player-input-wav
-Obsoletes:	bmp-input-wav
+Obsoletes:	beep-media-player-input-wav < 1
+Obsoletes:	bmp-input-wav < 1
 
 %description -n audacious-input-sndfile
 sndfile is an input plugin for Audacious. Using sndfile extends the
@@ -1110,8 +1110,8 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	libogg >= 2:1.0
 Requires:	libvorbis >= 1:1.0
-Obsoletes:	beep-media-player-input-vorbis
-Obsoletes:	bmp-input-vorbis
+Obsoletes:	beep-media-player-input-vorbis < 1
+Obsoletes:	bmp-input-vorbis < 1
 
 %description -n audacious-input-vorbis
 Vorbis input plugin for Audacious media player.
@@ -1170,10 +1170,10 @@ Requires:	alsa-lib >= 1.0.16
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 Obsoletes:	audacious-output-ALSA < 0.1.1-1
-Obsoletes:	beep-media-player-output-ALSA
-Obsoletes:	beep-media-player-output-OSS
-Obsoletes:	bmp-output-ALSA
-Obsoletes:	bmp-output-OSS
+Obsoletes:	beep-media-player-output-ALSA < 1
+Obsoletes:	beep-media-player-output-OSS < 1
+Obsoletes:	bmp-output-ALSA < 1
+Obsoletes:	bmp-output-OSS < 1
 
 %description -n audacious-output-alsa
 Output ALSA plugin for Audacious media player.
@@ -1189,7 +1189,7 @@ Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	flac >= 1.1.3
 Provides:	audacious-output-plugin
-Obsoletes:	bmp-output-oggre
+Obsoletes:	bmp-output-oggre < 1
 
 %description -n audacious-output-file
 Output file-writer plugin for Audacious media player.
@@ -1243,9 +1243,9 @@ Provides:	audacious-output-pulse_audio
 Obsoletes:	audacious-output-arts < 2.1
 Obsoletes:	audacious-output-esd < 2.3-3
 Obsoletes:	audacious-output-pulse_audio < 2.1-4
-Obsoletes:	beep-media-player-output-esd
-Obsoletes:	bmp-output-arts
-Obsoletes:	bmp-output-esd
+Obsoletes:	beep-media-player-output-esd < 1
+Obsoletes:	bmp-output-arts < 1
+Obsoletes:	bmp-output-esd < 1
 
 %description -n audacious-output-pulseaudio
 PulseAudio output plugin for Audacious media player.
@@ -1394,7 +1394,7 @@ Summary(pl.UTF-8):	Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialne
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	bmp-visualization-blursk
+Obsoletes:	bmp-visualization-blursk < 1
 
 %description -n audacious-visualization-blur-scope
 Blur scope visualization plugin for Audacious media player.
@@ -1409,7 +1409,7 @@ Summary(pl.UTF-8):	Wtyczka wizualizacji Blur scope dla odtwarzacza multimedialne
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Obsoletes:	bmp-visualization-blursk
+Obsoletes:	bmp-visualization-blursk < 1
 
 %description -n audacious-visualization-blur-scope-qt
 Blur scope visualization plugin for Audacious media player for QT
