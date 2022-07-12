@@ -35,6 +35,7 @@ BuildRequires:	automake
 BuildRequires:	gettext-tools
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
+BuildRequires:	sed >= 4.0
 ### for plugins
 # visualization-gl-spectrum
 BuildRequires:	OpenGL-GLX-devel
@@ -1589,7 +1590,7 @@ src/xspf/xspf.cc 22
 EOF
 
 # verbose build
-sed -i '\,^.SILENT:,d' buildsys.mk.in
+%{__sed} -i -e '/^\.SILENT:/d' -e '/MAKE/ s/ -s / /' buildsys.mk.in
 
 %build
 %{__aclocal} -I m4
