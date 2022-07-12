@@ -43,6 +43,8 @@ BuildRequires:	OpenGL-GLX-devel
 BuildRequires:	SDL2-devel >= 2.0
 # input-amidi (>= 1.0), output-alsa (>= 1.0.16)
 BuildRequires:	alsa-lib-devel >= 1.0.16
+# general-ampache
+BuildRequires:	ampache_browser-devel >= 1
 # general-aosd
 BuildRequires:	cairo-devel >= 1.2.4
 # general-scrobbler
@@ -506,6 +508,20 @@ Album art plugin for Audacious media player - for QT interface.
 %description -n audacious-general-albumart-qt -l pl.UTF-8
 Wtyczka prezentująca okładki albumów dla odtwarzacza multimedialnego
 Audacious. Wersja dla inferfejsu QT.
+
+%package -n audacious-general-ampache
+Summary:	Audacious media player - ampache plugin
+Summary(pl.UTF-8):	Wtyczka ampache dla odtwarzacza multimedialnego Audacious
+License:	GPL v3
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-general-ampache
+Ampache Browser plugin for Audacious media player.
+
+%description -n audacious-general-ampache -l pl.UTF-8
+Wtyczka przeglądarki Ampache dla odtwarzacza multimedialnego
+Audacious.
 
 %package -n audacious-general-aosd
 Summary:	Audacious media player - aosd plugin
@@ -1756,6 +1772,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/albumart-qt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/albumart-qt.so
+
+%files -n audacious-general-ampache
+%defattr(644,root,root,755)
+%doc src/ampache/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/General/ampache.so
 
 %files -n audacious-general-aosd
 %defattr(644,root,root,755)
