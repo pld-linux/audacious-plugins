@@ -1170,6 +1170,7 @@ Requires:	alsa-lib >= 1.0.16
 Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 Obsoletes:	audacious-output-ALSA < 0.1.1-1
+Obsoletes:	audacious-output-oss < 3.3
 Obsoletes:	beep-media-player-output-ALSA < 1
 Obsoletes:	beep-media-player-output-OSS < 1
 Obsoletes:	bmp-output-ALSA < 1
