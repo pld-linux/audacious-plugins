@@ -32,7 +32,7 @@ BuildRequires:	audacious-libs-gtk-devel >= %{audver}
 BuildRequires:	audacious-libs-qt-devel >= %{audver}
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake
-BuildRequires:	gettext-tools
+BuildRequires:	gettext-tools >= 0.18.1
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	sed >= 4.0
@@ -1255,7 +1255,7 @@ Provides:	audacious-output-plugin
 Oss4 output plugin for Audacious media player.
 
 %description -n audacious-output-oss4 -l pl.UTF-8
-Wtyczka wyjściowaoss4 dla odtwarzacza multimedialnego Audacious.
+Wtyczka wyjściowa oss4 dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-pipewire
 Summary:	Audacious media player - pipewire output plugin
@@ -1266,10 +1266,10 @@ Requires:	audacious = %{audver}
 Provides:	audacious-output-plugin
 
 %description -n audacious-output-pipewire
-Oss4 output plugin for Audacious media player.
+Pipewire output plugin for Audacious media player.
 
 %description -n audacious-output-pipewire -l pl.UTF-8
-Wtyczka wyjściowapipewire dla odtwarzacza multimedialnego Audacious.
+Wtyczka wyjściowa pipewire dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
