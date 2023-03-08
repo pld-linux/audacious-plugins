@@ -5,16 +5,16 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.2
+%define		audver	4.3
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.2
-Release:	2
+Version:	4.3
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	029d1ee500e8941812ddbf65b23988c8
+# Source0-md5:	e8261853b63cc9d45e5897f266058c65
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 URL:		https://audacious-media-player.org/
@@ -91,12 +91,15 @@ BuildRequires:	libopenmpt-devel
 BuildRequires:	libmpg123-devel >= 1.12
 # general-notify
 BuildRequires:	libnotify-devel >= 0.7
+# input-opus
+BuildRequires:	opus-devel >= 1.0.1
+BuildRequires:	opusfile-devel >= 0.4
 # input-vorbis
 BuildRequires:	libogg-devel >= 2:1.0
 # effect-resample, effect-speed-pitch, output-jack
 BuildRequires:	libsamplerate-devel
 # input-sid
-BuildRequires:	libsidplayfp-devel >= 1.0
+BuildRequires:	libsidplayfp-devel >= 2.0.1
 # input-sndfile
 BuildRequires:	libsndfile-devel >= 0.19
 # -std=gnu++11
@@ -111,6 +114,8 @@ BuildRequires:	lirc-devel
 BuildRequires:	neon-devel >= 0.27
 # general-aosd
 BuildRequires:	pango-devel >= 1:1.14.7
+# output-pipewire
+BuildRequires:	pipewire-devel >= 0.3.26
 # output-pulseaudio
 BuildRequires:	pulseaudio-devel >= 0.9.9
 # effect-sox-resampler
@@ -161,6 +166,7 @@ Requires:	audacious-input-madplug = %{version}-%{release}
 Requires:	audacious-input-metronom = %{version}-%{release}
 Requires:	audacious-input-modplug = %{version}-%{release}
 Requires:	audacious-input-openmpt = %{version}-%{release}
+Requires:	audacious-input-opus = %{version}-%{release}
 Requires:	audacious-input-psf2 = %{version}-%{release}
 Requires:	audacious-input-sid = %{version}-%{release}
 Requires:	audacious-input-sndfile = %{version}-%{release}
@@ -172,11 +178,13 @@ Requires:	audacious-input-xsf = %{version}-%{release}
 Requires:	audacious-output-alsa = %{version}-%{release}
 Requires:	audacious-output-file = %{version}-%{release}
 Requires:	audacious-output-jack = %{version}-%{release}
+Requires:	audacious-output-pipewire = %{version}-%{release}
 Requires:	audacious-output-pulseaudio = %{version}-%{release}
 Requires:	audacious-output-sdlout = %{version}-%{release}
 Requires:	audacious-transport-gio = %{version}-%{release}
 Requires:	audacious-transport-mms = %{version}-%{release}
 Requires:	audacious-transport-neon = %{version}-%{release}
+Obsoletes:	audacious-general-alarm < 4.3
 Obsoletes:	bmp-extra-plugins < 1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -464,20 +472,6 @@ Voice removal plugin for Audacious media player.
 
 %description -n audacious-effect-voice_removal -l pl.UTF-8
 Wtyczka usuwająca głos dla odtwarzacza multimedialnego Audacious.
-
-%package -n audacious-general-alarm
-Summary:	Audacious media player - alarm plugin
-Summary(pl.UTF-8):	Wtyczka alarm dla odtwarzacza multimedialnego Audacious
-License:	GPL v2+
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Requires:	audacious-libs-gtk = %{audver}
-
-%description -n audacious-general-alarm
-Alarm plugin for Audacious media player.
-
-%description -n audacious-general-alarm -l pl.UTF-8
-Wtyczka budzika dla odtwarzacza multimedialnego Audacious.
 
 %package -n audacious-general-albumart
 Summary:	Audacious media player - albumart plugin
@@ -1052,6 +1046,19 @@ openmpt input plugin for Audacious media player.
 %description -n audacious-input-openmpt -l pl.UTF-8
 Wtyczka wejściowa openmpt dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-input-opus
+Summary:	Audacious media player - opus input plugin
+Summary(pl.UTF-8):	Wtyczka wejściowa opus dla odtwarzacza multimedialnego Audacious
+License:	Public Domain
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-input-opus
+opus input plugin for Audacious media player.
+
+%description -n audacious-input-opus -l pl.UTF-8
+Wtyczka wejściowa opus dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-input-psf2
 Summary:	Audacious media player - psf2 input plugin
 Summary(pl.UTF-8):	Wtyczka wejściowa psf2 dla odtwarzacza multimedialnego Audacious
@@ -1073,7 +1080,7 @@ Summary(pl.UTF-8):	Wtyczka wejściowa SID dla odtwarzacza multimedialnego Audaci
 License:	GPL v2+
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
-Requires:	libsidplayfp >= 1.0
+Requires:	libsidplayfp >= 2.0.1
 
 %description -n audacious-input-sid
 SID input plugin for Audacious media player.
@@ -1250,6 +1257,20 @@ Oss4 output plugin for Audacious media player.
 %description -n audacious-output-oss4 -l pl.UTF-8
 Wtyczka wyjściowaoss4 dla odtwarzacza multimedialnego Audacious.
 
+%package -n audacious-output-pipewire
+Summary:	Audacious media player - pipewire output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa pipewire dla odtwarzacza multimedialnego Audacious
+License:	Public Domain
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
+
+%description -n audacious-output-pipewire
+Oss4 output plugin for Audacious media player.
+
+%description -n audacious-output-pipewire -l pl.UTF-8
+Wtyczka wyjściowapipewire dla odtwarzacza multimedialnego Audacious.
+
 %package -n audacious-output-pulseaudio
 Summary:	Audacious media player - PulseAudio output plugin
 Summary(pl.UTF-8):	Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego Audacious
@@ -1308,7 +1329,6 @@ Summary:	Audacious media player - GTK plugins (metapackage)
 Summary(pl.UTF-8):	Wtyczki GTK dla odtwarzacza multimedialnego Audacious (metapakiet)
 Group:		X11/Applications/Sound
 Requires:	audacious-effect-ladspa = %{version}-%{release}
-Requires:	audacious-general-alarm = %{version}-%{release}
 Requires:	audacious-general-albumart = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
@@ -1523,7 +1543,6 @@ while read file no; do
 	head -n "$no" "$file" > $(dirname "$file")/LICENSE
 done <<EOF
 src/adplug/adplug-xmms.cc 18
-src/alarm/alarm.cc 19
 src/albumart/albumart.cc 19
 src/albumart-qt/albumart.cc 19
 src/alsa/alsa.cc 18
@@ -1568,7 +1587,9 @@ src/mpris2/plugin.cc 18
 src/neon/neon.cc 19
 src/notify/notify.cc 20
 src/openmpt/mpt.cc 25
+src/opus/opus.cc 18
 src/oss4/oss.cc 21
+src/pipewire/pipewire.cc 21
 src/playlist-manager/playlist-manager.cc 19
 src/playlist-manager-qt/playlist-manager-qt.cc 19
 src/pls/pls.cc 21
@@ -1758,11 +1779,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/voice_removal/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/voice_removal.so
 
-%files -n audacious-general-alarm
-%defattr(644,root,root,755)
-%doc src/alarm/LICENSE
-%attr(755,root,root) %{_libdir}/audacious/General/alarm.so
-
 %files -n audacious-general-albumart
 %defattr(644,root,root,755)
 %doc src/albumart/LICENSE
@@ -1945,6 +1961,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/openmpt/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Input/openmpt.so
 
+%files -n audacious-input-opus
+%defattr(644,root,root,755)
+%doc src/opus/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Input/opus.so
+
 %files -n audacious-input-psf2
 %defattr(644,root,root,755)
 %doc src/psf/LICENSE
@@ -2003,6 +2024,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/oss4/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/oss4.so
+
+%files -n audacious-output-pipewire
+%defattr(644,root,root,755)
+%doc src/pipewire/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Output/pipewire.so
 
 %files -n audacious-output-pulseaudio
 %defattr(644,root,root,755)
