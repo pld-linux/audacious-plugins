@@ -5,27 +5,27 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.3.1
+%define		audver	4.4
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.3.1
-Release:	2
+Version:	4.4
+Release:	0.1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	3e233d8219407218244e684e096236ec
+# Source0-md5:	0946f32277afc60ec12510bd09507016
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 URL:		https://audacious-media-player.org/
-BuildRequires:	Qt5Core-devel >= 5
-BuildRequires:	Qt5Gui-devel >= 5
+BuildRequires:	Qt6Core-devel >= 6.2
+BuildRequires:	Qt6Gui-devel >= 6.2
 # audacious-qt/qtaudio part
-BuildRequires:	Qt5Multimedia-devel >= 5
+#BuildRequires:	Qt6Multimedia-devel >= 6.2
 # audacious-qt/gl-spectrum-qt part
-BuildRequires:	Qt5OpenGL-devel >= 5
-BuildRequires:	Qt5Widgets-devel >= 5
-BuildRequires:	Qt5X11Extras-devel >= 5
+BuildRequires:	Qt6OpenGL-devel >= 6.2
+BuildRequires:	Qt6Widgets-devel >= 6.2
+#BuildRequires:	Qt6X11Extras-devel >= 6.2
 BuildRequires:	adplug-devel
 BuildRequires:	audacious-devel >= %{audver}
 BuildRequires:	audacious-libs-gtk-devel >= %{audver}
@@ -36,6 +36,7 @@ BuildRequires:	gettext-tools >= 0.18.1
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	sed >= 4.0
+BuildRequires:	xcb-proto
 ### for plugins
 # visualization-gl-spectrum
 BuildRequires:	OpenGL-GLX-devel
@@ -290,6 +291,20 @@ Dynamic range compression plugin for Audacious media player.
 %description -n audacious-effect-audiocompress -l pl.UTF-8
 Wtyczka kompresji dynamiki dźwięku dla odtwarzacza multimedialnego
 Audacious.
+
+%package -n audacious-effect-background-music
+Summary:	Audacious media player - Background music effect plugin
+Summary(pl.UTF-8):	Wtyczka Background music dla odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+
+%description -n audacious-effect-background-music
+Background music (equal loudness) Plugin for Audacious
+
+%description -n audacious-effect-background-music -l pl.UTF-8
+Wtyczka Background music (jednakowa głośność) dla odtwarzacza
+multimedialnego Audacious.
 
 %package -n audacious-effect-bitcrusher
 Summary:	Audacious media player - Bitcrusher effect plugin
@@ -627,20 +642,37 @@ LIRC plugin for Audacious media player.
 %description -n audacious-general-lirc -l pl.UTF-8
 Wtyczka LIRC dla odtwarzacza multimedialnego Audacious.
 
-%package -n audacious-general-lyricwiki-qt
-Summary:	Audacious media player - lyricwiki-qt plugin
-Summary(pl.UTF-8):	Wtyczka lyricwiki-qt dla odtwarzacza multimedialnego Audacious
+%package -n audacious-general-lyrics-gtk
+Summary:	Audacious media player - lyrics-gtk plugin
+Summary(pl.UTF-8):	Wtyczka lyrics-gtk dla odtwarzacza multimedialnego Audacious
+License:	MIT
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
+Obsoletes:	audacious-general-lyricwiki < 4.1
+
+%description -n audacious-general-lyrics-gtk
+Lyrics plugin for Audacious media player. For GTK interface.
+
+%description -n audacious-general-lyrics-gtk -l pl.UTF-8
+Wtyczka Lyrics dla odtwarzacza multimedialnego Audacious. Dla
+interfejsu GTK.
+
+%package -n audacious-general-lyrics-qt
+Summary:	Audacious media player - lyrics-qt plugin
+Summary(pl.UTF-8):	Wtyczka lyrics-qt dla odtwarzacza multimedialnego Audacious
 License:	MIT
 Group:		X11/Applications/Sound
 Requires:	audacious = %{audver}
 Requires:	audacious-libs-qt = %{audver}
 Obsoletes:	audacious-general-lyricwiki < 4.1
+Obsoletes:	audacious-general-lyricwiki-qt < 4.4
 
-%description -n audacious-general-lyricwiki-qt
-LyricWiki plugin for Audacious media player. For QT interface.
+%description -n audacious-general-lyrics-qt
+Lyrics plugin for Audacious media player. For QT interface.
 
-%description -n audacious-general-lyricwiki-qt -l pl.UTF-8
-Wtyczka LyricWiki dla odtwarzacza multimedialnego Audacious. Dla
+%description -n audacious-general-lyrics-qt -l pl.UTF-8
+Wtyczka Lyrics dla odtwarzacza multimedialnego Audacious. Dla
 interfejsu QT.
 
 %package -n audacious-general-mpris2
@@ -1294,20 +1326,21 @@ PulseAudio output plugin for Audacious media player.
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
-%package -n audacious-output-qtaudio
-Summary:	Audacious media player - qtaudio output plugin
-Summary(pl.UTF-8):	Wtyczka wyjściowa qtaudio dla odtwarzacza multimedialnego Audacious
-License:	BSD
-Group:		X11/Applications/Sound
-Requires:	audacious = %{audver}
-Provides:	audacious-output-plugin
+# qtaudio is supported by QT5 only
+#%package -n audacious-output-qtaudio
+#Summary:	Audacious media player - qtaudio output plugin
+#Summary(pl.UTF-8):	Wtyczka wyjściowa qtaudio dla odtwarzacza multimedialnego Audacious
+#License:	BSD
+#Group:		X11/Applications/Sound
+#Requires:	audacious = %{audver}
+#Provides:	audacious-output-plugin
 
-%description -n audacious-output-qtaudio
-QtMultimedia Audio Output Plugin for Audacious.
+#%description -n audacious-output-qtaudio
+#QtMultimedia Audio Output Plugin for Audacious.
 
-%description -n audacious-output-qtaudio -l pl.UTF-8
-Wtyczka wyjściowaQtMultimedia Audio dla odtwarzacza multimedialnego
-Audacious.
+#%description -n audacious-output-qtaudio -l pl.UTF-8
+#Wtyczka wyjściowaQtMultimedia Audio dla odtwarzacza multimedialnego
+#Audacious.
 
 %package -n audacious-output-sdlout
 Summary:	Audacious media player - sdlout output plugin
@@ -1334,6 +1367,7 @@ Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-gtkui = %{version}-%{release}
 Requires:	audacious-general-hotkey = %{version}-%{release}
+Requires:	audacious-general-lyrics-gtk = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-playlist-manager = %{version}-%{release}
 Requires:	audacious-general-search-tool = %{version}-%{release}
@@ -1358,7 +1392,7 @@ Summary(pl.UTF-8):	Wtyczki QT dla odtwarzacza multimedialnego Audacious (metapak
 Group:		X11/Applications/Sound
 Requires:	audacious-general-albumart-qt = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
-Requires:	audacious-general-lyricwiki-qt = %{version}-%{release}
+Requires:	audacious-general-lyrics-qt = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
 Requires:	audacious-general-playlist-manager-qt = %{version}-%{release}
 Requires:	audacious-general-qthotkey = %{version}-%{release}
@@ -1552,6 +1586,7 @@ src/aosd/aosd.cc 20
 src/asx3/asx3.cc 19
 src/asx/asx.cc 19
 src/audpl/audpl.cc 18
+src/background_music/background_music.cc 18
 src/blur_scope/blur_scope.cc 25
 src/blur_scope-qt/blur_scope.cc 26
 src/bitcrusher/bitcrusher.cc 19
@@ -1575,7 +1610,8 @@ src/hotkey/plugin.cc 36
 src/jack/jack-ng.cc 21
 src/ladspa/plugin.cc 18
 src/lirc/lirc.cc 28
-src/lyricwiki-qt/lyricwiki.cc 19
+src/lyrics-gtk/lyrics-gtk.cc 21
+src/lyrics-qt/lyrics-qt.cc 20
 src/m3u/m3u.cc 19
 src/metronom/metronom.cc 18
 src/mixer/mixer.cc 18
@@ -1637,8 +1673,7 @@ EOF
 	TPUT="" \
 	%{!?with_bs2b:--disable-bs2b} \
 	--enable-amidiplug \
-	--enable-gtk \
-	--enable-qtaudio
+	--enable-gtk
 
 %{__make}
 
@@ -1713,6 +1748,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/compressor/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Effect/compressor.so
+
+%files -n audacious-effect-background-music
+%defattr(644,root,root,755)
+%doc src/background_music/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Effect/background_music.so
 
 %files -n audacious-effect-bitcrusher
 %defattr(644,root,root,755)
@@ -1825,10 +1865,15 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/lirc/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/lirc.so
 
-%files -n audacious-general-lyricwiki-qt
+%files -n audacious-general-lyrics-gtk
 %defattr(644,root,root,755)
-%doc src/lyricwiki-qt/LICENSE
-%attr(755,root,root) %{_libdir}/audacious/General/lyricwiki-qt.so
+%doc src/lyrics-gtk/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/General/lyrics-gtk.so
+
+%files -n audacious-general-lyrics-qt
+%defattr(644,root,root,755)
+%doc src/lyrics-qt/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/General/lyrics-qt.so
 
 %files -n audacious-general-mpris2
 %defattr(644,root,root,755)
@@ -2035,10 +2080,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/pulse/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
-%files -n audacious-output-qtaudio
-%defattr(644,root,root,755)
-%doc src/qtaudio/LICENSE
-%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
+#%files -n audacious-output-qtaudio
+#%defattr(644,root,root,755)
+#%doc src/qtaudio/LICENSE
+#%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 
 %files -n audacious-output-sdlout
 %defattr(644,root,root,755)
