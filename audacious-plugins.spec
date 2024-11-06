@@ -5,23 +5,23 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.4
+%define		audver	4.4.2
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.4
+Version:	4.4.2
 Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	0946f32277afc60ec12510bd09507016
+# Source0-md5:	07cc198e6961b84e5945f889cb88ea75
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 URL:		https://audacious-media-player.org/
 BuildRequires:	Qt6Core-devel >= 6.2
 BuildRequires:	Qt6Gui-devel >= 6.2
 # audacious-qt/qtaudio part
-#BuildRequires:	Qt6Multimedia-devel >= 6.2
+BuildRequires:	Qt6Multimedia-devel >= 6.2
 # audacious-qt/gl-spectrum-qt part
 BuildRequires:	Qt6OpenGL-devel >= 6.2
 BuildRequires:	Qt6Widgets-devel >= 6.2
@@ -1326,21 +1326,20 @@ PulseAudio output plugin for Audacious media player.
 Wtyczka wyjściowa PulseAudio dla odtwarzacza multimedialnego
 Audacious.
 
-# qtaudio is supported by QT5 only
-#%package -n audacious-output-qtaudio
-#Summary:	Audacious media player - qtaudio output plugin
-#Summary(pl.UTF-8):	Wtyczka wyjściowa qtaudio dla odtwarzacza multimedialnego Audacious
-#License:	BSD
-#Group:		X11/Applications/Sound
-#Requires:	audacious = %{audver}
-#Provides:	audacious-output-plugin
+%package -n audacious-output-qtaudio
+Summary:	Audacious media player - qtaudio output plugin
+Summary(pl.UTF-8):	Wtyczka wyjściowa qtaudio dla odtwarzacza multimedialnego Audacious
+License:	BSD
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Provides:	audacious-output-plugin
 
-#%description -n audacious-output-qtaudio
-#QtMultimedia Audio Output Plugin for Audacious.
+%description -n audacious-output-qtaudio
+QtMultimedia Audio Output Plugin for Audacious.
 
-#%description -n audacious-output-qtaudio -l pl.UTF-8
-#Wtyczka wyjściowaQtMultimedia Audio dla odtwarzacza multimedialnego
-#Audacious.
+%description -n audacious-output-qtaudio -l pl.UTF-8
+Wtyczka wyjściowaQtMultimedia Audio dla odtwarzacza multimedialnego
+Audacious.
 
 %package -n audacious-output-sdlout
 Summary:	Audacious media player - sdlout output plugin
@@ -1401,6 +1400,7 @@ Requires:	audacious-general-search-tool-qt = %{version}-%{release}
 Requires:	audacious-general-skins-qt = %{version}-%{release}
 Requires:	audacious-general-song-info-qt = %{version}-%{release}
 Requires:	audacious-general-statusicon-qt = %{version}-%{release}
+Requires:	audacious-output-qtaudio = %{version}-%{release}
 Requires:	audacious-plugins = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope-qt = %{version}-%{release}
 Requires:	audacious-visualization-gl-spectrum-qt = %{version}-%{release}
@@ -2080,10 +2080,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc src/pulse/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Output/pulse_audio.so
 
-#%files -n audacious-output-qtaudio
-#%defattr(644,root,root,755)
-#%doc src/qtaudio/LICENSE
-#%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
+%files -n audacious-output-qtaudio
+%defattr(644,root,root,755)
+%doc src/qtaudio/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Output/qtaudio.so
 
 %files -n audacious-output-sdlout
 %defattr(644,root,root,755)
