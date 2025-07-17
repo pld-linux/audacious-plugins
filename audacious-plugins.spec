@@ -10,7 +10,7 @@ Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
 Version:	4.4.2
-Release:	5
+Release:	6
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
@@ -24,6 +24,7 @@ BuildRequires:	Qt6Gui-devel >= 6.2
 BuildRequires:	Qt6Multimedia-devel >= 6.2
 # audacious-qt/gl-spectrum-qt part
 BuildRequires:	Qt6OpenGL-devel >= 6.2
+BuildRequires:	Qt6Svg-devel >= 6.2
 BuildRequires:	Qt6Widgets-devel >= 6.2
 #BuildRequires:	Qt6X11Extras-devel >= 6.2
 BuildRequires:	adplug-devel
@@ -1666,6 +1667,7 @@ EOF
 %{__sed} -i -e '/^\.SILENT:/d' -e '/MAKE/ s/ -s / /' buildsys.mk.in
 
 %build
+%{__autopoint}
 %{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
