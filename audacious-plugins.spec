@@ -5,16 +5,16 @@
 %bcond_without	bs2b		# BS2B effect plugin
 %bcond_with	jack1		# use JACK 1 (0.12x) instead of JACK 2 (1.9.x)
 #
-%define		audver	4.4.2
+%define		audver	4.5
 Summary:	Plugins for Audacious media player (metapackage)
 Summary(pl.UTF-8):	Wtyczki dla odtwarzacza multimedialnego Audacious (metapakiet)
 Name:		audacious-plugins
-Version:	4.4.2
-Release:	6
+Version:	4.5
+Release:	1
 License:	GPL v2+, LGPL v2+, GPL v3, MIT, BSD (see individual plugins)
 Group:		X11/Applications/Sound
 Source0:	https://distfiles.audacious-media-player.org/%{name}-%{version}.tar.bz2
-# Source0-md5:	07cc198e6961b84e5945f889cb88ea75
+# Source0-md5:	34656f489242488be0ce2ca413ea2ea0
 Source1:	audacious-gtk.desktop
 Source2:	audacious.desktop
 URL:		https://audacious-media-player.org/
@@ -707,6 +707,21 @@ Desktop notifications plugin for Audacious media player.
 Wtyczka powiadomień w środowisku graficznym dla odtwarzacza
 multimedialnego Audacious.
 
+
+%package -n audacious-general-playback-history-qt
+Summary:	Audacious media player - playback history qt plugin
+Summary(pl.UTF-8):	Wtyczka playback history qt dla odtwarzacza multimedialnego Audacious
+License:	GPL v3+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-qt >= %{audver}
+
+%description -n audacious-general-playback-history-qt
+This plugin tracks and provides access to playback history.
+
+%description -n audacious-general-playback-history-qt -l pl.UTF-8
+Ta wtyczka śledzi historię odtwarzania i umożliwia dostęp do niej.
+
 %package -n audacious-general-playlist-manager
 Summary:	Audacious media player - playlist-manager plugin
 Summary(pl.UTF-8):	Wtyczka playlist-manager dla odtwarzacza multimedialnego Audacious
@@ -1377,6 +1392,7 @@ Requires:	audacious-plugins = %{version}-%{release}
 Requires:	audacious-visualization-blur-scope = %{version}-%{release}
 Requires:	audacious-visualization-cairo-spectrum = %{version}-%{release}
 Requires:	audacious-visualization-gl-spectrum = %{version}-%{release}
+Requires:	audacious-visualization-vumeter = %{version}-%{release}
 BuildArch:	noarch
 
 %description -n audacious-plugins-gtk
@@ -1394,6 +1410,7 @@ Requires:	audacious-general-albumart-qt = %{version}-%{release}
 Requires:	audacious-general-delete-files = %{version}-%{release}
 Requires:	audacious-general-lyrics-qt = %{version}-%{release}
 Requires:	audacious-general-notify = %{version}-%{release}
+Requires:	audacious-general-playback-history-qt = %{version}-%{release}
 Requires:	audacious-general-playlist-manager-qt = %{version}-%{release}
 Requires:	audacious-general-qthotkey = %{version}-%{release}
 Requires:	audacious-general-qtui = %{version}-%{release}
@@ -1555,6 +1572,23 @@ QT interface
 Wtyczka wizualizacji analizująca widmo dla odtwarzacza multimedialnego
 Audacious. Dla interfejsu QT.
 
+%package -n audacious-visualization-vumeter
+Summary:	Audacious media player - vumeter visualization plugin
+Summary(pl.UTF-8):	Wtyczka wizualizacji vumeter odtwarzacza multimedialnego Audacious
+License:	GPL v2+
+Group:		X11/Applications/Sound
+Requires:	audacious = %{audver}
+Requires:	audacious-libs-gtk = %{audver}
+
+%description -n audacious-visualization-vumeter
+VU meter visualization plugin for Audacious media player. For GTK
+interface
+
+%description -n audacious-visualization-vumeter -l pl.UTF-8
+Wskaźnik wysterowania dla odtwarzacza multimedialnego Audacious Dla
+interfejsu GTK.
+
+
 %package -n audacious-visualization-vumeter-qt
 Summary:	Audacious media player - vumeter-qt visualization plugin
 Summary(pl.UTF-8):	Wtyczka wizualizacji vumeter-qt odtwarzacza multimedialnego Audacious
@@ -1618,7 +1652,6 @@ src/metronom/metronom.cc 18
 src/mixer/mixer.cc 18
 src/mms/mms.cc 18
 src/modplug/plugin_main.cc 8
-src/moonstone/moonstone.cc 19
 src/mpg123/mpg123.cc 20
 src/mpris2/plugin.cc 18
 src/neon/neon.cc 19
@@ -1627,6 +1660,7 @@ src/openmpt/mpt.cc 25
 src/opus/opus.cc 18
 src/oss4/oss.cc 21
 src/pipewire/pipewire.cc 21
+src/playback-history-qt/playback-history.cc 18
 src/playlist-manager/playlist-manager.cc 19
 src/playlist-manager-qt/playlist-manager-qt.cc 19
 src/pls/pls.cc 21
@@ -1657,6 +1691,7 @@ src/tonegen/tonegen.cc 18
 src/voice_removal/voice_removal.cc 19
 src/vorbis/vorbis.cc 27
 src/vtx/vtx.cc 20
+src/vumeter/vumeter.cc 21
 src/vumeter-qt/vumeter_qt.cc 20
 src/waveout/waveout.cc 19
 src/xsf/plugin.cc 25
@@ -1667,10 +1702,6 @@ EOF
 %{__sed} -i -e '/^\.SILENT:/d' -e '/MAKE/ s/ -s / /' buildsys.mk.in
 
 %build
-%{__autopoint}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
 %configure \
 	TPUT="" \
 	%{!?with_bs2b:--disable-bs2b} \
@@ -1886,6 +1917,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/notify/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/General/notify.so
+
+%files -n audacious-general-playback-history-qt
+%defattr(644,root,root,755)
+%doc src/playback-history-qt/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/General/playback-history-qt.so
 
 %files -n audacious-general-playlist-manager
 %defattr(644,root,root,755)
@@ -2142,6 +2178,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc src/qt-spectrum/LICENSE
 %attr(755,root,root) %{_libdir}/audacious/Visualization/qt-spectrum.so
+
+%files -n audacious-visualization-vumeter
+%defattr(644,root,root,755)
+%doc src/vumeter/LICENSE
+%attr(755,root,root) %{_libdir}/audacious/Visualization/vumeter.so
 
 %files -n audacious-visualization-vumeter-qt
 %defattr(644,root,root,755)
